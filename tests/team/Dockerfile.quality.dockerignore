@@ -1,0 +1,7 @@
+.git
+.env
+.env.testing
+**/node_modules
+**/__pycache__
+output
+vendor

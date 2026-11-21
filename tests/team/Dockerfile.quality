@@ -1,0 +1,26 @@
+FROM snipe/snipe-it:v8.8.4
+
+USER root
+WORKDIR /var/www/html
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends php8.5-sqlite3 php8.5-xdebug \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY composer.json composer.lock ./
+RUN composer install --no-interaction --no-scripts --no-progress --prefer-dist
+
+RUN mkdir -p /opt/sqe-infection \
+    && composer --working-dir=/opt/sqe-infection require --no-interaction --no-plugins --no-scripts --prefer-dist infection/infection:0.35.12
+
+COPY app app
+COPY bootstrap bootstrap
+COPY config config
+COPY database database
+COPY routes routes
+COPY tests tests
+COPY .env.testing.example .env.testing
+RUN mkdir -p /var/lib/snipeit/data/uploads /var/lib/snipeit/data/private_uploads
+
+ENTRYPOINT []
