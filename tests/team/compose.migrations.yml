@@ -1,0 +1,9 @@
+services:
+  app:
+    volumes:
+      - type: bind
+        source: ./database/migrations/2026_11_21_094435_widen_asset_name_column.php
+        target: /var/www/html/database/migrations/2026_11_21_094435_widen_asset_name_column.php
+        read_only: true
+        bind:
+          create_host_path: false
