@@ -13,6 +13,7 @@ from urllib.parse import urlencode
 
 ROOT = Path(__file__).resolve().parents[2]
 ASSET_TAG = "LAB-001"
+LOAN_FIELDS = ("name", "assigned_to", "expected_checkin", "status", "checkin_counter", "checkout_counter")
 
 
 def check(condition, message):
@@ -78,10 +79,50 @@ def user_fixture(admin, username, name, permissions=None):
     return admin.fixture("users", "username", username, **attributes)["id"]
 
 
-def restore_fixture(tech, path, status, borrowers):
-    assignee = tech.request("GET", path)["assigned_to"]
-    if assignee and assignee["id"] in borrowers:
-        tech.save(f"{path}/checkin", {"status_id": status})
+def check_unchanged(before, after):
+    for field in LOAN_FIELDS:
+        check(after[field] == before[field], f"Rejected or repeated action changed {field}")
+
+
+def restore_fixture(tech, path, starting_asset, borrowers):
+    current = tech.request("GET", path)
+    assignee = current["assigned_to"]
+    if assignee and assignee["id"] not in borrowers:
+        raise RuntimeError(f"Cannot reset {ASSET_TAG}: it has a borrower outside the SQE fixtures")
+
+    changes = {}
+    if current["status"]["id"] != starting_asset["status"]["id"]:
+        changes["status_id"] = starting_asset["status"]["id"]
+    if current["name"] != starting_asset["name"]:
+        if starting_asset["name"]:
+            changes["name"] = starting_asset["name"]
+        else:
+            changes["clear_name"] = "1"
+    if assignee or changes:
+        tech.save(f"{path}/checkin", changes)
+
+
+def check_checkout_name_boundary(tech, path, checkout):
+    spec = json.loads(Path(__file__).with_name("hardware-loans.openapi.json").read_text(encoding="utf-8"))
+    operation = spec["paths"]["/hardware/{asset_id}/checkout"]["post"]
+    fields = operation["requestBody"]["content"]["application/json"]["schema"]["properties"]
+    max_length = fields["name"]["maxLength"]
+    before = tech.request("GET", path)
+    for length in (max_length - 1, max_length, max_length + 1):
+        name = "L" * length
+        result = tech.request("POST", f"{path}/checkout", {**checkout, "name": name})
+        observed = tech.request("GET", path)
+        if length > max_length:
+            check(result["status"] == "error", f"Accepted a checkout name of {length} characters")
+            check_unchanged(before, observed)
+        else:
+            check(result["status"] == "success", f"Rejected a checkout name of {length} characters")
+            check(observed["name"] == name, f"Checkout did not persist the full {length}-character name")
+            check(observed["assigned_to"]["id"] == checkout["assigned_user"], "Checkout did not persist the borrower")
+            restore_fixture(tech, path, before, (checkout["assigned_user"],))
+            before = tech.request("GET", path)
+            check(before["assigned_to"] is None and before["expected_checkin"] is None, "Boundary case left a loan active")
+        print(f"PASS checkout asset name length {length}")
 
 
 def run(admin, sessions):
@@ -95,6 +136,7 @@ def run(admin, sessions):
     category = admin.fixture("categories", "name", "SQE Laptops", category_type="asset")
     model = admin.fixture("models", "name", "SQE Campus Laptop", category_id=category["id"])
     status = admin.fixture("statuslabels", "name", "SQE Ready to Deploy", type="deployable")
+    repair = admin.fixture("statuslabels", "name", "SQE Needs Repair", type="undeployable")
     asset = admin.fixture("hardware", "asset_tag", ASSET_TAG, model_id=model["id"], status_id=status["id"])
     path = f"hardware/{asset['id']}"
     tech = sessions.enter_context(local_api(technician_id))
@@ -103,14 +145,15 @@ def run(admin, sessions):
     initial = reviewer.request("GET", path)
     check(initial["asset_tag"] == ASSET_TAG and initial["assigned_to"] is None, "Fixture must start unassigned")
     check(initial["status"]["id"] == status["id"], "Fixture must start ready to deploy")
-    sessions.callback(restore_fixture, tech, path, status["id"], (student_one, student_two))
+    borrowers = (student_one, student_two)
+    sessions.callback(restore_fixture, tech, path, initial, borrowers)
     checkout_count = initial["checkout_counter"]
     due = (datetime.now(timezone.utc).date() + timedelta(days=7)).isoformat()
     checkout = {"checkout_to_type": "user", "assigned_user": student_one, "expected_checkin": due}
     checkin = {"status_id": status["id"]}
 
     reviewer.request("POST", f"{path}/checkout", checkout, expected=403)
-    check(reviewer.request("GET", path)["assigned_to"] is None, "Denied checkout changed the assignment")
+    check_unchanged(initial, reviewer.request("GET", path))
     tech.save(f"{path}/checkout", checkout)
     loan = reviewer.request("GET", path)
     check(loan["assigned_to"]["id"] == student_one, "Checkout did not persist the student assignment")
@@ -121,23 +164,38 @@ def run(admin, sessions):
     denied = tech.request("POST", f"{path}/checkout", {**checkout, "assigned_user": student_two})
     check(denied.get("status") == "error", "A second checkout was not rejected")
     reviewer.request("POST", f"{path}/checkin", checkin, expected=403)
-    unchanged = reviewer.request("GET", path)
-    for field in ("assigned_to", "expected_checkin", "checkout_counter"):
-        check(unchanged[field] == loan[field], f"A rejected action changed {field}")
+    check_unchanged(loan, reviewer.request("GET", path))
 
     tech.save(f"{path}/checkin", checkin)
     returned = reviewer.request("GET", path)
     check(returned["assigned_to"] is None and returned["expected_checkin"] is None, "Check-in did not clear the loan")
     check(returned["status"]["id"] == status["id"], "Check-in did not restore the deployable status")
+    check(returned["checkin_counter"] == loan["checkin_counter"] + 1, "Check-in count did not increment once")
+
+    repeated = tech.request("POST", f"{path}/checkin", {})
+    check(repeated.get("status") == "error", "A check-in without an active loan was not rejected")
+    check_unchanged(returned, reviewer.request("GET", path))
+    tech.save(f"{path}/checkin", checkin)
+    check_unchanged(returned, reviewer.request("GET", path))
 
     tech.save(f"{path}/checkout", {**checkout, "assigned_user": student_two})
     second_loan = reviewer.request("GET", path)
     check(second_loan["assigned_to"]["id"] == student_two, "Returned laptop could not be lent again")
     check(second_loan["checkout_counter"] == checkout_count + 2, "Unexpected checkout count after re-loan")
-    tech.save(f"{path}/checkin", checkin)
+    tech.save(f"{path}/checkin", {"status_id": repair["id"]})
+    in_repair = reviewer.request("GET", path)
+    check(in_repair["assigned_to"] is None and in_repair["expected_checkin"] is None, "Repair return retained the loan")
+    check(in_repair["status"]["id"] == repair["id"], "Check-in did not persist the repair status")
+    rejected = tech.request("POST", f"{path}/checkout", checkout)
+    check(rejected.get("status") == "error", "Checkout was allowed while the laptop needed repair")
+    check_unchanged(in_repair, reviewer.request("GET", path))
+
+    restore_fixture(tech, path, initial, borrowers)
+    check_checkout_name_boundary(tech, path, checkout)
     reset = reviewer.request("GET", path)
     check(reset["assigned_to"] is None and reset["expected_checkin"] is None, "Fixture did not return to its starting state")
-    print(f"PASS {ASSET_TAG}: checkout, duplicate rejection, role restrictions, check-in, and re-loan")
+    check(reset["status"]["id"] == status["id"] and reset["name"] == initial["name"], "Fixture metadata was not reset")
+    print(f"PASS {ASSET_TAG}: checkout, denied actions, repeated check-in, repair status, and re-loan")
 
 
 def main():

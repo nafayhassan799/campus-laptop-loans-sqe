@@ -1,0 +1,93 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Snipe-IT laptop loans",
+    "version": "8.8.4",
+    "description": "Request contract for the fields used by the campus laptop loan tests. Snipe-IT can return a business-rule rejection in a successful HTTP response."
+  },
+  "servers": [{"url": "http://localhost:8000/api/v1"}],
+  "security": [{"bearerAuth": []}],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {"type": "http", "scheme": "bearer"}
+    },
+    "parameters": {
+      "assetId": {
+        "name": "asset_id",
+        "in": "path",
+        "required": true,
+        "schema": {"type": "integer", "minimum": 1}
+      }
+    },
+    "responses": {
+      "workflowResult": {
+        "description": "Operation result. Inspect the status to distinguish success from a rejected action.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["status"],
+              "properties": {"status": {"type": "string", "enum": ["success", "error"]}}
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/hardware/{asset_id}/checkout": {
+      "parameters": [{"$ref": "#/components/parameters/assetId"}],
+      "post": {
+        "operationId": "checkoutLaptopToStudent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["checkout_to_type", "assigned_user"],
+                "properties": {
+                  "checkout_to_type": {"type": "string", "enum": ["user"]},
+                  "assigned_user": {"type": "integer", "minimum": 1},
+                  "expected_checkin": {"type": "string", "format": "date", "nullable": true},
+                  "name": {"type": "string", "maxLength": 255, "nullable": true}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {"$ref": "#/components/responses/workflowResult"},
+          "403": {"description": "Account lacks checkout permission."},
+          "404": {"description": "Asset does not exist."},
+          "422": {"description": "Request fields failed validation."}
+        }
+      }
+    },
+    "/hardware/{asset_id}/checkin": {
+      "parameters": [{"$ref": "#/components/parameters/assetId"}],
+      "post": {
+        "operationId": "checkinLaptopFromStudent",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status_id": {"type": "integer", "minimum": 1},
+                  "name": {"type": "string", "maxLength": 255, "nullable": true},
+                  "clear_name": {"type": "string", "enum": ["1"]}
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {"$ref": "#/components/responses/workflowResult"},
+          "403": {"description": "Account lacks check-in permission."},
+          "404": {"description": "Asset does not exist."}
+        }
+      }
+    }
+  }
+}
