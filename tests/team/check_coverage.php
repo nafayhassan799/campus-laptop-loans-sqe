@@ -12,7 +12,7 @@ if (! $report instanceof CodeCoverage) {
 $data = $report->getData();
 $targets = [
     'app/Models/Asset.php' => ['availableForCheckout' => true, 'checkOut' => false],
-    'app/Http/Requests/AssetCheckoutRequest.php' => ['rulesArray' => false],
+    'app/Http/Requests/AssetCheckoutRequest.php' => ['rulesArray' => true],
     'app/Http/Controllers/Api/AssetsController.php' => ['checkout' => false, 'checkin' => false],
     'app/Policies/CheckoutablePermissionsPolicy.php' => ['checkout' => true, 'checkin' => true],
 ];

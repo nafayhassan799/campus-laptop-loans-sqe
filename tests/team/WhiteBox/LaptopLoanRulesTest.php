@@ -3,6 +3,7 @@
 namespace Tests\team\WhiteBox;
 
 use App\Models\Asset;
+use App\Models\Setting;
 use App\Models\Statuslabel;
 use App\Models\User;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -60,6 +61,28 @@ class LaptopLoanRulesTest extends TestCase
         $this->assertSame($borrower->id, $asset->assigned_to);
         $this->assertSame('2090-05-20', $asset->expected_checkin->toDateString());
         $this->assertSame(['checkout'], $this->loanHistory($asset));
+    }
+
+    public function test_checkout_requires_a_note_when_the_local_setting_is_enabled(): void
+    {
+        $settings = Setting::getSettings();
+        $settings->require_checkinout_notes = true;
+        $settings->save();
+        $asset = Asset::factory()->create();
+        $borrower = User::factory()->create();
+        $this->actingAsForApi(User::factory()->checkoutAssets()->create());
+        $checkout = route('api.asset.checkout', $asset);
+        $payload = ['checkout_to_type' => 'user', 'assigned_user' => $borrower->id];
+
+        $this->postJson($checkout, $payload)->assertOk()
+            ->assertJsonPath('status', 'error')->assertJsonStructure(['messages' => ['note']]);
+        $this->assertNull($asset->fresh()->assigned_to);
+        $this->assertSame([], $this->loanHistory($asset));
+
+        $this->postJson($checkout, $payload + ['note' => 'Campus lab loan'])
+            ->assertOk()->assertJsonPath('status', 'success');
+        $this->assertSame($borrower->id, $asset->fresh()->assigned_to);
+        $this->assertSame('Campus lab loan', $asset->assetlog()->where('action_type', 'checkout')->sole()->note);
     }
 
     public static function returnStatuses(): array

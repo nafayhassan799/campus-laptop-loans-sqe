@@ -42,7 +42,8 @@ jobs:
             -v "${{ github.workspace }}/output/nafay-quality:/evidence" sqe-php-quality \
             /opt/sqe-infection/vendor/bin/infection --configuration=tests/team/infection.json5 \
               --threads=4 --only-covering-test-cases --no-progress --show-mutations=0 \
-              --min-msi=55 Asset.php
+              --min-msi=49 --logger-summary=/evidence/infection-final-summary.json Asset.php
+          python -B tests/team/check_mutation.py
       - name: Scan PHP source and enforce the SonarQube gate
         run: python -B tests/team/run_sonar.py --require-gate
       - name: Upload PHP quality evidence
@@ -56,6 +57,7 @@ jobs:
             output/nafay-quality/scoped-coverage.json
             output/nafay-quality/infection.json
             output/nafay-quality/infection.txt
+            output/nafay-quality/infection-final-summary.json
             output/nafay-quality/sonar-metrics.json
 
   workflow-tests:

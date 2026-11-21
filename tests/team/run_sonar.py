@@ -7,7 +7,8 @@ import os
 from pathlib import Path
 import secrets
 import subprocess
-from tempfile import gettempdir
+import tarfile
+from tempfile import TemporaryFile, gettempdir
 import time
 from urllib.parse import urlencode
 from urllib.request import ProxyHandler, Request, build_opener
@@ -25,6 +26,7 @@ METRICS = (
     "code_smells,coverage,line_coverage,branch_coverage,sqale_index,sqale_rating,"
     "reliability_rating,security_rating,security_hotspots,blocker_violations"
 )
+BASELINE_MAX = {"blocker_violations": 0, "reliability_rating": 3, "security_rating": 4}
 
 
 def docker(*args, **options):
@@ -91,22 +93,33 @@ def scan(password):
     for node in report.iter("file"):
         if node.attrib["name"].startswith("/var/www/html/"):
             node.attrib["name"] = node.attrib["name"].replace("/var/www/html/", "/usr/src/", 1)
-    report.write(EVIDENCE / "sonar-clover.xml", encoding="utf-8", xml_declaration=True)
+    normalized = EVIDENCE / "sonar-clover.xml"
+    report.write(normalized, encoding="utf-8", xml_declaration=True)
     token_name = f"sqe-scan-{secrets.token_hex(5)}"
     token = api("user_tokens/generate", password, data={"name": token_name})["token"]
+    scanner_name = f"{SONAR}-{secrets.token_hex(5)}"
     try:
-        return subprocess.run([
-            "docker", "run", "--rm", "--network", SONAR, "-e", "SONAR_TOKEN",
-            "--mount", f"type=bind,source={ROOT},target=/usr/src",
+        docker(
+            "create", "--name", scanner_name, "--network", SONAR, "-e", "SONAR_TOKEN",
             SCANNER, f"-Dsonar.host.url=http://{SONAR}:9000",
             f"-Dsonar.projectKey={PROJECT}", "-Dsonar.sources=app",
             "-Dsonar.tests=tests/team/WhiteBox", "-Dsonar.scm.disabled=true",
-            "-Dsonar.working.directory=output/nafay-quality/sonar-work",
-            "-Dsonar.php.coverage.reportPaths=output/nafay-quality/sonar-clover.xml",
-            "-Dsonar.php.tests.reportPath=output/nafay-quality/phpunit-junit.xml",
+            "-Dsonar.php.coverage.reportPaths=sonar-clover.xml",
+            "-Dsonar.php.tests.reportPath=phpunit-junit.xml",
             "-Dsonar.qualitygate.wait=true", "-Dsonar.qualitygate.timeout=180",
-        ], env=os.environ | {"SONAR_TOKEN": token}, check=False).returncode
+            env=os.environ | {"SONAR_TOKEN": token}, capture_output=True,
+        )
+        with TemporaryFile() as bundle:
+            with tarfile.open(fileobj=bundle, mode="w") as archive:
+                archive.add(ROOT / "app", arcname="app")
+                archive.add(ROOT / "tests" / "team" / "WhiteBox", arcname="tests/team/WhiteBox")
+                archive.add(normalized, arcname="sonar-clover.xml")
+                archive.add(EVIDENCE / "phpunit-junit.xml", arcname="phpunit-junit.xml")
+            bundle.seek(0)
+            docker("cp", "-", f"{scanner_name}:/usr/src", stdin=bundle)
+        return subprocess.run(["docker", "start", "-a", scanner_name], check=False).returncode
     finally:
+        subprocess.run(["docker", "rm", "-f", scanner_name], capture_output=True, check=False)
         api("user_tokens/revoke", password, data={"name": token_name})
 
 
@@ -120,10 +133,18 @@ def main():
     result = scan(password)
     measures = api("measures/component", password, query={"component": PROJECT, "metricKeys": METRICS})
     gate = api("qualitygates/project_status", password, query={"projectKey": PROJECT})
+    observed = {metric["metric"]: float(metric["value"]) for metric in measures["component"]["measures"]}
+    violations = [f"{name} must be at most {limit}" for name, limit in BASELINE_MAX.items()
+                  if name not in observed or observed[name] > limit]
     evidence = {"server_version": status["version"], "measures": measures["component"]["measures"],
-                "quality_gate": gate["projectStatus"]}
+                "quality_gate": gate["projectStatus"], "baseline_limits": BASELINE_MAX,
+                "baseline_violations": violations}
     (EVIDENCE / "sonar-metrics.json").write_text(json.dumps(evidence, indent=2) + "\n", encoding="utf-8")
     print(f"SonarQube {status['version']} quality gate: {evidence['quality_gate']['status']}")
+    for violation in violations:
+        print(violation)
+    if args.require_gate and (violations or evidence["quality_gate"]["status"] != "OK"):
+        raise SystemExit(1)
     if result and (args.require_gate or evidence["quality_gate"]["status"] == "OK"):
         raise SystemExit(result)
 
