@@ -42,7 +42,7 @@ jobs:
             -v "${{ github.workspace }}/output/nafay-quality:/evidence" sqe-php-quality \
             /opt/sqe-infection/vendor/bin/infection --configuration=tests/team/infection.json5 \
               --threads=4 --only-covering-test-cases --no-progress --show-mutations=0 \
-              --min-msi=49 --logger-summary=/evidence/infection-final-summary.json Asset.php
+              --min-msi=49 --logger-summary-json=/evidence/infection-final-summary.json Asset.php
           python -B tests/team/check_mutation.py
       - name: Scan PHP source and enforce the SonarQube gate
         run: python -B tests/team/run_sonar.py --require-gate
