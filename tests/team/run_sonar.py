@@ -75,7 +75,8 @@ def authenticate(server_id):
         password = file.read_text(encoding="utf-8").strip()
         if api("authentication/validate", password)["valid"]:
             return password
-    password = secrets.token_urlsafe(32)
+    # A URL-safe random token can omit a character class that SonarQube requires.
+    password = secrets.token_urlsafe(24) + "aA1!"
     api("users/change_password", "admin", data={
         "login": "admin", "previousPassword": "admin", "password": password,
     })

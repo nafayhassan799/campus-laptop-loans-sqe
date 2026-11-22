@@ -184,19 +184,19 @@ The Sonar step checks for zero blockers, reliability C or better, and security D
 
 ## GitHub evidence
 
-[Draft PR #2](https://github.com/nafayhassan799/campus-laptop-loans-sqe/pull/2) adds the quality workflow and team tests. The `SQE quality gate` check is required on `main`, including for administrators. The inherited upstream workflows were individually disabled before enabling Actions.
+The `SQE quality gate` check is required on `main`, including for administrators. The inherited upstream workflows were individually disabled before enabling Actions. PR #2 contains the asset-name fix, quality workflow, and team tests. Its Checks page links to the hosted runs and artifacts. [PR #2](https://github.com/nafayhassan799/campus-laptop-loans-sqe/pull/2) · [PR #2 checks](https://github.com/nafayhassan799/campus-laptop-loans-sqe/pull/2/checks)
 
-GitHub reported an account billing lock before starting any job, including on the retry against protected `main`. A genuine hosted test pass and a PR blocked by a failing business test are still required. [Initial attempt](https://github.com/nafayhassan799/campus-laptop-loans-sqe/actions/runs/44909961315) · [Retry on PR #2](https://github.com/nafayhassan799/campus-laptop-loans-sqe/actions/runs/44911266729/attempts/2)
+For the gate demonstration, the temporary non-draft PR #3 started a fresh MariaDB instance with the original schema. The unchanged API smoke test exited with code 1 because the 254-character name failed its persisted-value assertion. The PHP, coverage, mutation, and SonarQube job passed. The required gate failed and GitHub reported the PR's merge state as `blocked`. [PR #3](https://github.com/nafayhassan799/campus-laptop-loans-sqe/pull/3) · [Failed gate run](https://github.com/nafayhassan799/campus-laptop-loans-sqe/actions/runs/45009002829) · [API failure log](https://github.com/nafayhassan799/campus-laptop-loans-sqe/actions/runs/45009002829/job/137166896645)
 
-Once the workflow is on the protected branch and Actions can start jobs, the team can demonstrate the gate on a temporary non-draft PR to `main` using the 255-character regression. Removing the column-widening migration from the PR should make the MariaDB smoke test expose the original truncation. Save the failing check and GitHub's blocked merge state, restore the migration on the same PR, and record the successful rerun. Keep the expected result and platform availability separate from the observed result.
+Commit `2099f1df25` restored the migration overlay on the same proof PR. The hosted run after restoration is linked from its Checks page. The local copy of the blocked-state response, required status rule, and failing assertion is in `output/nafay-quality/hosted-ci/blocked-pr.json`. [PR #3 checks](https://github.com/nafayhassan799/campus-laptop-loans-sqe/pull/3/checks)
 
 ## Coursework handoff
 
-Add the partial controller coverage and check-in concurrency gap to the shared test report when the group assesses release risk. Use the hosted evidence only after actual jobs run. Record personal time and teammate review in the group log as those activities occur.
+Add the partial controller coverage and check-in concurrency gap to the shared test report when the group assesses release risk. Include the observed hosted gate result and the fresh MariaDB comparison. Record personal time and teammate review in the group log as those activities occur.
 
 | AI tool | Work assisted | Evidence checked in this session |
 | --- | --- | --- |
-| OpenAI Codex | Rule and test design, PHPUnit and Playwright implementation, mutation and SonarQube runners, CI configuration, and evidence drafting. | Executed PHPUnit, Chromium, API smoke, Infection, and SonarQube against synthetic fixtures. Checked the GitHub branch protection and billing annotations. |
+| OpenAI Codex | Rule and test design, PHPUnit and Playwright implementation, mutation and SonarQube runners, CI configuration, and evidence drafting. | Executed PHPUnit, Chromium, API smoke, Infection, and SonarQube against synthetic fixtures. Verified the required status check, the failed read-back assertion, and GitHub's blocked merge state. |
 
 ## Reproduction
 
