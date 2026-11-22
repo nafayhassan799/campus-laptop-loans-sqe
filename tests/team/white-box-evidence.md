@@ -97,7 +97,18 @@ Playwright passed all ten Chromium scenarios. Each browser run seeds fresh synth
 | Check out a laptop | Check out a deployable laptop to Sara and verify the saved borrower and status. | Lend to Ali. Select a different deployable status. | An assigned laptop and an undeployable laptop each redirect to Hardware without rendering the checkout form or changing the borrower, status, or counter. |
 | Return a laptop | Check in a loaned laptop and verify that it can be lent again and that its borrower and due date are cleared. | Return under another deployable status. Include a note and confirm it in the history. | A stale form adds no second return. A read-only reviewer sees no check-in control and a direct visit returns 403 without changing the loan. |
 
-The MariaDB API smoke test passed the loan lifecycle, role checks, repeat operations, and the 254/255/256-character name boundaries. A separate fresh Docker setup on loopback verified that unattended initialization creates the synthetic administrator and applies the team's migration. [Asset-name fix and regression](https://github.com/nafayhassan799/campus-laptop-loans-sqe/pull/1)
+### Asset-name defect and regression
+
+The checkout API accepted a name within its 255-character limit, but a fresh read returned a shorter name. MariaDB showed that the `assets.name` column was `varchar(191)`. This can silently lose part of a laptop's name during a normal loan. The migration aligns the column with the existing validation limit. [Asset-name fix and regression](https://github.com/nafayhassan799/campus-laptop-loans-sqe/pull/1)
+
+The comparison used the same smoke test and API contract on two independently initialized MariaDB databases with synthetic fixtures.
+
+| Revision | Column type | Observed result |
+| --- | --- | --- |
+| `cc92ea0776` before the fix | `varchar(191)` | Exit 1. The API accepted the 254-character name, but the read-back assertion failed. The suite stopped at that case. |
+| `ed3cb64d9b` after the fix | `varchar(255)` | Exit 0. Names of 254 and 255 characters persisted in full. A 256-character name was rejected and the loan stayed unchanged. Loan lifecycle and role checks also passed. |
+
+The local transcripts and comparison are in `output/nafay-quality/asset-name-proof/`.
 
 ## PHPUnit coverage
 
@@ -175,7 +186,7 @@ The Sonar step checks for zero blockers, reliability C or better, and security D
 
 [Draft PR #2](https://github.com/nafayhassan799/campus-laptop-loans-sqe/pull/2) adds the quality workflow and team tests. The `SQE quality gate` check is required on `main`, including for administrators. The inherited upstream workflows were individually disabled before enabling Actions.
 
-[The first hosted attempt](https://github.com/nafayhassan799/campus-laptop-loans-sqe/actions/runs/44909961315) failed before starting any job because GitHub reported an account billing lock. The run is a setup blocker. A genuine hosted test pass and a PR blocked by a failing business test are still required. PR #1 has independent local failure and success evidence for its asset-name fix.
+GitHub reported an account billing lock before starting any job, including on the retry against protected `main`. A genuine hosted test pass and a PR blocked by a failing business test are still required. [Initial attempt](https://github.com/nafayhassan799/campus-laptop-loans-sqe/actions/runs/44909961315) · [Retry on PR #2](https://github.com/nafayhassan799/campus-laptop-loans-sqe/actions/runs/44911266729/attempts/2)
 
 Once the workflow is on the protected branch and Actions can start jobs, the team can demonstrate the gate on a temporary non-draft PR to `main` using the 255-character regression. Removing the column-widening migration from the PR should make the MariaDB smoke test expose the original truncation. Save the failing check and GitHub's blocked merge state, restore the migration on the same PR, and record the successful rerun. Keep the expected result and platform availability separate from the observed result.
 
