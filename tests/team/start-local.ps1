@@ -30,7 +30,7 @@ try {
         throw 'The existing .env does not match the pinned, loopback-only SQE configuration.'
     }
 
-    docker compose --progress quiet -p sqe-campus-laptops -f docker-compose.yml -f tests/team/compose.migrations.yml up -d --wait --wait-timeout 150
+    docker compose --progress quiet -p sqe-campus-laptops -f docker-compose.yml up -d --wait --wait-timeout 150
     if ($LASTEXITCODE -ne 0) { throw 'The local Snipe-IT stack failed to start.' }
     Write-Output 'Snipe-IT is mapped to http://localhost:8000 once initialization finishes.'
 } finally {
