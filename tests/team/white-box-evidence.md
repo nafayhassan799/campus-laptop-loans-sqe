@@ -208,7 +208,7 @@ $evidence = (Resolve-Path output/nafay-quality).Path
 docker build -t sqe-php-quality -f tests/team/Dockerfile.quality .
 docker run --rm -e XDEBUG_MODE=coverage -v "${evidence}:/evidence" sqe-php-quality vendor/bin/phpunit -c tests/team/phpunit.xml --path-coverage --coverage-php /evidence/coverage.cov --coverage-clover /evidence/clover.xml --log-junit /evidence/phpunit-junit.xml
 docker run --rm -v "${evidence}:/evidence" sqe-php-quality php tests/team/check_coverage.php
-docker run --rm -e XDEBUG_MODE=coverage -v "${evidence}:/evidence" sqe-php-quality /opt/sqe-infection/vendor/bin/infection --configuration=tests/team/infection.json5 --only-covering-test-cases --threads=4 --min-msi=49 --logger-summary=/evidence/infection-final-summary.json Asset.php
+docker run --rm -e XDEBUG_MODE=coverage -v "${evidence}:/evidence" sqe-php-quality /opt/sqe-infection/vendor/bin/infection --configuration=tests/team/infection.json5 --only-covering-test-cases --threads=4 --min-msi=49 --logger-summary-json=/evidence/infection-final-summary.json Asset.php
 python -B tests/team/check_mutation.py
 python -B tests/team/run_sonar.py --require-gate
 npm ci --prefix tests/team/browser
