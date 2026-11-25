@@ -12,11 +12,13 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 import lighthouse from 'lighthouse';
 
 const require = createRequire(import.meta.url);
 const { chromium, request: apiRequest } = require('@playwright/test');
-const here = path.dirname(new URL(import.meta.url).pathname);
+// fileURLToPath, not URL.pathname: on Windows pathname is "/C:/..." and path.resolve breaks.
+const here = path.dirname(fileURLToPath(import.meta.url));
 const output = path.resolve(here, '../../../../../output/playwright');
 const data = JSON.parse(fs.readFileSync(process.env.SQE_FIXTURES_FILE || path.join(output, 'fixtures.json'), 'utf8'));
 const baseURL = process.env.SQE_BASE_URL || data.baseUrl;

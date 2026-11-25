@@ -35,6 +35,13 @@ npx playwright show-report ../../../output/playwright/html   # the combined HTML
 For the Docker stack, the seed creates its API tokens with
 `SQE_ARTISAN="docker compose -p sqe-campus-laptops exec -T -u docker app php artisan"`.
 
+### Windows with the Docker stack (PowerShell)
+
+1. Add `API_THROTTLE_PER_MINUTE=100000` to the repository's `.env`, then run `start-local.ps1` again. The default of 120 API calls a minute is too low: the suite reads state back over the API after every step, and you will get HTTP 429 errors.
+2. Use `python` (or `py`) instead of `python3`, and set the variable with `$env:SQE_ARTISAN = "docker compose -p sqe-campus-laptops exec -T -u docker app php artisan"`.
+3. The Docker image runs the stock upstream Snipe-IT code, so the checkout accessibility fix in `resources/views` is not visible there. The use-case and access tests do not depend on it. The before/after accessibility evidence was produced on the native stack.
+4. `rafay/a11y/set_header_color.sh` is bash-only. On Windows, set Admin > Settings > Branding > Header Color to `#296282` instead.
+
 Exit code 0 means every test passed or failed as expected (`test.fail()` marks a known open defect).
 Exit code 1 means an unexpected failure, or a known defect test that started passing: remove its `test.fail()` once the fix lands.
 
