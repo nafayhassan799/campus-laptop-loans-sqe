@@ -18,7 +18,7 @@
             <div class="btn-group text-left">
 
                 @if (($options) && (count($options) > 0))
-                <select class="redirect-options form-control select2" data-minimum-results-for-search="Infinity" name="redirect_option" style="min-width: 250px"{{ ($disabled_select ? ' disabled' : '') }}>
+                <select class="redirect-options form-control select2" data-minimum-results-for-search="Infinity" name="redirect_option" aria-label="{{ trans('general.after_submit') }}" style="min-width: 250px"{{ ($disabled_select ? ' disabled' : '') }}>
                     @foreach ($options as $key => $value)
                         <option value="{{ $key }}"{{ session('redirect_option') == $key ? ' selected' : ''}}>
                             {{ $value }}

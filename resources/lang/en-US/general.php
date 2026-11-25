@@ -679,6 +679,7 @@ return [
     'errors_importing' => 'Some Errors occurred while importing: ',
     'warning' => 'WARNING: :warning',
     'success_redirecting' => '"Success... Redirecting.',
+    'after_submit' => 'After saving',
     'cancel_request' => 'Cancel this item request',
     'setup_successful_migrations' => 'Your database tables have been created',
     'setup_migration_output' => 'Migration output:',
