@@ -1,0 +1,1520 @@
+{
+  "config": {
+    "argv": [
+      "/opt/node22/bin/node",
+      "/home/user/campus-laptop-loans-sqe/tests/team/playwright/node_modules/.bin/playwright",
+      "test"
+    ],
+    "configFile": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/playwright.config.cjs",
+    "rootDir": "/home/user/campus-laptop-loans-sqe/tests/team/playwright",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/home/user/campus-laptop-loans-sqe/output/playwright/runs",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "setup",
+        "name": "setup",
+        "testDir": "/home/user/campus-laptop-loans-sqe/tests/team/playwright",
+        "testIgnore": [],
+        "testMatch": [
+          "/auth\\.setup\\.cjs/"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/home/user/campus-laptop-loans-sqe/output/playwright/runs",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "rafay",
+        "name": "rafay",
+        "testDir": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay",
+        "testIgnore": [
+          "/a11y\\//"
+        ],
+        "testMatch": [
+          "/.*\\.spec\\.cjs/"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "/home/user/campus-laptop-loans-sqe/output/playwright/runs",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "a11y",
+        "name": "a11y",
+        "testDir": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/a11y",
+        "testIgnore": [],
+        "testMatch": [
+          "/.*\\.spec\\.cjs/"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/home/user/campus-laptop-loans-sqe/output/playwright/junit.xml"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/home/user/campus-laptop-loans-sqe/output/playwright/results.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "/home/user/campus-laptop-loans-sqe/output/playwright/html",
+          "open": "never"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.61.1",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "auth.setup.cjs",
+      "file": "auth.setup.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "sign in as technician",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "setup",
+              "projectName": "setup",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1698,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-25T17:21:58.676Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/auth.setup.cjs-sign-in-as-technician-setup/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2368d6fe9a120fdebdf6-44e39fc5c270b52a0085",
+          "file": "auth.setup.cjs",
+          "line": 8,
+          "column": 3
+        },
+        {
+          "title": "sign in as reviewer",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "setup",
+              "projectName": "setup",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1499,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-11-25T17:22:00.502Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "screenshot",
+                      "contentType": "image/png",
+                      "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/auth.setup.cjs-sign-in-as-reviewer-setup/test-finished-1.png"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "2368d6fe9a120fdebdf6-30d5026f8c8b99f538f2",
+          "file": "auth.setup.cjs",
+          "line": 8,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "rafay/access-matrix.spec.cjs",
+      "file": "rafay/access-matrix.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Access matrix: lab technician (assets.view, assets.checkout, assets.checkin)",
+          "file": "rafay/access-matrix.spec.cjs",
+          "line": 34,
+          "column": 6,
+          "specs": [
+            {
+              "title": "AC-01 technician opens the checkout form: allowed",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 704,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:02.409Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Access-matri-3035a-s-the-checkout-form-allowed-rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-5122cdcc698b71fda0d9",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 35,
+              "column": 3
+            },
+            {
+              "title": "AC-02 technician submits a checkout: allowed and saved",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 808,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:03.234Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Access-matri-81526--checkout-allowed-and-saved-rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-3bb5bc97b17b2f672b74",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 45,
+              "column": 3
+            },
+            {
+              "title": "AC-03 technician submits a check-in: allowed and saved",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 808,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:04.049Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Access-matri-fe579--check-in-allowed-and-saved-rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-f6b71a64370a1523f388",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 59,
+              "column": 3
+            },
+            {
+              "title": "AC-04 technician opens the asset edit form: denied (no assets.edit)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 333,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:04.864Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Access-matri-e4d6c-form-denied-no-assets-edit--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-0d5dd5924cf6b3ff0993",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 73,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Access matrix: read-only reviewer (assets.view)",
+          "file": "rafay/access-matrix.spec.cjs",
+          "line": 82,
+          "column": 6,
+          "specs": [
+            {
+              "title": "AC-05 reviewer views the laptop record: allowed, with no checkout or check-in action",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1084,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:05.204Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Access-matri-fc9db-checkout-or-check-in-action-rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-0e0cca028ec4fb024b5e",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 83,
+              "column": 3
+            },
+            {
+              "title": "AC-06 reviewer opens the checkout form: denied",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 469,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:06.296Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Access-matri-17d19-ns-the-checkout-form-denied-rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-97fb425df3b8041bd6aa",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 94,
+              "column": 3
+            },
+            {
+              "title": "AC-07 reviewer submits a checkout: denied and nothing saved",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 962,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:06.775Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Access-matri-c3767-ut-denied-and-nothing-saved-rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-f73830de1570ebf1b392",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 104,
+              "column": 3
+            },
+            {
+              "title": "AC-08 reviewer opens the check-in form: denied",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 587,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:07.744Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Access-matri-d619b-ns-the-check-in-form-denied-rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-9b98a29eda05b5f192c0",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 118,
+              "column": 3
+            },
+            {
+              "title": "AC-09 reviewer submits a check-in: denied and the loan is kept",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1102,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:08.339Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Access-matri-6db61-denied-and-the-loan-is-kept-rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-fd8c4058a3e4ab65d1b4",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 127,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Control: CSRF protection on the checkout form",
+          "file": "rafay/access-matrix.spec.cjs",
+          "line": 142,
+          "column": 6,
+          "specs": [
+            {
+              "title": "AC-11 a technician checkout POST without the form token is refused and nothing is saved",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 939,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:09.447Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Control-CSRF-5c73e-efused-and-nothing-is-saved-rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-d10ad46b30bb5f9403b6",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 143,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "Access matrix: no session",
+          "file": "rafay/access-matrix.spec.cjs",
+          "line": 164,
+          "column": 6,
+          "specs": [
+            {
+              "title": "AC-10 a visitor with no session is sent to sign in",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 553,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:10.396Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/access-matrix-Access-matri-d26c5--session-is-sent-to-sign-in-rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "513ec817a046290e6eeb-6883f1205658399104fe",
+              "file": "rafay/access-matrix.spec.cjs",
+              "line": 165,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+      "file": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "UC-R1 keyboard checkout",
+          "file": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+          "line": 45,
+          "column": 6,
+          "specs": [
+            {
+              "title": "UC-R1-MAIN keyboard reaches the borrower and submit in order, checks out, and the loan is saved [CO-01 CO-02 USAB-KBD USAB-TASK]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2328,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:10.973Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r1-keyboard-checkout-UC-8a5b0-1-CO-02-USAB-KBD-USAB-TASK--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f7d7756afc93787054ff-e641521ddc604c24cdea",
+              "file": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+              "line": 46,
+              "column": 3
+            },
+            {
+              "title": "UC-R1-ALT1 a note typed with the keyboard is saved with the checkout [CO-01]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1968,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:13.308Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r1-keyboard-checkout-UC-47290-ed-with-the-checkout-CO-01--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f7d7756afc93787054ff-ea4e098e9708c97e39f6",
+              "file": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+              "line": 76,
+              "column": 3
+            },
+            {
+              "title": "UC-R1-ALT2 keyboard search narrows the results and arrow keys pick another eligible borrower [CO-01]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2299,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:15.283Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r1-keyboard-checkout-UC-92320-er-eligible-borrower-CO-01--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f7d7756afc93787054ff-2110d742e4122ca43729",
+              "file": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+              "line": 97,
+              "column": 3
+            },
+            {
+              "title": "UC-R1-EXC1 submitting without a borrower is rejected with a message saying what to fix, then the corrected form succeeds [CO-01 CO-03 USAB-ERR]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2438,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:17.596Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r1-keyboard-checkout-UC-2da40-ceeds-CO-01-CO-03-USAB-ERR--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f7d7756afc93787054ff-3170d67797be3842a3f9",
+              "file": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+              "line": 131,
+              "column": 3
+            },
+            {
+              "title": "UC-R1-EXC2 a read-only reviewer cannot make the same checkout and nothing is saved [ROLE CO-03]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1879,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:20.041Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r1-keyboard-checkout-UC-1adaa-othing-is-saved-ROLE-CO-03--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f7d7756afc93787054ff-93eafd9de032dd816238",
+              "file": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+              "line": 166,
+              "column": 3
+            }
+          ]
+        },
+        {
+          "title": "UC-R1 known defects (expected to fail until fixed)",
+          "file": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+          "line": 190,
+          "column": 6,
+          "specs": [
+            {
+              "title": "DEF-R1 tabbing past the optional due date must not save a due date [CO-02]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "fail",
+                      "description": "DEF-R1: the date picker fills in the current time on focus (eonasdan useCurrent default)",
+                      "location": {
+                        "file": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs",
+                        "line": 192,
+                        "column": 10
+                      }
+                    }
+                  ],
+                  "expectedStatus": "failed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 1914,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeNull\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m{\"datetime\": \"2026-11-25 17:22:23\", \"formatted\": \"2026-11-25 05:22 PM\"}\u001b[39m",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeNull\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m{\"datetime\": \"2026-11-25 17:22:23\", \"formatted\": \"2026-11-25 05:22 PM\"}\u001b[39m\n    at /home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs:200:63",
+                        "location": {
+                          "file": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs",
+                          "column": 63,
+                          "line": 200
+                        },
+                        "snippet": "  198 |     await page.keyboard.press('Enter');\n  199 |     await expect(s.flash(page).filter({ hasText: SUCCESS })).toBeVisible();\n> 200 |     expect((await s.readAsset(request, id)).expected_checkin).toBeNull();\n      |                                                               ^\n  201 |   });\n  202 |\n  203 |   test('DEF-R2 a borrower removed before submit is rejected with a readable message [CO-01 USAB-ERR]',"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs",
+                            "column": 63,
+                            "line": 200
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeNull\u001b[2m()\u001b[22m\n\nReceived: \u001b[31m{\"datetime\": \"2026-11-25 17:22:23\", \"formatted\": \"2026-11-25 05:22 PM\"}\u001b[39m\n\n  198 |     await page.keyboard.press('Enter');\n  199 |     await expect(s.flash(page).filter({ hasText: SUCCESS })).toBeVisible();\n> 200 |     expect((await s.readAsset(request, id)).expected_checkin).toBeNull();\n      |                                                               ^\n  201 |   });\n  202 |\n  203 |   test('DEF-R2 a borrower removed before submit is rejected with a readable message [CO-01 USAB-ERR]',\n    at /home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs:200:63"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:21.931Z",
+                      "annotations": [
+                        {
+                          "type": "fail",
+                          "description": "DEF-R1: the date picker fills in the current time on focus (eonasdan useCurrent default)",
+                          "location": {
+                            "file": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs",
+                            "line": 192,
+                            "column": 10
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r1-keyboard-checkout-UC-eff3a--not-save-a-due-date-CO-02--rafay/test-finished-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r1-keyboard-checkout-UC-eff3a--not-save-a-due-date-CO-02--rafay/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs",
+                        "column": 63,
+                        "line": 200
+                      }
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f7d7756afc93787054ff-8e30794eaf789d2518ca",
+              "file": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+              "line": 191,
+              "column": 3
+            },
+            {
+              "title": "DEF-R2 a borrower removed before submit is rejected with a readable message [CO-01 USAB-ERR]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "fail",
+                      "description": "DEF-R2: the field error shows the raw key \"validation.exists_undeleted\"",
+                      "location": {
+                        "file": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs",
+                        "line": 205,
+                        "column": 12
+                      }
+                    }
+                  ],
+                  "expectedStatus": "failed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 11675,
+                      "error": {
+                        "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).not.\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.form-group.has-error').filter({ has: locator('select[name=\"assigned_user\"]') })\nExpected substring: not \u001b[32m\"validation.\"\u001b[39m\nReceived string: \u001b[31m\"\u001b[39m\n\u001b[31m    User\u001b[39m\n\u001b[31m\u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m        \u001b[39m\n\u001b[31m                            \u001b[39m\n\u001b[31m                    \u001b[39m\n\u001b[31m                \u001b[39m\n\u001b[31m                    ×\u001b[39m\n\u001b[31m                    \u001b[39m\n\u001b[31m                \u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m\u001b[39m\n\u001b[31m            \u001b[39m\n\u001b[31m                    \u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m    \u001b[7mvalidation.\u001b[27mexists_undeleted\u001b[39m\n\u001b[31m\u001b[39m\n\u001b[31m\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"not toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.form-group.has-error').filter({ has: locator('select[name=\"assigned_user\"]') })\u001b[22m\n\u001b[2m    24 × locator resolved to <div id=\"assigned_user\" class=\"form-group has-error\">…</div>\u001b[22m\n\u001b[2m       - unexpected value \"\u001b[22m\n\u001b[2m    User\u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m        \u001b[22m\n\u001b[2m                            \u001b[22m\n\u001b[2m                    \u001b[22m\n\u001b[2m                \u001b[22m\n\u001b[2m                    ×\u001b[22m\n\u001b[2m                    \u001b[22m\n\u001b[2m                \u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m            \u001b[22m\n\u001b[2m                    \u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m    validation.exists_undeleted\u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m\"\u001b[22m\n",
+                        "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).not.\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.form-group.has-error').filter({ has: locator('select[name=\"assigned_user\"]') })\nExpected substring: not \u001b[32m\"validation.\"\u001b[39m\nReceived string: \u001b[31m\"\u001b[39m\n\u001b[31m    User\u001b[39m\n\u001b[31m\u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m        \u001b[39m\n\u001b[31m                            \u001b[39m\n\u001b[31m                    \u001b[39m\n\u001b[31m                \u001b[39m\n\u001b[31m                    ×\u001b[39m\n\u001b[31m                    \u001b[39m\n\u001b[31m                \u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m\u001b[39m\n\u001b[31m            \u001b[39m\n\u001b[31m                    \u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m    \u001b[7mvalidation.\u001b[27mexists_undeleted\u001b[39m\n\u001b[31m\u001b[39m\n\u001b[31m\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"not toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.form-group.has-error').filter({ has: locator('select[name=\"assigned_user\"]') })\u001b[22m\n\u001b[2m    24 × locator resolved to <div id=\"assigned_user\" class=\"form-group has-error\">…</div>\u001b[22m\n\u001b[2m       - unexpected value \"\u001b[22m\n\u001b[2m    User\u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m        \u001b[22m\n\u001b[2m                            \u001b[22m\n\u001b[2m                    \u001b[22m\n\u001b[2m                \u001b[22m\n\u001b[2m                    ×\u001b[22m\n\u001b[2m                    \u001b[22m\n\u001b[2m                \u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m            \u001b[22m\n\u001b[2m                    \u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m    validation.exists_undeleted\u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m\"\u001b[22m\n\n    at /home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs:220:33",
+                        "location": {
+                          "file": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs",
+                          "column": 33,
+                          "line": 220
+                        },
+                        "snippet": "  218 |       await expect(userRow).toBeVisible();\n  219 |       unchanged(before, await s.readAsset(request, id)); // the rule itself holds\n> 220 |       await expect(userRow).not.toContainText('validation.'); // ...but the message does not explain it\n      |                                 ^\n  221 |     });\n  222 | });\n  223 |"
+                      },
+                      "errors": [
+                        {
+                          "location": {
+                            "file": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs",
+                            "column": 33,
+                            "line": 220
+                          },
+                          "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).not.\u001b[22mtoContainText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: locator('.form-group.has-error').filter({ has: locator('select[name=\"assigned_user\"]') })\nExpected substring: not \u001b[32m\"validation.\"\u001b[39m\nReceived string: \u001b[31m\"\u001b[39m\n\u001b[31m    User\u001b[39m\n\u001b[31m\u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m        \u001b[39m\n\u001b[31m                            \u001b[39m\n\u001b[31m                    \u001b[39m\n\u001b[31m                \u001b[39m\n\u001b[31m                    ×\u001b[39m\n\u001b[31m                    \u001b[39m\n\u001b[31m                \u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m\u001b[39m\n\u001b[31m            \u001b[39m\n\u001b[31m                    \u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m    \u001b[39m\n\u001b[31m    \u001b[7mvalidation.\u001b[27mexists_undeleted\u001b[39m\n\u001b[31m\u001b[39m\n\u001b[31m\"\u001b[39m\nTimeout: 10000ms\n\nCall log:\n\u001b[2m  - Expect \"not toContainText\" with timeout 10000ms\u001b[22m\n\u001b[2m  - waiting for locator('.form-group.has-error').filter({ has: locator('select[name=\"assigned_user\"]') })\u001b[22m\n\u001b[2m    24 × locator resolved to <div id=\"assigned_user\" class=\"form-group has-error\">…</div>\u001b[22m\n\u001b[2m       - unexpected value \"\u001b[22m\n\u001b[2m    User\u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m        \u001b[22m\n\u001b[2m                            \u001b[22m\n\u001b[2m                    \u001b[22m\n\u001b[2m                \u001b[22m\n\u001b[2m                    ×\u001b[22m\n\u001b[2m                    \u001b[22m\n\u001b[2m                \u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m            \u001b[22m\n\u001b[2m                    \u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m    \u001b[22m\n\u001b[2m    validation.exists_undeleted\u001b[22m\n\u001b[2m\u001b[22m\n\u001b[2m\"\u001b[22m\n\n\n  218 |       await expect(userRow).toBeVisible();\n  219 |       unchanged(before, await s.readAsset(request, id)); // the rule itself holds\n> 220 |       await expect(userRow).not.toContainText('validation.'); // ...but the message does not explain it\n      |                                 ^\n  221 |     });\n  222 | });\n  223 |\n    at /home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs:220:33"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:23.852Z",
+                      "annotations": [
+                        {
+                          "type": "fail",
+                          "description": "DEF-R2: the field error shows the raw key \"validation.exists_undeleted\"",
+                          "location": {
+                            "file": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs",
+                            "line": 205,
+                            "column": 12
+                          }
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r1-keyboard-checkout-UC-09341-ble-message-CO-01-USAB-ERR--rafay/test-finished-1.png"
+                        },
+                        {
+                          "name": "error-context",
+                          "contentType": "text/markdown",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r1-keyboard-checkout-UC-09341-ble-message-CO-01-USAB-ERR--rafay/error-context.md"
+                        }
+                      ],
+                      "errorLocation": {
+                        "file": "/home/user/campus-laptop-loans-sqe/tests/team/playwright/rafay/uc-r1-keyboard-checkout.spec.cjs",
+                        "column": 33,
+                        "line": 220
+                      }
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "f7d7756afc93787054ff-de096a8b45367ebb2598",
+              "file": "rafay/uc-r1-keyboard-checkout.spec.cjs",
+              "line": 203,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "rafay/uc-r2-repair-return.spec.cjs",
+      "file": "rafay/uc-r2-repair-return.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "UC-R2 repair return",
+          "file": "rafay/uc-r2-repair-return.spec.cjs",
+          "line": 34,
+          "column": 6,
+          "specs": [
+            {
+              "title": "UC-R2-MAIN returning with the repair status clears borrower and due date and the laptop stays unavailable [CI-01 CI-03 USAB-TASK]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2197,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:35.543Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r2-repair-return-UC-R2--91502-able-CI-01-CI-03-USAB-TASK--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdeec05df4082ac645b8-5ee9b645f84946cee738",
+              "file": "rafay/uc-r2-repair-return.spec.cjs",
+              "line": 35,
+              "column": 3
+            },
+            {
+              "title": "UC-R2-ALT1 a separate pending-assessment status is kept and the laptop stays unavailable [CI-01 CI-03]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1563,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:37.746Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r2-repair-return-UC-R2--a37a6-ys-unavailable-CI-01-CI-03--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdeec05df4082ac645b8-d8376f28fe4cc99b7fd7",
+              "file": "rafay/uc-r2-repair-return.spec.cjs",
+              "line": 56,
+              "column": 3
+            },
+            {
+              "title": "UC-R2-ALT2 a damage note is saved with the return and shown in the record history [CI-01]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 2940,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:39.317Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r2-repair-return-UC-R2--098a2-n-the-record-history-CI-01--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdeec05df4082ac645b8-7c458eebf24134e356f0",
+              "file": "rafay/uc-r2-repair-return.spec.cjs",
+              "line": 71,
+              "column": 3
+            },
+            {
+              "title": "UC-R2-EXC1 an over-limit asset name on the return form is capped at 255 characters by the form [CO-04]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1645,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:42.263Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r2-repair-return-UC-R2--fc5de-aracters-by-the-form-CO-04--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdeec05df4082ac645b8-204e116a6f0a566b5622",
+              "file": "rafay/uc-r2-repair-return.spec.cjs",
+              "line": 99,
+              "column": 3
+            },
+            {
+              "title": "UC-R2-EXC1b a 256-character name that reaches the server is rejected and the loan is left intact [CO-04 CI-01]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1928,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:43.914Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r2-repair-return-UC-R2--eb67d-is-left-intact-CO-04-CI-01--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdeec05df4082ac645b8-7bc5753c960293b36160",
+              "file": "rafay/uc-r2-repair-return.spec.cjs",
+              "line": 119,
+              "column": 3
+            },
+            {
+              "title": "UC-R2-EXC2 lending the laptop after a repair return is refused and the unassigned repair state is kept [CI-03 CO-03]",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "rafay",
+                  "projectName": "rafay",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1580,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:45.849Z",
+                      "annotations": [],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/uc-r2-repair-return-UC-R2--1fb4a--state-is-kept-CI-03-CO-03--rafay/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "fdeec05df4082ac645b8-056e9ca3666b51a4996d",
+              "file": "rafay/uc-r2-repair-return.spec.cjs",
+              "line": 144,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "rafay/a11y/axe-scan.spec.cjs",
+      "file": "rafay/a11y/axe-scan.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "axe-core full-page scans",
+          "file": "rafay/a11y/axe-scan.spec.cjs",
+          "line": 33,
+          "column": 6,
+          "specs": [
+            {
+              "title": "login screen",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "axe",
+                      "description": "login: color-contrast(1)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "a11y",
+                  "projectName": "a11y",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 733,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:47.870Z",
+                      "annotations": [
+                        {
+                          "type": "axe",
+                          "description": "login: color-contrast(1)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/axe-scan-axe-core-full-page-scans-login-screen-a11y/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6941afc128662753acde-3c5beda6974aca1b1c1d",
+              "file": "rafay/a11y/axe-scan.spec.cjs",
+              "line": 36,
+              "column": 3
+            },
+            {
+              "title": "checkout screen (UC-R1 key screen)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "axe",
+                      "description": "checkout: no violations"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "a11y",
+                  "projectName": "a11y",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1934,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:48.729Z",
+                      "annotations": [
+                        {
+                          "type": "axe",
+                          "description": "checkout: no violations"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/axe-scan-axe-core-full-pag-4d256-ut-screen-UC-R1-key-screen--a11y/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6941afc128662753acde-5d90de4570c67d7aa199",
+              "file": "rafay/a11y/axe-scan.spec.cjs",
+              "line": 43,
+              "column": 3
+            },
+            {
+              "title": "checkin screen (UC-R2 key screen)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [
+                    {
+                      "type": "axe",
+                      "description": "checkin: aria-input-field-name(4), color-contrast(2)"
+                    }
+                  ],
+                  "expectedStatus": "passed",
+                  "projectId": "a11y",
+                  "projectName": "a11y",
+                  "results": [
+                    {
+                      "workerIndex": 2,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 1824,
+                      "errors": [],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2026-11-25T17:22:50.670Z",
+                      "annotations": [
+                        {
+                          "type": "axe",
+                          "description": "checkin: aria-input-field-name(4), color-contrast(2)"
+                        }
+                      ],
+                      "attachments": [
+                        {
+                          "name": "screenshot",
+                          "contentType": "image/png",
+                          "path": "/home/user/campus-laptop-loans-sqe/output/playwright/runs/axe-scan-axe-core-full-pag-1e59b-in-screen-UC-R2-key-screen--a11y/test-finished-1.png"
+                        }
+                      ]
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6941afc128662753acde-b4611f9671be516e2ab5",
+              "file": "rafay/a11y/axe-scan.spec.cjs",
+              "line": 53,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-11-25T17:21:58.335Z",
+    "duration": 54246.647000000004,
+    "expected": 29,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}
