@@ -73,7 +73,8 @@ async function signIn(page, account) {
   await page.getByLabel(/username/i).fill(account.username);
   // The visible "Password" label is not tied to the input (label for="password" vs id="password-field"),
   // see a11y finding A11Y-01, so the field is located by name until that is fixed everywhere.
-  await page.locator('input[name="password"]').fill(account.password);
+  // Set through evaluate so the password never appears in a "Fill" step title in the committed report.
+  await page.locator('input[name="password"]').evaluate((input, value) => { input.value = value; }, account.password);
   await page.getByRole('button', { name: /^login$/i }).click();
   await expect(page).not.toHaveURL(/\/login(?:[/?#]|$)/);
   await page.waitForLoadState('networkidle');

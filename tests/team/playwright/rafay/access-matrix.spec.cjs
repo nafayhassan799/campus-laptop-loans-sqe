@@ -139,6 +139,28 @@ test.describe('Access matrix: read-only reviewer (assets.view)', () => {
   });
 });
 
+test.describe('Control: CSRF protection on the checkout form', () => {
+  test('AC-11 a technician checkout POST without the form token is refused and nothing is saved', async ({ technician: page, request }) => {
+    const id = data.assets['RAF-AC-02'];
+    const before = await s.resetAsset(request, id);
+    await page.goto(`/hardware/${id}/checkout`);
+    // Same session cookie and fields as AC-02, but no _token: what a cross-site form post would send.
+    const response = await page.request.post(`/hardware/${id}/checkout`, { form: loanFields(), maxRedirects: 0 });
+    // Snipe-IT turns Laravel's 419 into a same-origin redirect with a flash message (app/Exceptions/Handler.php).
+    expect(response.status()).toBe(302);
+    const location = response.headers().location;
+    expect(new URL(location).origin).toBe(new URL(page.url()).origin);
+    await page.goto(location);
+    await expect(s.flash(page).filter({ hasText: 'Your form session has expired. Please try again.' })).toBeVisible();
+    const after = await s.readAsset(request, id);
+    expect(after.assigned_to).toBeNull();
+    expect(after.checkout_counter).toBe(before.checkout_counter);
+    record({ id: 'AC-11', role: 'technician', action: `POST /hardware/${id}/checkout without _token`, expected: 'denied: CSRF check fails, asset unchanged',
+      observed: `HTTP ${response.status()} to same-origin ${new URL(location).pathname} with "Your form session has expired"; assigned_to=null, checkout_counter ${before.checkout_counter}->${after.checkout_counter}`,
+      evidence: 'REST read-back GET /api/v1/hardware/{id}' });
+  });
+});
+
 test.describe('Access matrix: no session', () => {
   test('AC-10 a visitor with no session is sent to sign in', async ({ page, request }) => {
     const id = data.assets['RAF-AC-01'];

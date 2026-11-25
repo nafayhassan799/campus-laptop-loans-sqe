@@ -71,7 +71,8 @@ test.describe('UC-R2 repair return', () => {
   test('UC-R2-ALT2 a damage note is saved with the return and shown in the record history [CI-01]',
     async ({ technician: page, request }) => {
       const id = data.assets['RAF-CI-ALT2'];
-      const note = `Cracked hinge and sticky trackpad, reported at return ${Date.now()}`;
+      const stamp = `R${Date.now()}`;
+      const note = `Cracked hinge and sticky trackpad, reported at return ${stamp}`;
       const before = await s.loanAsset(request, id);
       await openCheckin(page, id);
 
@@ -84,9 +85,15 @@ test.describe('UC-R2 repair return', () => {
       await expectUnavailableReturn(request, id, data.status.repair, before);
       const lastReturn = (await s.history(request, id)).filter((event) => event.action === 'checkin from').at(-1);
       expect(lastReturn.note).toBe(note);
-      // The same note in the History tab of the asset page.
+      // The same note in the History tab of the asset page. The laptop's history grows with every run
+      // and the table is paginated, so look it up with the table's own search box, as a user would.
       await page.goto(`/hardware/${id}#history`);
-      await expect(page.locator('#history')).toContainText(note);
+      const historyTab = page.locator('#history');
+      const search = historyTab.locator('.search input').first();
+      await expect(search).toBeVisible();
+      await search.fill(stamp);
+      await search.press('Enter'); // bootstrap-table searches on keyup
+      await expect(historyTab.locator('tbody tr').filter({ hasText: note })).toHaveCount(1);
     });
 
   test('UC-R2-EXC1 an over-limit asset name on the return form is capped at 255 characters by the form [CO-04]',

@@ -103,8 +103,11 @@ test.describe('UC-R1 keyboard checkout', () => {
 
       await s.tabTo(page, 'select2:assigned_user');
       await page.keyboard.press('Enter');
-      await page.keyboard.type('sqe_student');
       const open = page.locator('.select2-container--open');
+      // Wait for select2 to move focus into its search box, or the first keystrokes are lost.
+      await expect(open.locator('.select2-search__field')).toBeFocused();
+      await page.keyboard.type('sqe_student');
+      await expect(open.locator('.select2-search__field')).toHaveValue('sqe_student');
       // Both seeded students match the search; the list is sorted by name, so Ali comes first.
       await expect(open.getByRole('option')).toHaveText(
         [...data.students].sort((a, b) => a.name.localeCompare(b.name)).map((st) => `${st.name} (${st.username})`));
