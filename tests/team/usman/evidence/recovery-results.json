@@ -1,0 +1,165 @@
+[
+  {
+    "mode": "history-write",
+    "asset": 6,
+    "request": {
+      "checkout_to_type": "user",
+      "assigned_user": 4,
+      "expected_checkin": "2026-11-29"
+    },
+    "before": {
+      "assigned_to": "NULL",
+      "status_id": "4",
+      "checkout_counter": "3",
+      "last_checkout": "2026-11-22 11:56:02",
+      "checkout_log_rows": "3"
+    },
+    "failedAttempt": {
+      "http": 500,
+      "body": {
+        "message": "Server Error"
+      }
+    },
+    "duringFault": {
+      "assigned_to": "NULL",
+      "status_id": "4",
+      "checkout_counter": "3",
+      "last_checkout": "2026-11-22 11:56:02",
+      "checkout_log_rows": "3"
+    },
+    "retry": {
+      "http": 200,
+      "body": {
+        "status": "success",
+        "messages": "Asset checked out successfully.",
+        "payload": {
+          "asset": "RECOV-001"
+        }
+      }
+    },
+    "afterRetry": {
+      "assigned_to": "4",
+      "status_id": "4",
+      "checkout_counter": "4",
+      "last_checkout": "2026-11-22 12:03:58",
+      "checkout_log_rows": "4"
+    },
+    "secondRetry": {
+      "http": 200,
+      "body": {
+        "status": "error",
+        "messages": "That asset is not available for checkout!",
+        "payload": {
+          "asset": "RECOV-001"
+        }
+      }
+    },
+    "result": "PASS",
+    "log": [
+      "[17:03:57] === fault: history-write on asset 6 ===",
+      "[17:03:57] before: {\"assigned_to\": \"NULL\", \"status_id\": \"4\", \"checkout_counter\": \"3\", \"last_checkout\": \"2026-11-22 11:56:02\", \"checkout_log_rows\": \"3\"}",
+      "[17:03:57] fault injected: action_logs rejects the checkout history row (asset row is written first)",
+      "[17:03:57] attempt during fault: HTTP 500 {\"message\": \"Server Error\"}",
+      "[17:03:57] ASSERT OK: the checkout request did not report success while the dependency was failing",
+      "[17:03:57] ASSERT OK: no partial assignment remains (assigned_to is empty)",
+      "[17:03:57] ASSERT OK: status label did not change",
+      "[17:03:57] ASSERT OK: checkout counter did not change",
+      "[17:03:57] ASSERT OK: last_checkout did not change",
+      "[17:03:57] ASSERT OK: no history row was created",
+      "[17:03:57] dependency restored",
+      "[17:03:58] ASSERT OK: record is still unchanged after the dependency is restored",
+      "[17:03:58] retry: HTTP 200 {\"status\": \"success\", \"messages\": \"Asset checked out successfully.\", \"payload\": {\"asset\": \"RECOV-001\"}}",
+      "[17:03:58] ASSERT OK: the retried checkout succeeded",
+      "[17:03:58] ASSERT OK: exactly one assignment: the student now holds the laptop",
+      "[17:03:58] ASSERT OK: status is deployed and the due date was stored",
+      "[17:03:58] ASSERT OK: checkout counter increased by exactly one",
+      "[17:03:58] ASSERT OK: exactly one checkout history entry was added",
+      "[17:03:58] ASSERT OK: a further retry is rejected and adds no duplicate history or counter increase"
+    ]
+  },
+  {
+    "mode": "db-outage",
+    "asset": 7,
+    "request": {
+      "checkout_to_type": "user",
+      "assigned_user": 4,
+      "expected_checkin": "2026-11-29"
+    },
+    "before": {
+      "assigned_to": "NULL",
+      "status_id": "4",
+      "checkout_counter": "2",
+      "last_checkout": "2026-11-22 11:56:07",
+      "checkout_log_rows": "2"
+    },
+    "failedAttempt": {
+      "http": 302,
+      "body": {
+        "_unparsed": "<!DOCTYPE html>\n<html>\n    <head>\n        <meta charset=\"UTF-8\" />\n        <meta http-equiv=\"refresh\" content=\"0;url='http://localhost:8000/setup'\" />\n\n        <title>Redirecting to http://localhost:8"
+      }
+    },
+    "retry": {
+      "http": 200,
+      "body": {
+        "status": "success",
+        "messages": "Asset checked out successfully.",
+        "payload": {
+          "asset": "RECOV-002"
+        }
+      }
+    },
+    "afterRetry": {
+      "assigned_to": "4",
+      "status_id": "4",
+      "checkout_counter": "3",
+      "last_checkout": "2026-11-22 12:04:03",
+      "checkout_log_rows": "3"
+    },
+    "secondRetry": {
+      "http": 200,
+      "body": {
+        "status": "error",
+        "messages": "That asset is not available for checkout!",
+        "payload": {
+          "asset": "RECOV-002"
+        }
+      }
+    },
+    "result": "PASS",
+    "log": [
+      "[17:03:57] === fault: history-write on asset 6 ===",
+      "[17:03:57] before: {\"assigned_to\": \"NULL\", \"status_id\": \"4\", \"checkout_counter\": \"3\", \"last_checkout\": \"2026-11-22 11:56:02\", \"checkout_log_rows\": \"3\"}",
+      "[17:03:57] fault injected: action_logs rejects the checkout history row (asset row is written first)",
+      "[17:03:57] attempt during fault: HTTP 500 {\"message\": \"Server Error\"}",
+      "[17:03:57] ASSERT OK: the checkout request did not report success while the dependency was failing",
+      "[17:03:57] ASSERT OK: no partial assignment remains (assigned_to is empty)",
+      "[17:03:57] ASSERT OK: status label did not change",
+      "[17:03:57] ASSERT OK: checkout counter did not change",
+      "[17:03:57] ASSERT OK: last_checkout did not change",
+      "[17:03:57] ASSERT OK: no history row was created",
+      "[17:03:57] dependency restored",
+      "[17:03:58] ASSERT OK: record is still unchanged after the dependency is restored",
+      "[17:03:58] retry: HTTP 200 {\"status\": \"success\", \"messages\": \"Asset checked out successfully.\", \"payload\": {\"asset\": \"RECOV-001\"}}",
+      "[17:03:58] ASSERT OK: the retried checkout succeeded",
+      "[17:03:58] ASSERT OK: exactly one assignment: the student now holds the laptop",
+      "[17:03:58] ASSERT OK: status is deployed and the due date was stored",
+      "[17:03:58] ASSERT OK: checkout counter increased by exactly one",
+      "[17:03:58] ASSERT OK: exactly one checkout history entry was added",
+      "[17:03:58] ASSERT OK: a further retry is rejected and adds no duplicate history or counter increase",
+      "[17:03:58] === fault: db-outage on asset 7 ===",
+      "[17:03:59] before: {\"assigned_to\": \"NULL\", \"status_id\": \"4\", \"checkout_counter\": \"2\", \"last_checkout\": \"2026-11-22 11:56:07\", \"checkout_log_rows\": \"2\"}",
+      "[17:04:02] fault injected: database stopped",
+      "[17:04:02] attempt during fault: HTTP 302 {\"_unparsed\": \"<!DOCTYPE html>\\n<html>\\n    <head>\\n        <meta charset=\\\"UTF-8\\\" />\\n        <meta http-equiv=\\\"refre",
+      "[17:04:02] ASSERT OK: the checkout request did not report success while the dependency was failing",
+      "[17:04:03] dependency restored",
+      "[17:04:03] ASSERT OK: record is still unchanged after the dependency is restored",
+      "[17:04:03] retry: HTTP 200 {\"status\": \"success\", \"messages\": \"Asset checked out successfully.\", \"payload\": {\"asset\": \"RECOV-002\"}}",
+      "[17:04:03] ASSERT OK: the retried checkout succeeded",
+      "[17:04:03] ASSERT OK: exactly one assignment: the student now holds the laptop",
+      "[17:04:03] ASSERT OK: status is deployed and the due date was stored",
+      "[17:04:03] ASSERT OK: checkout counter increased by exactly one",
+      "[17:04:03] ASSERT OK: exactly one checkout history entry was added",
+      "[17:04:03] ASSERT OK: a further retry is rejected and adds no duplicate history or counter increase"
+    ]
+  }
+]

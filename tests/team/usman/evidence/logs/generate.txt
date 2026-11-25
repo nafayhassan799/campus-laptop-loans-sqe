@@ -1,0 +1,1 @@
+Generated 100 cases from hardware-loans.openapi.json -> /home/claude/repo/output/usman/api/cases.json (20 BVA, 80 EP)

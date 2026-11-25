@@ -1,0 +1,25 @@
+{
+  "users": 5,
+  "holdSeconds": 60,
+  "p95Limit": 1500,
+  "p95_ms": 136.98669485,
+  "avg_ms": 103.98824407857144,
+  "max_ms": 173.619753,
+  "requests": 280,
+  "requestsPerSecond": 4.279290516371924,
+  "unexpectedFailureRate": 0,
+  "unexpectedFailures": 0,
+  "thresholdsPassed": true,
+  "thresholds": {
+    "unexpected_failure": {
+      "rate<=0": {
+        "ok": true
+      }
+    },
+    "checkout_form_duration": {
+      "p(95)<1500": {
+        "ok": true
+      }
+    }
+  }
+}

@@ -1,0 +1,80 @@
+<testsuites id="" name="" tests="10" failures="0" skipped="0" errors="0" time="61.579802">
+<testsuite name="usman-checkout-due-date.spec.cjs" timestamp="2026-11-22T12:15:13.223Z" hostname="" tests="5" failures="0" skipped="0" time="31.994" errors="0">
+<testcase name="UC1 record the expected return date during checkout › UC1-MAIN technician assigns a laptop with a valid due date and the stored date matches" classname="usman-checkout-due-date.spec.cjs" time="8.044">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/usman-checkout-due-date-UC-59b11-and-the-stored-date-matches/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC1 record the expected return date during checkout › UC1-ALT1 leaving the optional due date blank stores no due date" classname="usman-checkout-due-date.spec.cjs" time="6.954">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/usman-checkout-due-date-UC-76e23-te-blank-stores-no-due-date/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC1 record the expected return date during checkout › UC1-ALT2 a different valid due date chosen with the date picker is the date that is saved" classname="usman-checkout-due-date.spec.cjs" time="5.872">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/usman-checkout-due-date-UC-0380d-r-is-the-date-that-is-saved/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC1 record the expected return date during checkout › UC1-EXC1 submitting without a borrower is blocked and nothing is saved" classname="usman-checkout-due-date.spec.cjs" time="4.355">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/usman-checkout-due-date-UC-452e5-locked-and-nothing-is-saved/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC1 record the expected return date during checkout › UC1-EXC2 an entry the picker cannot accept is replaced with the current date and time, and that is what is saved" classname="usman-checkout-due-date.spec.cjs" time="6.769">
+<properties>
+<property name="finding" value="D-UI-01: invalid due-date text is silently replaced by now() and saved">
+</property>
+</properties>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/usman-checkout-due-date-UC-6b915-e-and-that-is-what-is-saved/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="usman-return-location-date.spec.cjs" timestamp="2026-11-22T12:15:13.223Z" hostname="" tests="5" failures="0" skipped="0" time="28.538" errors="0">
+<testcase name="UC2 record the return location and date › UC2-MAIN technician returns a laptop to a chosen location and the return record shows it" classname="usman-return-location-date.spec.cjs" time="6.945">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/usman-return-location-date-399ff--the-return-record-shows-it/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC2 record the return location and date › UC2-ALT1 keeping the default return location sends the laptop to its default location" classname="usman-return-location-date.spec.cjs" time="5.147">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/usman-return-location-date-04277-top-to-its-default-location/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC2 record the return location and date › UC2-ALT2 a supported earlier return date is recorded in the history" classname="usman-return-location-date.spec.cjs" time="5.847">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/usman-return-location-date-878fe--is-recorded-in-the-history/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC2 record the return location and date › UC2-EXC1 with check-in notes required, omitting the note blocks the return and nothing is recorded" classname="usman-return-location-date.spec.cjs" time="5.746">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/usman-return-location-date-98db0-urn-and-nothing-is-recorded/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC2 record the return location and date › UC2-EXC2 opening a return link for a missing asset shows an error and records no return" classname="usman-return-location-date.spec.cjs" time="4.853">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/usman-return-location-date-8e027-error-and-records-no-return/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

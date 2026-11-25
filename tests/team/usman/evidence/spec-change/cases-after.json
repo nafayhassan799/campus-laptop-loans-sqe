@@ -1,0 +1,2516 @@
+[
+  {
+    "id": "CI.asset-id.below-minimum-0",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "BVA",
+    "field": "asset_id",
+    "partition": "below-minimum (0)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A3"
+    ],
+    "precondition": "loaned",
+    "asset_id": 0,
+    "body": {},
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
+  },
+  {
+    "id": "CI.asset-id.decimal-number",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "asset_id",
+    "partition": "decimal number",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A3"
+    ],
+    "precondition": "loaned",
+    "asset_id": "1.5",
+    "body": {},
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
+  },
+  {
+    "id": "CI.asset-id.id-that-matches-no-asset",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "asset_id",
+    "partition": "id that matches no asset",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A3"
+    ],
+    "precondition": "loaned",
+    "asset_id": 2147483647,
+    "body": {},
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
+  },
+  {
+    "id": "CI.asset-id.negative-1",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "asset_id",
+    "partition": "negative (-1)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A3"
+    ],
+    "precondition": "loaned",
+    "asset_id": -1,
+    "body": {},
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
+  },
+  {
+    "id": "CI.asset-id.non-numeric-text",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "asset_id",
+    "partition": "non-numeric text",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A3"
+    ],
+    "precondition": "loaned",
+    "asset_id": "abc",
+    "body": {},
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
+  },
+  {
+    "id": "CI.baseline.valid-baseline-request",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": null,
+    "partition": "valid baseline request",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A3",
+      "R-A4",
+      "R-A5",
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {},
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "All required fields set to their valid example, optional fields omitted."
+  },
+  {
+    "id": "CI.checkin-at.explicit-null",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "checkin_at",
+    "partition": "explicit null",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "checkin_at": null
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "No enforced ordered date bound; the controller concatenates the value with the current time of day."
+  },
+  {
+    "id": "CI.checkin-at.impossible-calendar-date-2027-02-29",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "checkin_at",
+    "partition": "impossible calendar date (2027-02-29)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "checkin_at": "2027-02-29"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "No enforced ordered date bound; the controller concatenates the value with the current time of day."
+  },
+  {
+    "id": "CI.checkin-at.month-out-of-range-2027-13-01",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "checkin_at",
+    "partition": "month out of range (2027-13-01)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "checkin_at": "2027-13-01"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "No enforced ordered date bound; the controller concatenates the value with the current time of day."
+  },
+  {
+    "id": "CI.checkin-at.text-that-is-not-a-date",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "checkin_at",
+    "partition": "text that is not a date",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "checkin_at": "not-a-date"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "No enforced ordered date bound; the controller concatenates the value with the current time of day."
+  },
+  {
+    "id": "CI.checkin-at.valid-leap-day-2028-02-29",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "checkin_at",
+    "partition": "valid leap day (2028-02-29)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "checkin_at": "2028-02-29"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "No enforced ordered date bound; the controller concatenates the value with the current time of day."
+  },
+  {
+    "id": "CI.checkin-at.valid-value-today",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "checkin_at",
+    "partition": "valid value (@today)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "checkin_at": "@today"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "No enforced ordered date bound; the controller concatenates the value with the current time of day."
+  },
+  {
+    "id": "CI.checkin-at.wrong-type-boolean",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "checkin_at",
+    "partition": "wrong type (boolean)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "checkin_at": true
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "No enforced ordered date bound; the controller concatenates the value with the current time of day."
+  },
+  {
+    "id": "CI.clear-name.enumeration-value-with-changed-case",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "clear_name",
+    "partition": "enumeration value with changed case",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "clear_name": "1x"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Single-value enumeration: only '1' triggers the clear; there is no ordered boundary."
+  },
+  {
+    "id": "CI.clear-name.valid-value-1",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "clear_name",
+    "partition": "valid value (1)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "clear_name": "1"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Single-value enumeration: only '1' triggers the clear; there is no ordered boundary."
+  },
+  {
+    "id": "CI.clear-name.value-outside-the-enumeration",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "clear_name",
+    "partition": "value outside the enumeration",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "clear_name": "invalid-enum"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Single-value enumeration: only '1' triggers the clear; there is no ordered boundary."
+  },
+  {
+    "id": "CI.clear-name.wrong-type-number",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "clear_name",
+    "partition": "wrong type (number)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "clear_name": 123
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Single-value enumeration: only '1' triggers the clear; there is no ordered boundary."
+  },
+  {
+    "id": "CI.location-id.above-minimum-2",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "BVA",
+    "field": "location_id",
+    "partition": "above minimum (2)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "location_id": 2
+    },
+    "expect": {
+      "outcome": "depends",
+      "oracle": "reference:locations"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.location-id.at-minimum-1",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "BVA",
+    "field": "location_id",
+    "partition": "at minimum (1)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "location_id": 1
+    },
+    "expect": {
+      "outcome": "depends",
+      "oracle": "reference:locations"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.location-id.below-minimum-0",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "BVA",
+    "field": "location_id",
+    "partition": "below minimum (0)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "location_id": 0
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.location-id.explicit-null",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "location_id",
+    "partition": "explicit null",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "location_id": null
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.location-id.valid-value-location",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "location_id",
+    "partition": "valid value (@location)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "location_id": "@location"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.location-id.well-formed-id-that-matches-no-row-2147483647",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "location_id",
+    "partition": "well-formed id that matches no row (2147483647)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "location_id": 2147483647
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.location-id.wrong-type-boolean",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "location_id",
+    "partition": "wrong type (boolean)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "location_id": true
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.location-id.wrong-type-decimal",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "location_id",
+    "partition": "wrong type (decimal)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "location_id": 1.5
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.location-id.wrong-type-text",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "location_id",
+    "partition": "wrong type (text)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "location_id": "abc"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.name.explicit-null",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "name",
+    "partition": "explicit null",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "name": null
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.name.length-254-below-maximum",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "BVA",
+    "field": "name",
+    "partition": "length 254 (below maximum)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "name": "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.name.length-255-at-maximum",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "BVA",
+    "field": "name",
+    "partition": "length 255 (at maximum)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "name": "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.name.length-256-above-maximum",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "BVA",
+    "field": "name",
+    "partition": "length 256 (above maximum)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "name": "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.name.valid-value-sqe-returned-laptop",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "name",
+    "partition": "valid value (SQE returned laptop)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "name": "SQE returned laptop"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.name.wrong-type-number",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "name",
+    "partition": "wrong type (number)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "name": 12345
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": ""
+  },
+  {
+    "id": "CI.note.explicit-null",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "note",
+    "partition": "explicit null",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "note": null
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Free text with no length limit in the request."
+  },
+  {
+    "id": "CI.note.valid-value-returned-in-good-condition",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "note",
+    "partition": "valid value (Returned in good condition)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "note": "Returned in good condition"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Free text with no length limit in the request."
+  },
+  {
+    "id": "CI.note.wrong-type-number",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "note",
+    "partition": "wrong type (number)",
+    "requirements": [
+      "CI-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "note": 12345
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Free text with no length limit in the request."
+  },
+  {
+    "id": "CI.status-id.above-minimum-2",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "BVA",
+    "field": "status_id",
+    "partition": "above minimum (2)",
+    "requirements": [
+      "CI-02",
+      "CI-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "status_id": 2
+    },
+    "expect": {
+      "outcome": "depends",
+      "oracle": "reference:statuslabels"
+    },
+    "note": "No validation rule exists for status_id on this endpoint; the value is copied to the asset when filled."
+  },
+  {
+    "id": "CI.status-id.at-minimum-1",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "BVA",
+    "field": "status_id",
+    "partition": "at minimum (1)",
+    "requirements": [
+      "CI-02",
+      "CI-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "status_id": 1
+    },
+    "expect": {
+      "outcome": "depends",
+      "oracle": "reference:statuslabels"
+    },
+    "note": "No validation rule exists for status_id on this endpoint; the value is copied to the asset when filled."
+  },
+  {
+    "id": "CI.status-id.below-minimum-0",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "BVA",
+    "field": "status_id",
+    "partition": "below minimum (0)",
+    "requirements": [
+      "CI-02",
+      "CI-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "status_id": 0
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "No validation rule exists for status_id on this endpoint; the value is copied to the asset when filled."
+  },
+  {
+    "id": "CI.status-id.valid-value-deployable-status",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "valid value (@deployable_status)",
+    "requirements": [
+      "CI-02",
+      "CI-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "status_id": "@deployable_status"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "No validation rule exists for status_id on this endpoint; the value is copied to the asset when filled."
+  },
+  {
+    "id": "CI.status-id.well-formed-id-that-matches-no-row-2147483647",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "well-formed id that matches no row (2147483647)",
+    "requirements": [
+      "CI-02",
+      "CI-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "status_id": 2147483647
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "No validation rule exists for status_id on this endpoint; the value is copied to the asset when filled."
+  },
+  {
+    "id": "CI.status-id.wrong-type-boolean",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "wrong type (boolean)",
+    "requirements": [
+      "CI-02",
+      "CI-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "status_id": true
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "No validation rule exists for status_id on this endpoint; the value is copied to the asset when filled."
+  },
+  {
+    "id": "CI.status-id.wrong-type-decimal",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "wrong type (decimal)",
+    "requirements": [
+      "CI-02",
+      "CI-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "status_id": 1.5
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "No validation rule exists for status_id on this endpoint; the value is copied to the asset when filled."
+  },
+  {
+    "id": "CI.status-id.wrong-type-text",
+    "operation": "checkinLaptopFromStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkin",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "wrong type (text)",
+    "requirements": [
+      "CI-02",
+      "CI-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "loaned",
+    "asset_id": "@asset",
+    "body": {
+      "status_id": "abc"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "No validation rule exists for status_id on this endpoint; the value is copied to the asset when filled."
+  },
+  {
+    "id": "CO.asset-id.below-minimum-0",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "BVA",
+    "field": "asset_id",
+    "partition": "below-minimum (0)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A3"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": 0,
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
+  },
+  {
+    "id": "CO.asset-id.decimal-number",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "asset_id",
+    "partition": "decimal number",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A3"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "1.5",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
+  },
+  {
+    "id": "CO.asset-id.id-that-matches-no-asset",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "asset_id",
+    "partition": "id that matches no asset",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A3"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": 2147483647,
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
+  },
+  {
+    "id": "CO.asset-id.negative-1",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "asset_id",
+    "partition": "negative (-1)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A3"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": -1,
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
+  },
+  {
+    "id": "CO.asset-id.non-numeric-text",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "asset_id",
+    "partition": "non-numeric text",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A3"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "abc",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
+  },
+  {
+    "id": "CO.assigned-user.above-minimum-11",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "BVA",
+    "field": "assigned_user",
+    "partition": "above minimum (11)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": 11
+    },
+    "expect": {
+      "outcome": "depends",
+      "oracle": "reference:users"
+    },
+    "note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422."
+  },
+  {
+    "id": "CO.assigned-user.at-minimum-10",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "BVA",
+    "field": "assigned_user",
+    "partition": "at minimum (10)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": 10
+    },
+    "expect": {
+      "outcome": "depends",
+      "oracle": "reference:users"
+    },
+    "note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422."
+  },
+  {
+    "id": "CO.assigned-user.below-minimum-9",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "BVA",
+    "field": "assigned_user",
+    "partition": "below minimum (9)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": 9
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422."
+  },
+  {
+    "id": "CO.assigned-user.required-field-is-null",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "assigned_user",
+    "partition": "required field is null",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": null
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422."
+  },
+  {
+    "id": "CO.assigned-user.required-field-omitted",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "assigned_user",
+    "partition": "required field omitted",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422."
+  },
+  {
+    "id": "CO.assigned-user.well-formed-id-that-matches-no-row-2147483647",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "assigned_user",
+    "partition": "well-formed id that matches no row (2147483647)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": 2147483647
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422."
+  },
+  {
+    "id": "CO.assigned-user.wrong-type-boolean",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "assigned_user",
+    "partition": "wrong type (boolean)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": true
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422."
+  },
+  {
+    "id": "CO.assigned-user.wrong-type-decimal",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "assigned_user",
+    "partition": "wrong type (decimal)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": 1.5
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422."
+  },
+  {
+    "id": "CO.assigned-user.wrong-type-text",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "assigned_user",
+    "partition": "wrong type (text)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "abc"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422."
+  },
+  {
+    "id": "CO.baseline.valid-baseline-request",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": null,
+    "partition": "valid baseline request",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A2",
+      "R-A3",
+      "R-A4",
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "All required fields set to their valid example, optional fields omitted."
+  },
+  {
+    "id": "CO.checkout-at.explicit-null",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_at",
+    "partition": "explicit null",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "checkout_at": null
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Same as expected_checkin: no enforced ordered date bound."
+  },
+  {
+    "id": "CO.checkout-at.impossible-calendar-date-2027-02-29",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_at",
+    "partition": "impossible calendar date (2027-02-29)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "checkout_at": "2027-02-29"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Same as expected_checkin: no enforced ordered date bound."
+  },
+  {
+    "id": "CO.checkout-at.month-out-of-range-2027-13-01",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_at",
+    "partition": "month out of range (2027-13-01)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "checkout_at": "2027-13-01"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Same as expected_checkin: no enforced ordered date bound."
+  },
+  {
+    "id": "CO.checkout-at.text-that-is-not-a-date",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_at",
+    "partition": "text that is not a date",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "checkout_at": "not-a-date"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Same as expected_checkin: no enforced ordered date bound."
+  },
+  {
+    "id": "CO.checkout-at.valid-leap-day-2028-02-29",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_at",
+    "partition": "valid leap day (2028-02-29)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "checkout_at": "2028-02-29"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Same as expected_checkin: no enforced ordered date bound."
+  },
+  {
+    "id": "CO.checkout-at.valid-value-today",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_at",
+    "partition": "valid value (@today)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "checkout_at": "@today"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Same as expected_checkin: no enforced ordered date bound."
+  },
+  {
+    "id": "CO.checkout-at.wrong-type-boolean",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_at",
+    "partition": "wrong type (boolean)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "checkout_at": true
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Same as expected_checkin: no enforced ordered date bound."
+  },
+  {
+    "id": "CO.checkout-to-type.enumeration-value-with-changed-case",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_to_type",
+    "partition": "enumeration value with changed case",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "USERx",
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The server also accepts 'asset' and 'location'; those targets are outside the project scope and are not generated."
+  },
+  {
+    "id": "CO.checkout-to-type.required-field-is-null",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_to_type",
+    "partition": "required field is null",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": null,
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "The server also accepts 'asset' and 'location'; those targets are outside the project scope and are not generated."
+  },
+  {
+    "id": "CO.checkout-to-type.required-field-omitted-server-infers-it",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_to_type",
+    "partition": "required field omitted (server infers it)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "The server also accepts 'asset' and 'location'; those targets are outside the project scope and are not generated."
+  },
+  {
+    "id": "CO.checkout-to-type.value-outside-the-enumeration",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_to_type",
+    "partition": "value outside the enumeration",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "invalid-enum",
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The server also accepts 'asset' and 'location'; those targets are outside the project scope and are not generated."
+  },
+  {
+    "id": "CO.checkout-to-type.wrong-type-number",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "checkout_to_type",
+    "partition": "wrong type (number)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": 123,
+      "assigned_user": "@student"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "The server also accepts 'asset' and 'location'; those targets are outside the project scope and are not generated."
+  },
+  {
+    "id": "CO.expected-checkin.explicit-null",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "expected_checkin",
+    "partition": "explicit null",
+    "requirements": [
+      "CO-02"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "expected_checkin": null
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "A calendar date has no ordered numeric bound the server enforces (no minimum or maximum date rule). Equivalence partitions are used instead: valid date, impossible calendar date, wrong format, wrong type."
+  },
+  {
+    "id": "CO.expected-checkin.impossible-calendar-date-2027-02-29",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "expected_checkin",
+    "partition": "impossible calendar date (2027-02-29)",
+    "requirements": [
+      "CO-02"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "expected_checkin": "2027-02-29"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "A calendar date has no ordered numeric bound the server enforces (no minimum or maximum date rule). Equivalence partitions are used instead: valid date, impossible calendar date, wrong format, wrong type."
+  },
+  {
+    "id": "CO.expected-checkin.month-out-of-range-2027-13-01",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "expected_checkin",
+    "partition": "month out of range (2027-13-01)",
+    "requirements": [
+      "CO-02"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "expected_checkin": "2027-13-01"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "A calendar date has no ordered numeric bound the server enforces (no minimum or maximum date rule). Equivalence partitions are used instead: valid date, impossible calendar date, wrong format, wrong type."
+  },
+  {
+    "id": "CO.expected-checkin.text-that-is-not-a-date",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "expected_checkin",
+    "partition": "text that is not a date",
+    "requirements": [
+      "CO-02"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "expected_checkin": "not-a-date"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "A calendar date has no ordered numeric bound the server enforces (no minimum or maximum date rule). Equivalence partitions are used instead: valid date, impossible calendar date, wrong format, wrong type."
+  },
+  {
+    "id": "CO.expected-checkin.valid-leap-day-2028-02-29",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "expected_checkin",
+    "partition": "valid leap day (2028-02-29)",
+    "requirements": [
+      "CO-02"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "expected_checkin": "2028-02-29"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "A calendar date has no ordered numeric bound the server enforces (no minimum or maximum date rule). Equivalence partitions are used instead: valid date, impossible calendar date, wrong format, wrong type."
+  },
+  {
+    "id": "CO.expected-checkin.valid-value-due-date",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "expected_checkin",
+    "partition": "valid value (@due_date)",
+    "requirements": [
+      "CO-02"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "expected_checkin": "@due_date"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "A calendar date has no ordered numeric bound the server enforces (no minimum or maximum date rule). Equivalence partitions are used instead: valid date, impossible calendar date, wrong format, wrong type."
+  },
+  {
+    "id": "CO.expected-checkin.wrong-type-boolean",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "expected_checkin",
+    "partition": "wrong type (boolean)",
+    "requirements": [
+      "CO-02"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "expected_checkin": true
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "A calendar date has no ordered numeric bound the server enforces (no minimum or maximum date rule). Equivalence partitions are used instead: valid date, impossible calendar date, wrong format, wrong type."
+  },
+  {
+    "id": "CO.name.explicit-null",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "name",
+    "partition": "explicit null",
+    "requirements": [
+      "CO-04"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "name": null
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Asset::rules name => nullable|max:255. A rejected name must leave the asset untouched. The database column was 191 characters at the pinned commit; branch sqe/asset-name-boundary widens it."
+  },
+  {
+    "id": "CO.name.length-100-at-maximum",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "BVA",
+    "field": "name",
+    "partition": "length 100 (at maximum)",
+    "requirements": [
+      "CO-04"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "name": "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Asset::rules name => nullable|max:255. A rejected name must leave the asset untouched. The database column was 191 characters at the pinned commit; branch sqe/asset-name-boundary widens it."
+  },
+  {
+    "id": "CO.name.length-101-above-maximum",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "BVA",
+    "field": "name",
+    "partition": "length 101 (above maximum)",
+    "requirements": [
+      "CO-04"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "name": "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Asset::rules name => nullable|max:255. A rejected name must leave the asset untouched. The database column was 191 characters at the pinned commit; branch sqe/asset-name-boundary widens it."
+  },
+  {
+    "id": "CO.name.length-99-below-maximum",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "BVA",
+    "field": "name",
+    "partition": "length 99 (below maximum)",
+    "requirements": [
+      "CO-04"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "name": "LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Asset::rules name => nullable|max:255. A rejected name must leave the asset untouched. The database column was 191 characters at the pinned commit; branch sqe/asset-name-boundary widens it."
+  },
+  {
+    "id": "CO.name.valid-value-sqe-laptop",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "name",
+    "partition": "valid value (SQE laptop)",
+    "requirements": [
+      "CO-04"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "name": "SQE laptop"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Asset::rules name => nullable|max:255. A rejected name must leave the asset untouched. The database column was 191 characters at the pinned commit; branch sqe/asset-name-boundary widens it."
+  },
+  {
+    "id": "CO.name.wrong-type-number",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "name",
+    "partition": "wrong type (number)",
+    "requirements": [
+      "CO-04"
+    ],
+    "risks": [
+      "R-A1",
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "name": 12345
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Asset::rules name => nullable|max:255. A rejected name must leave the asset untouched. The database column was 191 characters at the pinned commit; branch sqe/asset-name-boundary widens it."
+  },
+  {
+    "id": "CO.note.explicit-null",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "note",
+    "partition": "explicit null",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "note": null
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Free text with no length limit in the request rules, so no boundary. When the require_checkinout_notes setting is on, the field becomes required; that setting is exercised only in the isolated browser fixture."
+  },
+  {
+    "id": "CO.note.valid-value-issued-at-the-lab-desk",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "note",
+    "partition": "valid value (Issued at the lab desk)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "note": "Issued at the lab desk"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Free text with no length limit in the request rules, so no boundary. When the require_checkinout_notes setting is on, the field becomes required; that setting is exercised only in the isolated browser fixture."
+  },
+  {
+    "id": "CO.note.wrong-type-number",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "note",
+    "partition": "wrong type (number)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "note": 12345
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Free text with no length limit in the request rules, so no boundary. When the require_checkinout_notes setting is on, the field becomes required; that setting is exercised only in the isolated browser fixture."
+  },
+  {
+    "id": "CO.requestable.explicit-null",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "requestable",
+    "partition": "explicit null",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "requestable": null
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Boolean has no ordered range; both values are one partition each."
+  },
+  {
+    "id": "CO.requestable.number-outside-0-1",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "requestable",
+    "partition": "number outside 0/1",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "requestable": 2
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Boolean has no ordered range; both values are one partition each."
+  },
+  {
+    "id": "CO.requestable.text-that-is-not-a-boolean",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "requestable",
+    "partition": "text that is not a boolean",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "requestable": "not-a-boolean"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "Boolean has no ordered range; both values are one partition each."
+  },
+  {
+    "id": "CO.requestable.valid-boolean-true",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "requestable",
+    "partition": "valid boolean (true)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "requestable": true
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Boolean has no ordered range; both values are one partition each."
+  },
+  {
+    "id": "CO.requestable.valid-value-false",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "requestable",
+    "partition": "valid value (False)",
+    "requirements": [
+      "CO-01"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "requestable": false
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "Boolean has no ordered range; both values are one partition each."
+  },
+  {
+    "id": "CO.status-id.above-minimum-2",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "BVA",
+    "field": "status_id",
+    "partition": "above minimum (2)",
+    "requirements": [
+      "CO-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "status_id": 2
+    },
+    "expect": {
+      "outcome": "depends",
+      "oracle": "reference:statuslabels:deployable"
+    },
+    "note": "nullable|exists:status_labels,id,deployable,1: only a deployable status label may be set during checkout."
+  },
+  {
+    "id": "CO.status-id.at-minimum-1",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "BVA",
+    "field": "status_id",
+    "partition": "at minimum (1)",
+    "requirements": [
+      "CO-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "status_id": 1
+    },
+    "expect": {
+      "outcome": "depends",
+      "oracle": "reference:statuslabels:deployable"
+    },
+    "note": "nullable|exists:status_labels,id,deployable,1: only a deployable status label may be set during checkout."
+  },
+  {
+    "id": "CO.status-id.below-minimum-0",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "BVA",
+    "field": "status_id",
+    "partition": "below minimum (0)",
+    "requirements": [
+      "CO-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "status_id": 0
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "nullable|exists:status_labels,id,deployable,1: only a deployable status label may be set during checkout."
+  },
+  {
+    "id": "CO.status-id.explicit-null",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "explicit null",
+    "requirements": [
+      "CO-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "status_id": null
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "nullable|exists:status_labels,id,deployable,1: only a deployable status label may be set during checkout."
+  },
+  {
+    "id": "CO.status-id.valid-value-deployable-status",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "valid value (@deployable_status)",
+    "requirements": [
+      "CO-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "status_id": "@deployable_status"
+    },
+    "expect": {
+      "outcome": "accept"
+    },
+    "note": "nullable|exists:status_labels,id,deployable,1: only a deployable status label may be set during checkout."
+  },
+  {
+    "id": "CO.status-id.well-formed-id-that-matches-no-row-2147483647",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "well-formed id that matches no row (2147483647)",
+    "requirements": [
+      "CO-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "status_id": 2147483647
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "nullable|exists:status_labels,id,deployable,1: only a deployable status label may be set during checkout."
+  },
+  {
+    "id": "CO.status-id.wrong-type-boolean",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "wrong type (boolean)",
+    "requirements": [
+      "CO-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "status_id": true
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "nullable|exists:status_labels,id,deployable,1: only a deployable status label may be set during checkout."
+  },
+  {
+    "id": "CO.status-id.wrong-type-decimal",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "wrong type (decimal)",
+    "requirements": [
+      "CO-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "status_id": 1.5
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "nullable|exists:status_labels,id,deployable,1: only a deployable status label may be set during checkout."
+  },
+  {
+    "id": "CO.status-id.wrong-type-text",
+    "operation": "checkoutLaptopToStudent",
+    "method": "POST",
+    "path": "/hardware/{asset_id}/checkout",
+    "technique": "EP",
+    "field": "status_id",
+    "partition": "wrong type (text)",
+    "requirements": [
+      "CO-03"
+    ],
+    "risks": [
+      "R-A8"
+    ],
+    "precondition": "deployable-unassigned",
+    "asset_id": "@asset",
+    "body": {
+      "checkout_to_type": "user",
+      "assigned_user": "@student",
+      "status_id": "abc"
+    },
+    "expect": {
+      "outcome": "reject"
+    },
+    "note": "nullable|exists:status_labels,id,deployable,1: only a deployable status label may be set during checkout."
+  }
+]
