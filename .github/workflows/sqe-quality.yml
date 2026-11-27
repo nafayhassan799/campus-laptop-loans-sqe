@@ -76,6 +76,7 @@ jobs:
           node-version: '24'
       - name: Start the disposable laptop-loan environment
         run: |
+          printf '\nAPI_THROTTLE_PER_MINUTE=100000\n' >> .env.docker
           pwsh -NoProfile -File tests/team/start-local.ps1
           python -B tests/team/initialize_local.py
       - name: Run the API smoke and boundary tests
@@ -94,6 +95,22 @@ jobs:
           path: |
             output/nafay-quality/browser/junit.xml
             output/nafay-quality/browser/html
+
+      - name: Run Rafay's Playwright and axe checks
+        working-directory: tests/team/playwright
+        env:
+          SQE_ARTISAN: docker compose -p sqe-campus-laptops exec -T -u docker app php artisan
+        run: |
+          npm ci --no-audit --no-fund
+          node node_modules/@playwright/test/cli.js install --with-deps chromium
+          python -B seed.py --admin-id 1
+          node node_modules/@playwright/test/cli.js test
+
+      - name: Upload Rafay's Playwright results
+        uses: actions/upload-artifact@v7
+        with:
+          name: sqe-rafay-playwright
+          path: output/playwright/junit.xml
 
   gate:
     name: SQE quality gate
