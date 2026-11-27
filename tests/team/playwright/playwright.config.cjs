@@ -51,9 +51,9 @@ module.exports = defineConfig({
   },
   projects: [
     // Signs each role in once and stores the session under output/ (git-ignored).
-    { name: 'setup', testMatch: /auth\.setup\.cjs/ },
-    { name: 'rafay', testDir: './rafay', testMatch: /.*\.spec\.cjs/, testIgnore: /a11y\//, dependencies: ['setup'] },
-    { name: 'a11y', testDir: './rafay/a11y', testMatch: /.*\.spec\.cjs/, dependencies: ['setup'] },
+    { name: 'setup', testMatch: /auth\.setup\.cjs$/ },
+    { name: 'rafay', testDir: './rafay', testMatch: /\.spec\.cjs$/, testIgnore: /a11y\//, dependencies: ['setup'] },
+    { name: 'a11y', testDir: './rafay/a11y', testMatch: /\.spec\.cjs$/, dependencies: ['setup'] },
     // Nafay and Usman: add { name: 'nafay', testDir: './nafay', ... } when the specs move here.
   ],
 });
