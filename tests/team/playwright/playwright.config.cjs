@@ -13,8 +13,13 @@
 const { defineConfig } = require('@playwright/test');
 const path = require('node:path');
 
+const { assertLocalUrl, defaultBaseUrl } = require('./support/local-target.cjs');
+
 const output = path.resolve(__dirname, '../../../output/playwright');
-const zap = process.env.SQE_ZAP_PROXY;
+// Fail fast: the suite signs in with seeded credentials, so it only ever targets the local test app,
+// and the browser traffic (which carries those credentials) may only go through a local ZAP proxy.
+const baseURL = assertLocalUrl(defaultBaseUrl(), 'SQE_BASE_URL').origin;
+const zap = process.env.SQE_ZAP_PROXY ? assertLocalUrl(process.env.SQE_ZAP_PROXY, 'SQE_ZAP_PROXY').origin : undefined;
 
 module.exports = defineConfig({
   testDir: './',
@@ -32,7 +37,7 @@ module.exports = defineConfig({
   ],
   outputDir: path.join(output, 'runs'),
   use: {
-    baseURL: process.env.SQE_BASE_URL || 'http://localhost:8000',
+    baseURL,
     browserName: 'chromium',
     screenshot: 'on',
     trace: 'retain-on-failure',

@@ -21,7 +21,9 @@ const { chromium, request: apiRequest } = require('@playwright/test');
 const here = path.dirname(fileURLToPath(import.meta.url));
 const output = path.resolve(here, '../../../../../output/playwright');
 const data = JSON.parse(fs.readFileSync(process.env.SQE_FIXTURES_FILE || path.join(output, 'fixtures.json'), 'utf8'));
-const baseURL = process.env.SQE_BASE_URL || data.baseUrl;
+const { assertLocalTarget } = require('../../support/local-target.cjs');
+// Checked before the admin token or the technician password is used below.
+const baseURL = assertLocalTarget(process.env.SQE_BASE_URL || data.baseUrl, data.baseUrl);
 const label = process.env.SQE_A11Y_LABEL || 'latest';
 const outDir = path.join(output, 'a11y', label);
 const PORT = 9333;

@@ -6,6 +6,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { test: base, expect } = require('@playwright/test');
+const { assertLocalTarget, defaultBaseUrl } = require('./local-target.cjs');
 
 const OUTPUT = path.resolve(__dirname, '../../../../output/playwright');
 const fixtureFile = process.env.SQE_FIXTURES_FILE || path.join(OUTPUT, 'fixtures.json');
@@ -13,6 +14,8 @@ if (!fs.existsSync(fixtureFile)) {
   throw new Error(`Missing ${fixtureFile}. Run: python3 -B tests/team/playwright/seed.py --admin-id <id>`);
 }
 const data = JSON.parse(fs.readFileSync(fixtureFile, 'utf8'));
+// Before any credential below is used: the app and the seeded instance must be the same local app.
+assertLocalTarget(defaultBaseUrl(), data.baseUrl);
 const sessionFile = (role) => path.join(OUTPUT, '.auth', `${role}.json`);
 
 // ---------------------------------------------------------------- REST read-back
