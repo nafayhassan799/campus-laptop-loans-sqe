@@ -26,6 +26,7 @@ Agent wall-clock for drafting and running this work in one session was roughly o
 | 5 | same | Recovery script | `recovery/recover_checkout.py` | Fixed the SQL delimiter and the failure classification after the first runs; both faults pass |
 | 6 | same | Playwright use cases | `browser/*` | Explored the real forms first; discovered that `fill()` without focus breaks the picker and that flash messages are lost to background requests; fixed the helpers; ran the 10 tests five times in a row |
 | 7 | same | Findings, issue drafts, traceability | `findings.md`, `issue-drafts.md`, `build_traceability.py` | Statements about root cause were rechecked against the source (`Schema::defaultStringLength(191)`, the check-in controller); two unsupported claims were removed |
+| 8 | Codex | Address the PR #4 review and integrate the checks into CI | API runner and boundary tests, k6 target-load measurement, GitHub Actions, refreshed evidence | Checked that unrelated failures fail the run, verified both asset-ID boundaries, and inspected the 120 API cases, two recovery scenarios, 10 browser cases, and four k6 results from the [CI run](https://github.com/nafayhassan799/campus-laptop-loans-sqe/actions/runs/46026037630) |
 
 Prompts: the single instruction was "complete all of my assigned tasks" with the assignment file and the repository link. Keep the full prompt history from the session with this record.
-Not done by AI and still needed from the member: filing the GitHub issues, pushing and opening the pull request, the actual-hours column, and rehearsing the viva.
+The group still owns issue triage, recording actual hours, and viva preparation.

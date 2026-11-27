@@ -6,11 +6,11 @@ Counts are passes over tests of that kind. XFAIL is a triaged defect whose test 
 
 | ID | Requirement | Tests by kind | Total | Unexpected failures |
 | --- | --- | --- | ---: | ---: |
-| CO-01 | Eligible student assignment recorded | browser 4/4, generated 35/35, performance 4/4, recovery 2/2, scenario 2/2 | 47 | 0 |
+| CO-01 | Eligible student assignment recorded | browser 4/4, generated 37/37, performance 4/4, recovery 2/2, scenario 2/2 | 49 | 0 |
 | CO-02 | Supplied expected return date persisted | browser 4/4, generated 7/7, scenario 2/2 | 13 | 0 |
 | CO-03 | Checkout of an unavailable asset rejected, original record unchanged | generated 9/9, recovery 2/2, scenario 8/8 | 19 | 0 |
 | CO-04 | 255-character asset-name limit enforced | generated 5/6 (+1 XFAIL) | 6 | 0 |
-| CI-01 | Check-in clears assignee and return date | browser 5/5, generated 23/35 (+12 XFAIL), scenario 1/1 | 41 | 0 |
+| CI-01 | Check-in clears assignee and return date | browser 5/5, generated 25/37 (+12 XFAIL), scenario 1/1 | 43 | 0 |
 | CI-02 | Deployable return can be lent again | generated 6/8 (+2 XFAIL), scenario 1/1 | 9 | 0 |
 | CI-03 | Repair return stays unavailable, cannot be lent | generated 6/8 (+2 XFAIL), scenario 2/2 | 10 | 0 |
 | CI-04 | Repeated check-in records no second return | scenario 2/2 | 2 | 0 |
@@ -21,7 +21,7 @@ Counts are passes over tests of that kind. XFAIL is a triaged defect whose test 
 | --- | --- | --- | ---: | ---: |
 | R-A1 | Silent data truncation (asset name) | generated 10/12 (+2 XFAIL) | 12 | 0 |
 | R-A2 | Unavailable or already-loaned laptop lent / overlapping loans | generated 1/1, scenario 8/8 | 9 | 0 |
-| R-A3 | Rejection masked as HTTP 200 or ignored by clients | generated 12/12, scenario 4/4 | 16 | 0 |
+| R-A3 | Rejection masked as HTTP 200 or ignored by clients | generated 16/16, scenario 4/4 | 20 | 0 |
 | R-A4 | Unauthorised checkout or check-in | generated 2/2, scenario 2/2 | 4 | 0 |
 | R-A5 | Repeated check-in duplicates return history | browser 4/4, generated 1/1, scenario 3/3 | 8 | 0 |
 | R-A6 | Partial write or duplicate after a dependency failure | recovery 2/2 | 2 | 0 |

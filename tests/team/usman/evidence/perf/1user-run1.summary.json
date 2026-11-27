@@ -1,23 +1,29 @@
 {
   "users": 1,
+  "warmupSeconds": 5,
   "holdSeconds": 60,
   "p95Limit": 1000,
-  "p95_ms": 158.70262739999995,
-  "avg_ms": 112.5085525740741,
-  "max_ms": 178.672202,
-  "requests": 54,
-  "requestsPerSecond": 0.8783441191990499,
+  "p95_ms": 61.6620004,
+  "avg_ms": 58.11216196491228,
+  "max_ms": 63.280154,
+  "requests": 57,
+  "requestsPerSecond": 0.95,
   "unexpectedFailureRate": 0,
   "unexpectedFailures": 0,
   "thresholdsPassed": true,
   "thresholds": {
-    "unexpected_failure": {
-      "rate<=0": {
+    "checkout_form_requests": {
+      "count>0": {
         "ok": true
       }
     },
     "checkout_form_duration": {
       "p(95)<1000": {
+        "ok": true
+      }
+    },
+    "unexpected_failure": {
+      "rate<=0": {
         "ok": true
       }
     }

@@ -172,7 +172,8 @@ jobs:
             output/usman/api/junit.xml
             output/usman/api/results.json
             output/usman/browser/junit.xml
-            output/usman/recovery-results.json
+            output/usman/recovery/recovery-results.json
+            output/usman/recovery/recovery-log.txt
             output/usman/perf/*.json
             output/usman/perf/*.json.gz
             output/usman/perf/comparison.md

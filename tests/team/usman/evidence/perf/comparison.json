@@ -2,40 +2,40 @@
   {
     "run": "1user-run1",
     "users": 1,
-    "p95_ms": 158.7,
+    "p95_ms": 61.7,
     "p95_limit": 1000,
-    "rps": 0.88,
-    "requests": 54,
+    "rps": 0.95,
+    "requests": 57,
     "unexpected": 0,
     "result": "PASS"
   },
   {
     "run": "5user-run1",
     "users": 5,
-    "p95_ms": 137.0,
+    "p95_ms": 73.7,
     "p95_limit": 1500,
-    "rps": 4.28,
-    "requests": 280,
+    "rps": 4.7,
+    "requests": 282,
     "unexpected": 0,
     "result": "PASS"
   },
   {
     "run": "1user-run2",
     "users": 1,
-    "p95_ms": 125.1,
+    "p95_ms": 63.7,
     "p95_limit": 1000,
-    "rps": 0.89,
-    "requests": 55,
+    "rps": 0.95,
+    "requests": 57,
     "unexpected": 0,
     "result": "PASS"
   },
   {
     "run": "5user-run2",
     "users": 5,
-    "p95_ms": 131.4,
+    "p95_ms": 92.4,
     "p95_limit": 1500,
-    "rps": 4.28,
-    "requests": 283,
+    "rps": 4.67,
+    "requests": 280,
     "unexpected": 0,
     "result": "PASS"
   }

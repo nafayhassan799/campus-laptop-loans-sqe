@@ -1,6 +1,6 @@
 # API test summary
 
-Spec version 8.8.4; 116 tests: 101 PASS, 15 XFAIL, 0 FAIL, 0 XPASS
+Spec version 8.8.4. 120 tests, 105 PASS, 15 XFAIL, 0 FAIL, 0 XPASS.
 
 | Test | Kind | Requirements | Risks | Status |
 | --- | --- | --- | --- | --- |
@@ -20,6 +20,8 @@ Spec version 8.8.4; 116 tests: 101 PASS, 15 XFAIL, 0 FAIL, 0 XPASS
 | S-AUTH-01 | scenario | CO-03, CI-03 | R-A4 | PASS |
 | S-AUTH-02 | scenario | CO-03 | R-A4 | PASS |
 | S-CONC-01 | scenario | CO-03 | R-A2 | PASS |
+| CI.asset-id.above-minimum-2 | generated | CI-01 | R-A3 | PASS |
+| CI.asset-id.at-minimum-1 | generated | CI-01 | R-A3 | PASS |
 | CI.asset-id.below-minimum-0 | generated | CI-01 | R-A3 | PASS |
 | CI.asset-id.decimal-number | generated | CI-01 | R-A3 | PASS |
 | CI.asset-id.id-that-matches-no-asset | generated | CI-01 | R-A3 | PASS |
@@ -63,6 +65,8 @@ Spec version 8.8.4; 116 tests: 101 PASS, 15 XFAIL, 0 FAIL, 0 XPASS
 | CI.status-id.wrong-type-boolean | generated | CI-02, CI-03 | R-A8 | XFAIL |
 | CI.status-id.wrong-type-decimal | generated | CI-02, CI-03 | R-A8 | XFAIL |
 | CI.status-id.wrong-type-text | generated | CI-02, CI-03 | R-A8 | PASS |
+| CO.asset-id.above-minimum-2 | generated | CO-01 | R-A3 | PASS |
+| CO.asset-id.at-minimum-1 | generated | CO-01 | R-A3 | PASS |
 | CO.asset-id.below-minimum-0 | generated | CO-01 | R-A3 | PASS |
 | CO.asset-id.decimal-number | generated | CO-01 | R-A3 | PASS |
 | CO.asset-id.id-that-matches-no-asset | generated | CO-01 | R-A3 | PASS |

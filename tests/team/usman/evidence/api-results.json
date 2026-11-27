@@ -1,8 +1,8 @@
 {
   "specVersion": "8.8.4",
-  "generatedCases": 100,
+  "generatedCases": 104,
   "totals": {
-    "PASS": 101,
+    "PASS": 105,
     "XFAIL": 15,
     "FAIL": 0,
     "XPASS": 0
@@ -19,7 +19,7 @@
       ],
       "title": "Checkout assigns the student and marks the laptop deployed, with one history entry",
       "observed": null,
-      "seconds": 0.77,
+      "seconds": 0.311,
       "status": "PASS"
     },
     {
@@ -33,7 +33,7 @@
       ],
       "title": "Expected return date is persisted exactly",
       "observed": null,
-      "seconds": 0.577,
+      "seconds": 0.239,
       "status": "PASS"
     },
     {
@@ -47,7 +47,7 @@
       ],
       "title": "A checkout without a return date stores none",
       "observed": null,
-      "seconds": 0.647,
+      "seconds": 0.245,
       "status": "PASS"
     },
     {
@@ -62,7 +62,7 @@
       ],
       "title": "A laptop that needs repair cannot be checked out",
       "observed": null,
-      "seconds": 0.871,
+      "seconds": 0.354,
       "status": "PASS"
     },
     {
@@ -76,7 +76,7 @@
       ],
       "title": "An archived laptop cannot be checked out",
       "observed": null,
-      "seconds": 0.807,
+      "seconds": 0.347,
       "status": "PASS"
     },
     {
@@ -91,7 +91,7 @@
       ],
       "title": "A second checkout is rejected and the first loan stays intact",
       "observed": null,
-      "seconds": 1.088,
+      "seconds": 0.434,
       "status": "PASS"
     },
     {
@@ -105,7 +105,7 @@
       ],
       "title": "A deleted laptop cannot be checked out",
       "observed": null,
-      "seconds": 0.45,
+      "seconds": 0.224,
       "status": "PASS"
     },
     {
@@ -120,7 +120,7 @@
       ],
       "title": "A checkout to a user id that does not exist is rejected",
       "observed": null,
-      "seconds": 0.686,
+      "seconds": 0.314,
       "status": "PASS"
     },
     {
@@ -134,7 +134,7 @@
       ],
       "title": "Check-in clears the assignee and due date and records one return",
       "observed": null,
-      "seconds": 0.791,
+      "seconds": 0.373,
       "status": "PASS"
     },
     {
@@ -148,7 +148,7 @@
       ],
       "title": "A deployable return can be lent again",
       "observed": null,
-      "seconds": 0.628,
+      "seconds": 0.325,
       "status": "PASS"
     },
     {
@@ -163,7 +163,7 @@
       ],
       "title": "A return marked for repair stays unavailable and cannot be lent",
       "observed": null,
-      "seconds": 1.115,
+      "seconds": 0.504,
       "status": "PASS"
     },
     {
@@ -178,7 +178,7 @@
       ],
       "title": "A repeated empty check-in is rejected without a second return",
       "observed": null,
-      "seconds": 0.882,
+      "seconds": 0.408,
       "status": "PASS"
     },
     {
@@ -192,7 +192,7 @@
       ],
       "title": "A repeated check-in with metadata updates the record but records no second return",
       "observed": null,
-      "seconds": 0.864,
+      "seconds": 0.423,
       "status": "PASS"
     },
     {
@@ -207,7 +207,7 @@
       ],
       "title": "A read-only reviewer cannot check out or check in, and nothing changes",
       "observed": null,
-      "seconds": 1.335,
+      "seconds": 0.583,
       "status": "PASS"
     },
     {
@@ -221,7 +221,7 @@
       ],
       "title": "Requests without a token are refused",
       "observed": null,
-      "seconds": 0.818,
+      "seconds": 0.339,
       "status": "PASS"
     },
     {
@@ -235,7 +235,49 @@
       ],
       "title": "Two simultaneous checkouts leave exactly one loan and one history entry",
       "observed": null,
-      "seconds": 0.844,
+      "seconds": 0.346,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.asset-id.above-minimum-2",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "above-minimum (2)",
+      "technique": "BVA",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.384,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.asset-id.at-minimum-1",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "at-minimum (1)",
+      "technique": "BVA",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.393,
       "status": "PASS"
     },
     {
@@ -256,7 +298,7 @@
         "message": "\"Asset not found\"",
         "outcome": "rejected"
       },
-      "seconds": 1.83,
+      "seconds": 0.343,
       "status": "PASS"
     },
     {
@@ -277,7 +319,7 @@
         "message": "\"Asset not found\"",
         "outcome": "rejected"
       },
-      "seconds": 1.733,
+      "seconds": 0.361,
       "status": "PASS"
     },
     {
@@ -298,7 +340,7 @@
         "message": "\"Asset not found\"",
         "outcome": "rejected"
       },
-      "seconds": 1.756,
+      "seconds": 0.352,
       "status": "PASS"
     },
     {
@@ -319,7 +361,7 @@
         "message": "\"Asset not found\"",
         "outcome": "rejected"
       },
-      "seconds": 1.893,
+      "seconds": 0.354,
       "status": "PASS"
     },
     {
@@ -340,7 +382,7 @@
         "message": "\"Asset not found\"",
         "outcome": "rejected"
       },
-      "seconds": 1.763,
+      "seconds": 0.36,
       "status": "PASS"
     },
     {
@@ -364,7 +406,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.699,
+      "seconds": 0.374,
       "status": "PASS"
     },
     {
@@ -385,7 +427,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.82,
+      "seconds": 0.362,
       "status": "PASS"
     },
     {
@@ -400,9 +442,15 @@
       "title": "impossible calendar date (2027-02-29)",
       "technique": "EP",
       "field": "checkin_at",
-      "seconds": 1.794,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.36,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-01: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-01",
         "severity": "Major",
@@ -423,9 +471,15 @@
       "title": "month out of range (2027-13-01)",
       "technique": "EP",
       "field": "checkin_at",
-      "seconds": 1.842,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.366,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-01: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-01",
         "severity": "Major",
@@ -446,9 +500,15 @@
       "title": "text that is not a date",
       "technique": "EP",
       "field": "checkin_at",
-      "seconds": 1.98,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.362,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-01: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-01",
         "severity": "Major",
@@ -475,7 +535,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.935,
+      "seconds": 0.367,
       "status": "PASS"
     },
     {
@@ -496,7 +556,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.834,
+      "seconds": 0.367,
       "status": "PASS"
     },
     {
@@ -511,9 +571,15 @@
       "title": "wrong type (boolean)",
       "technique": "EP",
       "field": "checkin_at",
-      "seconds": 1.775,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.361,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-01: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-01",
         "severity": "Major",
@@ -534,9 +600,15 @@
       "title": "enumeration value with changed case",
       "technique": "EP",
       "field": "clear_name",
-      "seconds": 1.856,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.407,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-03: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-03",
         "severity": "Minor",
@@ -563,7 +635,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.886,
+      "seconds": 0.369,
       "status": "PASS"
     },
     {
@@ -578,9 +650,15 @@
       "title": "value outside the enumeration",
       "technique": "EP",
       "field": "clear_name",
-      "seconds": 1.826,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.41,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-03: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-03",
         "severity": "Minor",
@@ -601,9 +679,15 @@
       "title": "wrong type (number)",
       "technique": "EP",
       "field": "clear_name",
-      "seconds": 1.908,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.414,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-03: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-03",
         "severity": "Minor",
@@ -630,7 +714,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.046,
+      "seconds": 0.408,
       "status": "PASS"
     },
     {
@@ -651,7 +735,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.932,
+      "seconds": 0.418,
       "status": "PASS"
     },
     {
@@ -666,9 +750,15 @@
       "title": "below minimum (0)",
       "technique": "BVA",
       "field": "location_id",
-      "seconds": 1.939,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.387,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-02: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-02",
         "severity": "Major",
@@ -695,7 +785,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.032,
+      "seconds": 0.385,
       "status": "PASS"
     },
     {
@@ -716,7 +806,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.881,
+      "seconds": 0.397,
       "status": "PASS"
     },
     {
@@ -737,7 +827,7 @@
         "message": "\"Asset was not checked in, please try again\"",
         "outcome": "rejected"
       },
-      "seconds": 1.843,
+      "seconds": 0.389,
       "status": "PASS"
     },
     {
@@ -752,9 +842,15 @@
       "title": "wrong type (boolean)",
       "technique": "EP",
       "field": "location_id",
-      "seconds": 1.869,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.41,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-02: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-02",
         "severity": "Major",
@@ -775,9 +871,15 @@
       "title": "wrong type (decimal)",
       "technique": "EP",
       "field": "location_id",
-      "seconds": 1.802,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.388,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-02: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-02",
         "severity": "Major",
@@ -798,9 +900,15 @@
       "title": "wrong type (text)",
       "technique": "EP",
       "field": "location_id",
-      "seconds": 1.886,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.38,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-02: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-02",
         "severity": "Major",
@@ -828,7 +936,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.883,
+      "seconds": 0.382,
       "status": "PASS"
     },
     {
@@ -850,7 +958,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.881,
+      "seconds": 0.391,
       "status": "PASS"
     },
     {
@@ -872,7 +980,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.029,
+      "seconds": 0.399,
       "status": "PASS"
     },
     {
@@ -894,7 +1002,7 @@
         "message": "\"Asset was not checked in, please try again\"",
         "outcome": "rejected"
       },
-      "seconds": 2.046,
+      "seconds": 0.391,
       "status": "PASS"
     },
     {
@@ -916,7 +1024,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.098,
+      "seconds": 0.405,
       "status": "PASS"
     },
     {
@@ -932,9 +1040,15 @@
       "title": "wrong type (number)",
       "technique": "EP",
       "field": "name",
-      "seconds": 2.037,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.406,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-04: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-04",
         "severity": "Trivial",
@@ -961,7 +1075,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.131,
+      "seconds": 0.398,
       "status": "PASS"
     },
     {
@@ -982,7 +1096,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.997,
+      "seconds": 0.393,
       "status": "PASS"
     },
     {
@@ -1003,7 +1117,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.983,
+      "seconds": 0.399,
       "status": "PASS"
     },
     {
@@ -1025,7 +1139,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.035,
+      "seconds": 0.438,
       "status": "PASS"
     },
     {
@@ -1047,7 +1161,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.974,
+      "seconds": 0.464,
       "status": "PASS"
     },
     {
@@ -1069,7 +1183,7 @@
         "message": "\"Asset was not checked in, please try again\"",
         "outcome": "rejected"
       },
-      "seconds": 2.044,
+      "seconds": 0.416,
       "status": "PASS"
     },
     {
@@ -1091,7 +1205,7 @@
         "message": "\"Asset checked in successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.01,
+      "seconds": 0.421,
       "status": "PASS"
     },
     {
@@ -1113,7 +1227,7 @@
         "message": "\"Asset was not checked in, please try again\"",
         "outcome": "rejected"
       },
-      "seconds": 2.135,
+      "seconds": 0.416,
       "status": "PASS"
     },
     {
@@ -1129,9 +1243,15 @@
       "title": "wrong type (boolean)",
       "technique": "EP",
       "field": "status_id",
-      "seconds": 2.035,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.425,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-02: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-02",
         "severity": "Major",
@@ -1153,9 +1273,15 @@
       "title": "wrong type (decimal)",
       "technique": "EP",
       "field": "status_id",
-      "seconds": 2.01,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.425,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked in successfully.\")",
+      "message": "D-API-02: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-02",
         "severity": "Major",
@@ -1183,7 +1309,49 @@
         "message": "\"Asset was not checked in, please try again\"",
         "outcome": "rejected"
       },
-      "seconds": 2.173,
+      "seconds": 0.419,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.asset-id.above-minimum-2",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "above-minimum (2)",
+      "technique": "BVA",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.348,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.asset-id.at-minimum-1",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "at-minimum (1)",
+      "technique": "BVA",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.338,
       "status": "PASS"
     },
     {
@@ -1204,7 +1372,7 @@
         "message": "\"Asset not found\"",
         "outcome": "rejected"
       },
-      "seconds": 2.028,
+      "seconds": 0.363,
       "status": "PASS"
     },
     {
@@ -1225,7 +1393,7 @@
         "message": "\"Asset not found\"",
         "outcome": "rejected"
       },
-      "seconds": 1.894,
+      "seconds": 0.362,
       "status": "PASS"
     },
     {
@@ -1246,7 +1414,7 @@
         "message": "\"Asset not found\"",
         "outcome": "rejected"
       },
-      "seconds": 1.9,
+      "seconds": 0.371,
       "status": "PASS"
     },
     {
@@ -1267,7 +1435,7 @@
         "message": "\"Asset not found\"",
         "outcome": "rejected"
       },
-      "seconds": 1.991,
+      "seconds": 0.364,
       "status": "PASS"
     },
     {
@@ -1288,7 +1456,7 @@
         "message": "\"Asset not found\"",
         "outcome": "rejected"
       },
-      "seconds": 1.807,
+      "seconds": 0.362,
       "status": "PASS"
     },
     {
@@ -1309,7 +1477,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.977,
+      "seconds": 0.411,
       "status": "PASS"
     },
     {
@@ -1330,7 +1498,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.955,
+      "seconds": 0.422,
       "status": "PASS"
     },
     {
@@ -1351,7 +1519,7 @@
         "message": "{\"assigned_user\": [\"validation.exists_undeleted\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.922,
+      "seconds": 0.383,
       "status": "PASS"
     },
     {
@@ -1372,7 +1540,7 @@
         "message": "{\"assigned_user\": [\"The assigned user field is required when none of assigned asset / assigned location are present.\"], \"assigned_asset\": [\"The assigned asset f",
         "outcome": "rejected"
       },
-      "seconds": 1.95,
+      "seconds": 0.371,
       "status": "PASS"
     },
     {
@@ -1393,7 +1561,7 @@
         "message": "{\"assigned_user\": [\"The assigned user field is required when none of assigned asset / assigned location are present.\"], \"assigned_asset\": [\"The assigned asset f",
         "outcome": "rejected"
       },
-      "seconds": 1.974,
+      "seconds": 0.364,
       "status": "PASS"
     },
     {
@@ -1414,7 +1582,7 @@
         "message": "{\"assigned_user\": [\"validation.exists_undeleted\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.871,
+      "seconds": 0.365,
       "status": "PASS"
     },
     {
@@ -1435,7 +1603,7 @@
         "message": "{\"assigned_user\": [\"The assigned user field must be a number.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.984,
+      "seconds": 0.372,
       "status": "PASS"
     },
     {
@@ -1456,7 +1624,7 @@
         "message": "{\"assigned_user\": [\"validation.exists_undeleted\"]}",
         "outcome": "rejected"
       },
-      "seconds": 2.067,
+      "seconds": 0.372,
       "status": "PASS"
     },
     {
@@ -1477,7 +1645,7 @@
         "message": "{\"assigned_user\": [\"The assigned user field must be a number.\", \"validation.exists_undeleted\"]}",
         "outcome": "rejected"
       },
-      "seconds": 2.015,
+      "seconds": 0.378,
       "status": "PASS"
     },
     {
@@ -1501,7 +1669,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.922,
+      "seconds": 0.385,
       "status": "PASS"
     },
     {
@@ -1522,7 +1690,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.81,
+      "seconds": 0.396,
       "status": "PASS"
     },
     {
@@ -1543,7 +1711,7 @@
         "message": "{\"checkout_at\": [\"The checkout at field must be a valid date.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.801,
+      "seconds": 0.375,
       "status": "PASS"
     },
     {
@@ -1564,7 +1732,7 @@
         "message": "{\"checkout_at\": [\"The checkout at field must be a valid date.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.885,
+      "seconds": 0.378,
       "status": "PASS"
     },
     {
@@ -1585,7 +1753,7 @@
         "message": "{\"checkout_at\": [\"The checkout at field must be a valid date.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.853,
+      "seconds": 0.379,
       "status": "PASS"
     },
     {
@@ -1606,7 +1774,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.966,
+      "seconds": 0.383,
       "status": "PASS"
     },
     {
@@ -1627,7 +1795,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.898,
+      "seconds": 0.391,
       "status": "PASS"
     },
     {
@@ -1648,7 +1816,7 @@
         "message": "{\"checkout_at\": [\"The checkout at field must be a valid date.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.831,
+      "seconds": 0.388,
       "status": "PASS"
     },
     {
@@ -1669,7 +1837,7 @@
         "message": "{\"checkout_to_type\": [\"The selected checkout to type is invalid.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.877,
+      "seconds": 0.387,
       "status": "PASS"
     },
     {
@@ -1690,7 +1858,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.851,
+      "seconds": 0.394,
       "status": "PASS"
     },
     {
@@ -1711,7 +1879,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.961,
+      "seconds": 0.404,
       "status": "PASS"
     },
     {
@@ -1732,7 +1900,7 @@
         "message": "{\"checkout_to_type\": [\"The selected checkout to type is invalid.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.817,
+      "seconds": 0.397,
       "status": "PASS"
     },
     {
@@ -1753,7 +1921,7 @@
         "message": "{\"checkout_to_type\": [\"The selected checkout to type is invalid.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.722,
+      "seconds": 0.382,
       "status": "PASS"
     },
     {
@@ -1774,7 +1942,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.044,
+      "seconds": 0.383,
       "status": "PASS"
     },
     {
@@ -1795,7 +1963,7 @@
         "message": "{\"expected_checkin\": [\"The expected checkin field must be a valid date.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 2.22,
+      "seconds": 0.379,
       "status": "PASS"
     },
     {
@@ -1816,7 +1984,7 @@
         "message": "{\"expected_checkin\": [\"The expected checkin field must be a valid date.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.888,
+      "seconds": 0.391,
       "status": "PASS"
     },
     {
@@ -1837,7 +2005,7 @@
         "message": "{\"expected_checkin\": [\"The expected checkin field must be a valid date.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.872,
+      "seconds": 0.394,
       "status": "PASS"
     },
     {
@@ -1858,7 +2026,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.847,
+      "seconds": 0.398,
       "status": "PASS"
     },
     {
@@ -1879,7 +2047,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.029,
+      "seconds": 0.416,
       "status": "PASS"
     },
     {
@@ -1900,7 +2068,7 @@
         "message": "{\"expected_checkin\": [\"The expected checkin field must be a valid date.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.897,
+      "seconds": 0.393,
       "status": "PASS"
     },
     {
@@ -1922,7 +2090,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.846,
+      "seconds": 0.397,
       "status": "PASS"
     },
     {
@@ -1944,7 +2112,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.961,
+      "seconds": 0.408,
       "status": "PASS"
     },
     {
@@ -1966,7 +2134,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.972,
+      "seconds": 0.407,
       "status": "PASS"
     },
     {
@@ -1988,7 +2156,7 @@
         "message": "\"Asset was not checked out, please try again\"",
         "outcome": "rejected"
       },
-      "seconds": 1.858,
+      "seconds": 0.418,
       "status": "PASS"
     },
     {
@@ -2010,7 +2178,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.757,
+      "seconds": 0.404,
       "status": "PASS"
     },
     {
@@ -2026,9 +2194,15 @@
       "title": "wrong type (number)",
       "technique": "EP",
       "field": "name",
-      "seconds": 1.958,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.417,
       "status": "XFAIL",
-      "message": "expected a rejection, got accepted (HTTP 200, \"Asset checked out successfully.\")",
+      "message": "D-API-04: confirmed the documented response and saved state",
       "defect": {
         "issue": "D-API-04",
         "severity": "Trivial",
@@ -2055,7 +2229,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.914,
+      "seconds": 0.414,
       "status": "PASS"
     },
     {
@@ -2076,7 +2250,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.068,
+      "seconds": 0.418,
       "status": "PASS"
     },
     {
@@ -2097,7 +2271,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.891,
+      "seconds": 0.418,
       "status": "PASS"
     },
     {
@@ -2118,7 +2292,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.044,
+      "seconds": 0.418,
       "status": "PASS"
     },
     {
@@ -2139,7 +2313,7 @@
         "message": "{\"requestable\": [\"The requestable field must be true or false.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 2.081,
+      "seconds": 0.402,
       "status": "PASS"
     },
     {
@@ -2160,7 +2334,7 @@
         "message": "{\"requestable\": [\"The requestable field must be true or false.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.867,
+      "seconds": 0.404,
       "status": "PASS"
     },
     {
@@ -2181,7 +2355,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.901,
+      "seconds": 0.423,
       "status": "PASS"
     },
     {
@@ -2202,7 +2376,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 1.83,
+      "seconds": 0.417,
       "status": "PASS"
     },
     {
@@ -2223,7 +2397,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.113,
+      "seconds": 0.447,
       "status": "PASS"
     },
     {
@@ -2244,7 +2418,7 @@
         "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 2.045,
+      "seconds": 0.45,
       "status": "PASS"
     },
     {
@@ -2265,7 +2439,7 @@
         "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.949,
+      "seconds": 0.401,
       "status": "PASS"
     },
     {
@@ -2286,7 +2460,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.002,
+      "seconds": 0.411,
       "status": "PASS"
     },
     {
@@ -2307,7 +2481,7 @@
         "message": "\"Asset checked out successfully.\"",
         "outcome": "accepted"
       },
-      "seconds": 2.024,
+      "seconds": 0.435,
       "status": "PASS"
     },
     {
@@ -2328,7 +2502,7 @@
         "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.956,
+      "seconds": 0.423,
       "status": "PASS"
     },
     {
@@ -2349,7 +2523,7 @@
         "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.992,
+      "seconds": 0.413,
       "status": "PASS"
     },
     {
@@ -2370,7 +2544,7 @@
         "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 2.004,
+      "seconds": 0.412,
       "status": "PASS"
     },
     {
@@ -2391,7 +2565,7 @@
         "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
         "outcome": "rejected"
       },
-      "seconds": 1.946,
+      "seconds": 0.407,
       "status": "PASS"
     }
   ]

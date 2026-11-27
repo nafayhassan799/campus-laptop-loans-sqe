@@ -41,7 +41,7 @@ Key decision: because the application answers rejections with HTTP 200, every te
 | 7 | `status_id` on check-in: integer, minimum 1 | No server validation at all; floats and booleans are coerced | Kept as the required contract; the deviations are triaged defects |
 | 8 | `name` maxLength 255 | Enforced at model save; the database column was 191 characters (defect fixed on the team branch) | Boundary cases 254/255/256 generated from the spec |
 | 9 | Notes optional | Required when the `require_checkinout_notes` setting is on (browser textarea gets `required`; the server also rejects) | Documented; exercised only in the isolated browser fixture |
-| 10 | No mention of throttling | Default API limit is 120 requests per minute per token, so a 116-case run is rejected with HTTP 429 | Local instance sets `API_THROTTLE_PER_MINUTE=100000`; recorded as an environment setting |
+| 10 | No mention of throttling | The default API limit of 120 requests per minute per token can interrupt the 120-case run, which reads assets and history between writes | The disposable CI instance sets `API_THROTTLE_PER_MINUTE=100000` |
 
 ## Settings that influence the tests
 
