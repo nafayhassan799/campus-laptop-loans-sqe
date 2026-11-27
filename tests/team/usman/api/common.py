@@ -31,6 +31,8 @@ import smoke_checkout as smoke  # noqa: E402  (reuse, do not copy)
 
 SnipeApi, check, user_fixture = smoke.SnipeApi, smoke.check, smoke.user_fixture
 OUTPUT = ROOT / "output" / "usman"
+PORT = int(os.environ.get("SQE_LOCAL_PORT", "8000"))
+BASE_URL = f"http://localhost:{PORT}"
 
 DOCKER_PROJECT = ["docker", "compose", "-p", "sqe-campus-laptops"]
 
@@ -72,7 +74,7 @@ def local_api(user_id, name="SQE usman api"):
     ], cwd=ROOT, capture_output=True, text=True, check=False, timeout=60)
     tokens = [line.strip() for line in result.stdout.splitlines() if line.startswith("eyJ")]
     check(result.returncode == 0 and len(tokens) == 1, f"Could not create a local API token for user {user_id}")
-    api = SnipeApi(tokens[0])
+    api = SnipeApi(tokens[0], port=PORT)
     try:
         yield api
     finally:
@@ -86,10 +88,10 @@ def raw(api, method, path, body=None):
     """Send a request and return (http_status, parsed_json_or_None) without asserting the status."""
     from http.client import HTTPConnection
     data = None if body is None else json.dumps(body).encode()
-    connection = HTTPConnection("127.0.0.1", 8000, timeout=30)
+    connection = HTTPConnection("127.0.0.1", PORT, timeout=30)
     try:
         connection.request(method, f"/api/v1/{path}", body=data, headers={
-            "Host": "localhost:8000", "Authorization": f"Bearer {api.token}", "Accept": "application/json",
+            "Host": f"localhost:{PORT}", "Authorization": f"Bearer {api.token}", "Accept": "application/json",
             "Content-Type": "application/json",
         })
         with connection.getresponse() as response:
@@ -152,7 +154,10 @@ class Fixtures:
         return found["id"]
 
     def boundary_assets(self):
-        return {self.asset(f"API-ID-BOUNDARY-{number}") for number in (1, 2)}
+        ids = {self.asset(f"API-ID-BOUNDARY-{number}") for number in (1, 2)}
+        if os.environ.get("SQE_REQUIRE_BOUNDARY_FIXTURES") == "1":
+            check(ids == {1, 2}, f"The disposable boundary fixtures must have IDs 1 and 2, got {sorted(ids)}")
+        return ids
 
 
 def reset_asset(tech, asset_id, ready_status_id):

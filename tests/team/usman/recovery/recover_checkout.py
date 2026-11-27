@@ -94,7 +94,7 @@ def run_fault(mode, admin, tech, fx, asset_id):
         if mode == "history-write":
             common.sql(f"drop trigger if exists {TRIGGER}")
         else:
-            subprocess.run(shlex.split(START_CMD), capture_output=True, text=True, timeout=60)
+            subprocess.run(shlex.split(START_CMD), capture_output=True, text=True, timeout=60, check=True)
             wait_for_database(admin)
         fault_removed = True
         log("dependency restored")
@@ -107,15 +107,22 @@ def run_fault(mode, admin, tech, fx, asset_id):
                        f"signal sqlstate '45000' set message_text='SQE injected history-store failure'; end if; end//\ndelimiter ;")
             log("fault injected: action_logs rejects the checkout history row (asset row is written first)")
         else:
-            subprocess.run(shlex.split(STOP_CMD), capture_output=True, text=True, timeout=60)
+            subprocess.run(shlex.split(STOP_CMD), capture_output=True, text=True, timeout=60, check=True)
             time.sleep(2)
             log("fault injected: database stopped")
 
-        status, response = common.raw(tech, "POST", f"hardware/{asset_id}/checkout", body)
-        failed = not (status == 200 and isinstance(response, dict) and response.get("status") == "success")
-        evidence["failedAttempt"] = {"http": status, "body": response}
-        log(f"attempt during fault: HTTP {status} {json.dumps(response)[:120]}")
-        need(failed, "the checkout request did not report success while the dependency was failing")
+        try:
+            status, response = common.raw(tech, "POST", f"hardware/{asset_id}/checkout", body)
+        except TimeoutError:
+            if mode != "db-outage":
+                raise
+            evidence["failedAttempt"] = {"http": None, "transport": "timeout"}
+            log("attempt during confirmed database outage: HTTP connection timed out")
+        else:
+            evidence["failedAttempt"] = {"http": status, "body": response}
+            log(f"attempt during fault: HTTP {status} {json.dumps(response)[:120]}")
+            failed = not (status == 200 and isinstance(response, dict) and response.get("status") == "success")
+            need(failed, "the checkout request did not report success while the dependency was failing")
 
         if mode == "history-write":
             during = snap(admin, asset_id)
@@ -129,7 +136,8 @@ def run_fault(mode, admin, tech, fx, asset_id):
         restore()
 
         after_fault = snap(admin, asset_id)
-        need(after_fault["assigned"] is None and after_fault["events"] == before["events"], "record is still unchanged after the dependency is restored")
+        need(after_fault == before and db_row(asset_id) == before_db,
+             "record and checkout history are unchanged after the dependency is restored")
 
         status, response = common.raw(tech, "POST", f"hardware/{asset_id}/checkout", body)
         evidence["retry"] = {"http": status, "body": response}

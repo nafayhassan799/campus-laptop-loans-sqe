@@ -116,8 +116,6 @@ jobs:
     name: API contract, recovery, Usman browser tests, and k6
     runs-on: ubuntu-latest
     timeout-minutes: 20
-    env:
-      SQE_ARTISAN: docker compose -p sqe-campus-laptops exec -T -u docker app php artisan
     steps:
       - uses: actions/checkout@v7
         with:
@@ -143,26 +141,15 @@ jobs:
           printf '%s  %s\n' '47a43a8dbb4c1f5d5bd7b8ed6a1b8c83b35546acf989b78400b4e6ce3adaf628' "$archive" | sha256sum --check -
           tar -xzf "$archive"
           echo "$RUNNER_TEMP/k6-v0.55.0-linux-amd64" >> "$GITHUB_PATH"
-      - name: Start an isolated laptop-loan stack
+      - name: Run Usman's checks in the disposable Docker lab
         run: |
-          printf '\nAPI_THROTTLE_PER_MINUTE=100000\n' >> .env.docker
-          pwsh -NoProfile -File tests/team/start-local.ps1
-          python -B tests/team/initialize_local.py
-          password=$(sed -n 's/^MYSQL_ROOT_PASSWORD=//p' .env)
-          test -n "$password"
-          echo "::add-mask::$password"
-          echo "SQE_DB_CMD=docker compose -p sqe-campus-laptops exec -T db mariadb -uroot -p$password snipeit" >> "$GITHUB_ENV"
-      - name: Run Usman's contract, API, recovery, and browser checks
-        run: |
-          if ! python -B tests/team/usman/run_all.py --admin-id 1; then
+          if ! python -B tests/team/usman/run_docker.py --stages contract,generate,fixtures,api,recovery,browser,perf; then
             for log in output/usman/logs/*.log; do
               printf '\n%s\n' "$log"
               tail -n 30 "$log"
             done
             exit 1
           fi
-      - name: Run four k6 measurements at target load
-        run: python -B tests/team/usman/perf/run_perf.py
       - name: Upload Usman's test and performance evidence
         if: always()
         uses: actions/upload-artifact@v7

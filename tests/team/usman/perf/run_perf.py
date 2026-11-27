@@ -39,9 +39,9 @@ def environment(k6):
 
 def main():
     k6 = os.environ.get("K6") or shutil.which("k6")
-    fixtures_file = ROOT / "output" / "usman" / "fixtures.json"
+    fixtures_file = Path(os.environ.get("SQE_BROWSER_DATA_FILE", ROOT / "output" / "usman" / "fixtures.json"))
     if not k6 or not fixtures_file.exists():
-        print("k6 or output/usman/fixtures.json is missing", file=sys.stderr)
+        print(f"k6 or the fixture file at {fixtures_file} is missing", file=sys.stderr)
         return 2
     data = json.loads(fixtures_file.read_text(encoding="utf-8"))
     OUT.mkdir(parents=True, exist_ok=True)

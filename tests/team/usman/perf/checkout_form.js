@@ -15,8 +15,8 @@ const THINK = Number(__ENV.THINK || 1);
 const P95 = Number(__ENV.P95_MS || 1000);
 const ASSET = __ENV.ASSET_ID;
 
-if (!/^http:\/\/(localhost|127\.0\.0\.1):8000$/.test(BASE)) {
-  throw new Error('Run against the loopback SQE application on port 8000.');
+if (!/^http:\/\/(localhost|127\.0\.0\.1):[1-9][0-9]{0,4}$/.test(BASE)) {
+  throw new Error('Run against the loopback SQE application.');
 }
 
 const formDuration = new Trend('checkout_form_duration', true);

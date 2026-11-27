@@ -15,29 +15,30 @@ Upstream Snipe-IT tests are not part of this work.
 | `recovery/recover_checkout.py` | Controlled failure-and-retry test for the checkout write |
 | `browser/` | Two Playwright use cases (10 tests) |
 | `prepare_fixtures.py` | Seeds synthetic users, statuses, locations and per-purpose laptops; writes local credentials to `output/usman/fixtures.json` (git-ignored) |
-| `run_all.py` | One command and one exit code for CI |
+| `run_docker.py`, `run_all.py` | Disposable Docker entry point and shared stage runner |
 | `start_native.sh` | Docker-free launcher for Linux (MariaDB plus PHP dev server) |
-| `traceability.md`, `findings.md`, `issue-drafts.md`, `performance.md`, `recovery.md`, `hours-and-ai-use.md` | Handover documents |
+| `evidence/traceability-matrix.md`, `findings.md`, `issue-drafts.md`, `performance.md`, `recovery.md`, `hours-and-ai-use.md` | Handover documents |
 | `evidence/` | Raw results from the final run |
 
 ## Run it
 
-With the team's Docker stack (PowerShell 7, Docker Compose, Python 3, Node 22; from the repository root):
+With Docker Compose, Python 3.12, and Node 24, install the tools from the repository root:
 
 ```powershell
-pwsh -NoProfile -File tests/team/start-local.ps1
-python -B tests/team/usman/run_all.py --admin-id 1                 # contract, generator, fixtures, API, recovery, browser
-python -B tests/team/usman/run_all.py --admin-id 1 --stages perf  # four k6 runs, about 5 minutes (needs k6 on PATH)
+python -m pip install --only-binary=:all: openapi-spec-validator==0.7.2
+npm ci --ignore-scripts --no-audit --no-fund --prefix tests/team/usman/browser
+node tests/team/usman/browser/node_modules/@playwright/test/cli.js install chromium
+python -B tests/team/usman/run_docker.py
+python -B tests/team/usman/run_docker.py --stages perf             # four k6 runs, about 5 minutes (needs k6 on PATH)
 ```
 
-Complete Snipe-IT's first-run setup at <http://localhost:8000> with a synthetic admin first and use that admin's numeric id.
-`k6` and Playwright's browser are installed separately (`winget install k6`, `cd tests/team/usman/browser; npm install; npx playwright install chromium`).
+The launcher creates a fresh Snipe-IT database and synthetic administrator at <http://localhost:18001>. It reserves asset IDs `1` and `2` for the boundary cases and configures the database and Artisan commands used by the browser and recovery checks. It removes its disposable containers and volumes when the run ends and keeps reports under `output/usman/`. The team's shared stack at port 8000 can stay running. Use a free port 18001 and a Docker Compose version that supports `!override`.
 
-Without Docker (Linux; this is how the committed evidence was produced):
+Without Docker (Linux, using a fresh synthetic database):
 
 ```bash
 bash tests/team/usman/start_native.sh                  # MariaDB + PHP workers on :8000; needs composer install done once
-python3 -B <initialize script>                          # create the synthetic admin once (tests/team/initialize_local.py on Nafay's branch)
+python3 -B tests/team/initialize_local.py               # create the synthetic admin once
 export SQE_ARTISAN="php artisan" SQE_DB_CMD="mariadb -uroot snipeit"
 export SQE_DB_STOP_CMD="mysqladmin -uroot shutdown"
 export SQE_DB_START_CMD="bash -c 'nohup mysqld_safe --user=mysql >/tmp/sqe-mysqld.log 2>&1 &'"
@@ -58,17 +59,17 @@ Single pieces: `python -B tests/team/usman/api/generate_cases.py --out out.json`
 | `npx playwright test` | 10 passed | a test failed | n/a |
 
 JUnit output: `output/usman/api/junit.xml`, `output/usman/browser/junit.xml`. Stage logs: `output/usman/logs/`.
-Suggested workflow step: run `run_all.py` after the stack is up and upload `output/usman/` (excluding `fixtures.json`) as the artifact.
+GitHub Actions uses the same Docker launcher and uploads the individual API, browser, recovery, and performance reports.
 
 ## Environment rules that matter
 
-* Use only a local synthetic instance. `fixtures.json` holds temporary tokens and generated passwords; it lives under the git-ignored `output/` and must never be committed.
-* `API_THROTTLE_PER_MINUTE` must be raised for the local instance (default 120 a minute rejects the generated suite with HTTP 429).
-* Each purpose owns its own laptop (`API-GEN-001`, `API-FLOW-001`, `PERF-001`, `RECOV-001/2`, `BR-CO-xx`, `BR-CI-xx`), so Nafay's `LAB-001` tests and mine do not collide. Playwright runs with one worker because UC2-EXC1 switches the global "check-in notes required" setting on and restores it in a `finally` block; do not run it in parallel with another browser suite.
+* Use only a local synthetic instance. Docker fixture credentials live in a temporary directory. Native fixture credentials go in the Git-ignored `output/usman/fixtures.json`.
+* For native runs, set `API_THROTTLE_PER_MINUTE=100000` to support the generated suite's API read-backs.
+* Each purpose owns its own laptops, including `API-ID-BOUNDARY-1/2`, `API-GEN-001`, `API-FLOW-001`, `PERF-001`, and the browser fixtures. Playwright uses one worker because UC2-EXC1 temporarily changes the check-in notes setting. Run browser suites against separate databases when running them concurrently.
 * Reset: every test resets its own laptop first. To wipe everything, recreate the database and re-run `prepare_fixtures.py`.
 
 ## Dependencies on the other two members
 
 * Rafay's shared Playwright fixtures were not on any branch when this was written, so `browser/support.cjs` contains small local equivalents (sign-in, select2 helper, API read-back). Replace them with the shared ones when they land; the specs only use `signIn`, `choose` and `submit`.
-* Nafay owns CI: `run_all.py` is the hand-off. The existing workflow on `sqe/nafay-quality` does not call it yet.
+* Nafay owns the shared CI workflow. The Usman job calls `run_docker.py`, which runs the selected stages through `run_all.py`.
 * Risk IDs `R-A1` to `R-A8` (defined in `traceability.md`) are this member's working labels; renumber them to the team's risk register when it exists.

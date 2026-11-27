@@ -7,6 +7,7 @@ generated passwords for the synthetic technician and reviewer; never commit it.
 Each purpose has its own laptop so API, performance, recovery and browser runs do not collide.
 """
 import argparse
+import os
 from pathlib import Path
 import secrets
 import sys
@@ -39,7 +40,7 @@ def main():
                                  cwd=common.ROOT, capture_output=True, text=True, timeout=60).stdout
             return [l.strip() for l in out.splitlines() if l.startswith("eyJ")][0]
         data = {
-            "baseUrl": "http://localhost:8000",
+            "baseUrl": common.BASE_URL,
             "admin": {"id": args.admin_id, "token": token(args.admin_id)},
             "technician": {"id": fx.technician, "username": names["technician"], "password": passwords["technician"], "token": token(fx.technician)},
             "reviewer": {"id": fx.reviewer, "username": names["reviewer"], "password": passwords["reviewer"]},
@@ -53,9 +54,10 @@ def main():
         with common.local_api(fx.technician, "SQE usman reset") as tech:
             for asset_id in data["assets"].values():
                 common.reset_asset(tech, asset_id, fx.ready["id"])
-        common.write_json(common.OUTPUT / "fixtures.json", data)
-        (common.OUTPUT / "fixtures.json").chmod(0o600)
-        print("Wrote", common.OUTPUT / "fixtures.json", "- perf asset", data["assets"]["perf"], "recovery asset", data["assets"]["recovery"])
+        fixture_file = Path(os.environ.get("SQE_BROWSER_DATA_FILE", common.OUTPUT / "fixtures.json"))
+        common.write_json(fixture_file, data)
+        fixture_file.chmod(0o600)
+        print("Wrote", fixture_file, "- perf asset", data["assets"]["perf"], "recovery asset", data["assets"]["recovery"])
 
 
 if __name__ == "__main__":

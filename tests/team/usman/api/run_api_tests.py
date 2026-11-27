@@ -141,7 +141,8 @@ def run_generated(ctx, case, defect=None):
         reference = case["expect"]["oracle"].split("reference:", 1)[1]
         expected = "accept" if ctx.reference_exists(reference, value) else "reject"
         if path_boundary and expected == "accept":
-            expect(asset_id in ctx.boundary_assets, f"Asset {asset_id} is not a disposable boundary fixture")
+            expect(asset_id in ctx.boundary_assets,
+                   f"Asset {asset_id} belongs to another fixture. Use run_docker.py for a fresh database.")
             fixture_id = asset_id
 
     ctx.reset(fixture_id)

@@ -6,8 +6,8 @@
 
 Stages (run in this order): contract, generate, fixtures, api, recovery, browser, perf.
 Exit code: 0 when every selected stage passes, 1 when any stage fails, 2 when a prerequisite is missing.
-Environment for a Docker-free machine (see README.md): SQE_ARTISAN, SQE_DB_CMD, SQE_DB_STOP_CMD, SQE_DB_START_CMD,
-SQE_CHROME_PATH. With the team's Docker stack the defaults of common.py apply and nothing needs to be set.
+For Docker, use run_docker.py to start the disposable stack and configure the browser and recovery commands.
+For an existing native lab, see README.md for the environment settings.
 Each stage's console output is saved to output/usman/logs/<stage>.log.
 """
 import argparse
@@ -37,7 +37,16 @@ def contract():
 
 
 def run(command, cwd=ROOT):
-    return subprocess.run(command, cwd=cwd, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    return subprocess.run(command, cwd=cwd, encoding="utf-8", errors="replace",
+                          stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+
+
+def select_stages(selection):
+    requested = [stage.strip() for stage in selection.split(",")]
+    invalid = [stage or "(empty)" for stage in requested if stage not in ALL]
+    if invalid:
+        raise ValueError(f"Unknown stage(s): {', '.join(invalid)}. Choose from: {', '.join(ALL)}")
+    return [stage for stage in ALL if stage in requested]
 
 
 def main():
@@ -45,11 +54,10 @@ def main():
     parser.add_argument("--admin-id", type=int, required=True)
     parser.add_argument("--stages", default=",".join(DEFAULT))
     args = parser.parse_args()
-    requested = [stage.strip() for stage in args.stages.split(",")]
-    invalid = [stage or "(empty)" for stage in requested if stage not in ALL]
-    if invalid:
-        parser.error(f"Unknown stage(s): {', '.join(invalid)}. Choose from: {', '.join(ALL)}")
-    stages = [stage for stage in ALL if stage in requested]
+    try:
+        stages = select_stages(args.stages)
+    except ValueError as error:
+        parser.error(str(error))
     LOGS.mkdir(parents=True, exist_ok=True)
     admin = str(args.admin_id)
     commands = {
