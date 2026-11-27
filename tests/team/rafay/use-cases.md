@@ -33,12 +33,12 @@ Each test owns one laptop (`RAF-CO-*`, `RAF-CI-*`) and resets it first, so tests
 | EXC1 | Business-rule rejection, then correction. At step 2 they tab straight to *Checkout* without choosing a borrower. The form's validator blocks the submit: no POST is sent, the User row gets `has-error` and a `role="alert"` message "This field is required", and the asset is unchanged. They then choose Sara by keyboard, add a due date and submit. Exactly one POST is sent, it succeeds and `checkout_counter` is +1 | UC-R1-EXC1 |
 | EXC2 | The reviewer opens the same laptop: no Checkout link. A GET of the checkout form returns 403 with no form. The same form POST, sent with the reviewer's own session and CSRF token, returns 403. The asset is unchanged | UC-R1-EXC2 |
 
-Known open defects, kept as `test.fail()` tests so they are reported on every run and the suite flags when they are fixed:
+Known open defects. They are not `test.fail()` tests, because those would also accept setup errors and unrelated failures. Each test runs the flow with strict assertions and then asserts the exact defect signature. It passes only while that defect is present, and it fails with "… looks fixed" once the defect is fixed:
 
 | Test | Defect |
 | --- | --- |
-| DEF-R1 | Tabbing past the empty optional *Expected Checkin Date* saves the current date and time as the due date (CO-02). Expected: no due date |
-| DEF-R2 | When the chosen borrower is deleted before submit, the server correctly rejects the checkout. But the User field error reads `validation.exists_undeleted`, which does not tell the technician what to do |
+| DEF-R1 | Tabbing past the empty optional *Expected Checkin Date* saves the current date and time as the due date (CO-02). Expected: no due date. Signature asserted: the field was empty, it holds a browser time between the start and end of the Tab walk, and exactly that value is saved |
+| DEF-R2 | When the chosen borrower is deleted before submit, the server correctly rejects the checkout. But the User field error reads `validation.exists_undeleted`, which does not tell the technician what to do. Signature asserted: same form, User row flagged, asset unchanged, and the message contains `validation.exists_undeleted` |
 
 ## UC-R2 Return a damaged laptop for repair
 

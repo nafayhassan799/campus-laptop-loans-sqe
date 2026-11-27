@@ -187,22 +187,49 @@ test.describe('UC-R1 keyboard checkout', () => {
     });
 });
 
-test.describe('UC-R1 known defects (expected to fail until fixed)', () => {
-  test('DEF-R1 tabbing past the optional due date must not save a due date [CO-02]', async ({ technician: page, request }) => {
-    test.fail(true, 'DEF-R1: the date picker fills in the current time on focus (eonasdan useCurrent default)');
-    const id = data.assets['RAF-CO-MAIN'];
-    await s.resetAsset(request, id);
-    await openCheckout(page, id);
-    await keyboardToBorrower(page, 'Sara', `${data.students[0].name} (${data.students[0].username})`);
-    await s.tabTo(page, '#submit_button'); // passes through "Expected Checkin Date" without typing
-    await page.keyboard.press('Enter');
-    await expect(s.flash(page).filter({ hasText: SUCCESS })).toBeVisible();
-    expect((await s.readAsset(request, id)).expected_checkin).toBeNull();
-  });
+// Open defects. These tests do NOT use test.fail(): a broad expected-failure would also swallow a
+// setup error or an unrelated broken assertion. Each test instead runs the normal flow with strict
+// assertions and then asserts the exact signature of its defect. So:
+//   - defect still present and everything else works -> pass
+//   - setup or any other step breaks                  -> fail (real failure)
+//   - the defect is fixed                             -> fail with "looks fixed": replace the signature
+//                                                        check with the requirement's expectation.
+/** The browser's local clock as the date picker writes it ("YYYY-MM-DD HH:mm:ss"). */
+const browserNow = (page) => page.evaluate(() => {
+  const d = new Date();
+  const p = (n) => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
+});
 
-  test('DEF-R2 a borrower removed before submit is rejected with a readable message [CO-01 USAB-ERR]',
+test.describe('UC-R1 open defects (pass while the documented defect is present)', () => {
+  test('DEF-R1 tabbing past the empty optional due date saves the moment of focus as the due date [CO-02]',
     async ({ technician: page, request }) => {
-      test.fail(true, 'DEF-R2: the field error shows the raw key "validation.exists_undeleted"');
+      test.info().annotations.push({ type: 'open defect', description: 'DEF-R1: eonasdan useCurrent fills the due date on focus' });
+      const id = data.assets['RAF-CO-MAIN'];
+      await s.resetAsset(request, id);
+      await openCheckout(page, id);
+      await expect(page.locator('#expected_checkin')).toHaveValue('');
+      await keyboardToBorrower(page, 'Sara', `${data.students[0].name} (${data.students[0].username})`);
+
+      const focusedFrom = await browserNow(page);
+      await s.tabTo(page, '#submit_button'); // passes through "Expected Checkin Date" without typing
+      const focusedTo = await browserNow(page);
+      const filledIn = await page.locator('#expected_checkin').inputValue();
+      await page.keyboard.press('Enter');
+      await expect(s.flash(page).filter({ hasText: SUCCESS })).toBeVisible();
+      const saved = await s.readAsset(request, id);
+      expect(saved.assigned_to.id).toBe(data.students[0].id);
+
+      // Defect signature: the untouched field was filled with the time it received focus, and that is what was saved.
+      expect(filledIn, 'DEF-R1 looks fixed: the skipped due date stayed empty. Assert expected_checkin is null (CO-02) instead.').not.toBe('');
+      expect(filledIn >= focusedFrom && filledIn <= focusedTo,
+        `the filled-in value ${filledIn} should be the focus time (${focusedFrom}..${focusedTo})`).toBe(true);
+      expect(saved.expected_checkin?.datetime).toBe(filledIn);
+    });
+
+  test('DEF-R2 a borrower removed before submit is rejected, but the message is the raw key validation.exists_undeleted [CO-01 USAB-ERR]',
+    async ({ technician: page, request }) => {
+      test.info().annotations.push({ type: 'open defect', description: 'DEF-R2: missing en-US message for exists_undeleted' });
       const id = data.assets['RAF-CO-EXC1'];
       const before = await s.resetAsset(request, id);
       const username = `sqe_student_leaver_${Date.now()}`;
@@ -211,12 +238,20 @@ test.describe('UC-R1 known defects (expected to fail until fixed)', () => {
       expect(created.status).toBe('success');
       await openCheckout(page, id);
       await s.choose(page, 'assigned_user', `Leaver SQE (${username})`, 'Leaver');
+      await expect(page.locator('select[name="assigned_user"]')).toHaveValue(String(created.payload.id));
       expect((await s.call(request, 'admin', 'DELETE', `users/${created.payload.id}`)).status).toBe('success');
       await page.getByRole('button', { name: 'Checkout' }).click();
 
+      // The rule holds: back on the same form, the User row is flagged, and nothing was saved.
+      await expect(page).toHaveURL(new RegExp(`/hardware/${id}/checkout$`));
+      await expect(s.flash(page).filter({ hasText: /check the form below for errors/i })).toBeVisible();
       const userRow = page.locator('.form-group.has-error').filter({ has: page.locator('select[name="assigned_user"]') });
       await expect(userRow).toBeVisible();
-      unchanged(before, await s.readAsset(request, id)); // the rule itself holds
-      await expect(userRow).not.toContainText('validation.'); // ...but the message does not explain it
+      unchanged(before, await s.readAsset(request, id));
+
+      // Defect signature: the only explanation offered is the untranslated key.
+      const message = (await userRow.locator('.alert-msg, .help-block, [role="alert"]').allInnerTexts()).join(' ').trim();
+      expect(message, 'DEF-R2 looks fixed: the message no longer shows the raw key. Assert the readable message instead.')
+        .toContain('validation.exists_undeleted');
     });
 });

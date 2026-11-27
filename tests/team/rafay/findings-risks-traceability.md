@@ -9,7 +9,7 @@ Severity: S1 critical, S2 major, S3 minor, S4 cosmetic. Priority: P1 fix before 
 
 | ID | Title | Category | Severity / priority (proposed) | Evidence | Root cause (verified in source) | Proposed fix | Linked risk |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| DEF-R1 | Skipping the optional due date with the keyboard saves "now" as the due date | Functional / usability | **S2 / P1** | `DEF-R1` test (`test.fail`), read-back `expected_checkin` = run time | `snipeit.js` `initDatetimepicker()`: `data-default-now="false"` is applied to `defaultDate` only; eonasdan `useCurrent` (default `true`) fills the value when the picker opens on focus (`allowInputToggle: true`) | `options.useCurrent = wantsDefaultNow` and rebuild | PR-02 |
+| DEF-R1 | Skipping the optional due date with the keyboard saves "now" as the due date | Functional / usability | **S2 / P1** | `DEF-R1` open-defect test, read-back `expected_checkin` = run time | `snipeit.js` `initDatetimepicker()`: `data-default-now="false"` is applied to `defaultDate` only; eonasdan `useCurrent` (default `true`) fills the value when the picker opens on focus (`allowInputToggle: true`) | `options.useCurrent = wantsDefaultNow` and rebuild | PR-02 |
 | DEF-R2 | Deleted-borrower rejection shows the raw key `validation.exists_undeleted` | Usability / i18n | S3 / P2 | `DEF-R2` test | The custom rule is registered in `ValidationServiceProvider.php:105`, but no message exists in `resources/lang/en-US/validation.php` | Add the translation | PR-09 |
 | U-03 | A server-side check-in rejection redirects to the asset list and loses the input | Usability | S3 / P2 | `UC-R2-EXC1b` | `AssetCheckinController::store()` returns `route('hardware.index')` on a save failure | `back()->withInput()` | PR-09 |
 | A11Y-01 | Login "Password" label not tied to its input | Accessibility | S3 / P2 | `login.blade.php:70/76` (`for="password"` vs `id="password-field"`) | Mismatched id | `for="password-field"` | PR-09 |
@@ -41,7 +41,7 @@ Severity: S1 critical, S2 major, S3 minor, S4 cosmetic. Priority: P1 fix before 
 | People | The behaviour is invisible: the value appears only after focus, so reviewers see an empty field |
 | Environment | Only on screens with `default_now=false` pickers (checkout due date, custom fields) |
 
-**Corrective action:** set `useCurrent` from `data-default-now`. **Preventive action:** keep DEF-R1 as a regression test (remove `test.fail` after the fix) and add a keyboard path for every form with an optional date picker.
+**Corrective action:** set `useCurrent` from `data-default-now`. **Preventive action:** keep DEF-R1 as a regression test (after the fix, replace its defect-signature check with `expected_checkin` = null) and add a keyboard path for every form with an optional date picker.
 
 ## 2. Risk register input (5 × 5, likelihood × impact)
 
@@ -65,7 +65,7 @@ Severity: S1 critical, S2 major, S3 minor, S4 cosmetic. Priority: P1 fix before 
 
 | ID | Criterion (measurable) | Tied to | Target | Actual (2026-11-25) |
 | --- | --- | --- | --- | --- |
-| EC-R1 | Browser use-case flows automated and passing in the combined suite; only triaged known defects may fail, as `test.fail` | PR-01/02/06 | 100% of flows; 0 unexpected failures | Rafay: 2/2 use cases, 11 + 2 known-defect tests, 0 unexpected failures (Nafay and Usman to merge into the shared suite) |
+| EC-R1 | Browser use-case flows automated and passing in the combined suite; open defects are tracked by tests that assert their exact signature | PR-01/02/06 | 100% of flows; 0 unexpected failures | Rafay: 2/2 use cases, 11 + 2 known-defect tests, 0 unexpected failures (Nafay and Usman to merge into the shared suite) |
 | EC-R2 | Access decisions observed as expected | PR-05 (highest impact) | 100% | 11/11 |
 | EC-R3 | Lighthouse accessibility ≥ 90 **and** 0 serious/critical axe violations on both key screens | PR-09 | both screens | Checkout 100 / 0 ✔; checkin 93 / 2 rules ✘ (not met) |
 | EC-R4 | No High ZAP passive alert, and no shipped High dependency advisory without a mitigation decision | PR-07, PR-08 | 0 | 0 High ZAP alerts; SEC-02/D-02 (Medium) open with a proposed fix |

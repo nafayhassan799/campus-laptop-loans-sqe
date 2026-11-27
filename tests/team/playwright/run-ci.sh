@@ -4,8 +4,8 @@
 #   bash tests/team/playwright/run-ci.sh <admin-id>
 #
 # Needs the local synthetic stack on http://localhost:8000 with the first-run admin created.
-# Exit 0: every test passed or failed as expected (known defects). Non-zero: unexpected failure,
-# a known-defect test that now passes, or a setup error. Report: output/playwright/{html,junit.xml,results.json}.
+# Exit 0: every test passed (open-defect tests pass only while their exact defect is present).
+# Non-zero: any failed test, a setup error, or an open defect that now looks fixed. Report: output/playwright/{html,junit.xml,results.json}.
 # Upload output/playwright/ as the CI artifact EXCEPT fixtures.json and .auth/ (local credentials).
 set -euo pipefail
 ADMIN_ID="${1:?usage: run-ci.sh <admin-id>}"

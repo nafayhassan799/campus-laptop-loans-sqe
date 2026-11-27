@@ -42,8 +42,8 @@ For the Docker stack, the seed creates its API tokens with
 3. The Docker image runs the stock upstream Snipe-IT code, so the checkout accessibility fix in `resources/views` is not visible there. The use-case and access tests do not depend on it. The before/after accessibility evidence was produced on the native stack.
 4. `rafay/a11y/set_header_color.sh` is bash-only. On Windows, set Admin > Settings > Branding > Header Color to `#296282` instead.
 
-Exit code 0 means every test passed or failed as expected (`test.fail()` marks a known open defect).
-Exit code 1 means an unexpected failure, or a known defect test that started passing: remove its `test.fail()` once the fix lands.
+Exit code 0 means every test passed. Exit code 1 means a test failed.
+Open defects are not marked with `test.fail()`, because that would also accept setup errors and unrelated failures. An open-defect test (for example DEF-R1) runs the normal flow with strict assertions and then asserts the exact signature of its defect. It passes only while that defect is present and everything else works. When the defect is fixed it fails with "… looks fixed": replace the signature check with the requirement's expectation.
 
 ## Reset between runs
 
