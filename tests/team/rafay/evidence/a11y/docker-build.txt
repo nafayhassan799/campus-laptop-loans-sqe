@@ -1,0 +1,7 @@
+sqe-campus-laptops-db-1 mariadb 13.0.2 sha256:54f493ea0d60b621a5bff84e5b20100f8b86b6efa6b79158e04756c5194a5e4d
+sqe-campus-laptops-app-1 snipe/snipe-it v8.8.4 sha256:8fb651d27d075441b6201a06d0b44bfb30d48e9149b64d1ebd92ab8c5159b4bb
+app files mounted by tests/team/compose.app-changes.yml (sha256, host = container):
+a4263387f069572a466eb7a76b801f55f2b0e3de3b906e7dd25b5a7460f00a53  resources/views/hardware/checkout.blade.php
+70326130b53665c8691e0303e17439d13010e1da9f87d9937ac7fbe45b1ed27d  resources/views/blade/redirect_submit_options.blade.php
+31d6882ccb5629703e73dc5d9c73ac848de8fa774254780375bca4dcb547de01  resources/views/layouts/default.blade.php
+54c96fbd7cf57bb1d7f14fd62bebb2ff625f525172f62270ae64c588e0d8d8be  resources/lang/en-US/general.php

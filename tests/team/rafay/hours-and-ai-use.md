@@ -28,6 +28,7 @@ The agent wrote the six commits on branch `sqe/rafay-browser-a11y-security`; Raf
 | 4 | Accessibility | axe spec, Lighthouse script, checkout fix (Blade + layout + branding setting) | Before/after run on the same viewport, data and machine; use-case suite re-run after the fix; screenshot checked for visual regressions (footer underline corrected) | |
 | 5 | Security | Access-matrix spec (11 decisions), ZAP passive run, cookie/CSRF/policy source review, composer/npm audit triage | Every observation backed by a raw file or a source line; CSRF assertion corrected after observing 302 (not 419) and reading `Handler.php`; `bootstrap-less` origin confirmed through the source map | |
 | 6 | Documents | `use-cases.md`, `usability-accessibility.md`, `security-assessment.md`, `findings-risks-traceability.md`, this file | Numbers copied from the raw evidence files | |
+| 7 | PR #5 review fixes (Nafay) | Docker override for the changed templates, Docker before/after rerun, open-defect tests that assert the exact defect, local-target guard, Windows path fix, SonarQube Cloud exclusion | Container file hashes match the checkout; the old `test.fail` tests passed with a setup error and a broken assertion, the new ones fail on both and fail with "looks fixed" when each fix is simulated; the guard rejects 5 non-local targets; AC-11 flake found and fixed (15/15, combined 83/83) | |
 
 Points to be able to explain at the viva (re-run them yourself first):
 

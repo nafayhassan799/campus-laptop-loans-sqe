@@ -13,7 +13,7 @@
     "role": "technician",
     "action": "POST /hardware/12/checkout",
     "expected": "allowed: loan saved",
-    "observed": "HTTP 302 to http://localhost:8000/hardware/12/checkout; assigned_to=sqe_student_sara, checkout_counter 12->13",
+    "observed": "HTTP 302 to http://localhost:8000/hardware/12/checkout; assigned_to=sqe_student_sara, checkout_counter 7->8",
     "evidence": "REST read-back GET /api/v1/hardware/{id}",
     "test": "AC-02 technician submits a checkout: allowed and saved"
   },
@@ -22,7 +22,7 @@
     "role": "technician",
     "action": "POST /hardware/13/checkin",
     "expected": "allowed: return saved",
-    "observed": "HTTP 302; assigned_to=null, status=SQE Needs Repair, checkin_counter 12->13",
+    "observed": "HTTP 302; assigned_to=null, status=SQE Needs Repair, checkin_counter 7->8",
     "evidence": "REST read-back GET /api/v1/hardware/{id}",
     "test": "AC-03 technician submits a check-in: allowed and saved"
   },
@@ -76,7 +76,7 @@
     "role": "reviewer",
     "action": "POST /hardware/16/checkin",
     "expected": "denied: 403, loan kept",
-    "observed": "HTTP 403; assigned_to=sqe_student_sara, checkin_counter 25->25",
+    "observed": "HTTP 403; assigned_to=sqe_student_sara, checkin_counter 15->15",
     "evidence": "REST read-back GET /api/v1/hardware/{id}",
     "test": "AC-09 reviewer submits a check-in: denied and the loan is kept"
   },
@@ -94,7 +94,7 @@
     "role": "technician",
     "action": "POST /hardware/12/checkout without _token",
     "expected": "denied: CSRF check fails, asset unchanged",
-    "observed": "HTTP 302 to same-origin /hardware/12/checkout with \"Your form session has expired\"; assigned_to=null, checkout_counter 13->13",
+    "observed": "HTTP 302 to same-origin /hardware/12/checkout with \"Your form session has expired\"; assigned_to=null, checkout_counter 8->8",
     "evidence": "REST read-back GET /api/v1/hardware/{id}",
     "test": "AC-11 a technician checkout POST without the form token is refused and nothing is saved"
   }

@@ -144,12 +144,16 @@ test.describe('Control: CSRF protection on the checkout form', () => {
     const id = data.assets['RAF-AC-02'];
     const before = await s.resetAsset(request, id);
     await page.goto(`/hardware/${id}/checkout`);
+    await page.waitForLoadState('networkidle');
+    // Leave the form before posting: its background requests (pickers, Livewire panel) would otherwise
+    // be the "next request" after the POST and consume the one-shot flash message.
+    await page.goto('about:blank');
     // Same session cookie and fields as AC-02, but no _token: what a cross-site form post would send.
     const response = await page.request.post(`/hardware/${id}/checkout`, { form: loanFields(), maxRedirects: 0 });
     // Snipe-IT turns Laravel's 419 into a same-origin redirect with a flash message (app/Exceptions/Handler.php).
     expect(response.status()).toBe(302);
     const location = response.headers().location;
-    expect(new URL(location).origin).toBe(new URL(page.url()).origin);
+    expect(new URL(location).origin).toBe(new URL(data.baseUrl).origin); // same-origin redirect only
     await page.goto(location);
     await expect(s.flash(page).filter({ hasText: 'Your form session has expired. Please try again.' })).toBeVisible();
     const after = await s.readAsset(request, id);

@@ -13,13 +13,13 @@ Section A, 24I-3026. Campus Laptop Loans (Snipe-IT v8.8.4, upstream `60fe0746`; 
 | Access-matrix spec | `../playwright/rafay/access-matrix.spec.cjs` |
 | Defects, root cause analysis, risk register input, exit criteria, traceability, notes for the team | [`findings-risks-traceability.md`](findings-risks-traceability.md) |
 | Hours and AI-use record | [`hours-and-ai-use.md`](hours-and-ai-use.md) |
-| Raw evidence | `evidence/playwright/` (combined HTML report, JUnit, JSON results), `evidence/a11y/{before,after}/`, `evidence/zap/`, `evidence/deps/`, `evidence/security/access-matrix.json` |
+| Raw evidence | `evidence/playwright/` (combined HTML report, JUnit, JSON results), `evidence/a11y/{before,after,docker-before,docker-after}/`, `evidence/zap/`, `evidence/deps/`, `evidence/security/access-matrix.json` |
 
 ## Results at a glance (final run 2026-11-25)
 
-* Combined suite: **29 tests: 27 passed, 2 failed as expected** (known defects DEF-R1, DEF-R2), 0 unexpected failures. Before AC-11 was added, the Rafay project ran 3 times in a row with no flakes (71/71).
+* Combined suite on the Docker build (2026-11-27): **29 passed, 0 failed**. 3 repeated runs: 83/83. The open defects DEF-R1 and DEF-R2 are tracked by tests that pass only while that exact defect is present (see `use-cases.md`).
 * Use cases: UC-R1 and UC-R2, each with a main flow, 2 alternative flows and 2–3 exception flows. Every flow asserts the visible outcome and the saved state through REST read-back.
-* Accessibility: checkout screen Lighthouse **87 → 100**, axe **4 → 0** serious rules (23 → 0 nodes). Checkin improved 87 → 93 as a side effect.
+* Accessibility: checkout screen Lighthouse **87 → 100**, axe **4 → 0** serious rules (23 → 0 nodes), on both the native stack and the Docker build (`evidence/a11y/docker-*`). Checkin improved 87 → 93 as a side effect.
 * Security: 11/11 access decisions as expected. ZAP passive found 0 High and 6 Medium alert types, triaged. composer audit found 1 advisory (not reachable); npm audit found 51, mostly build-only tooling; the shipped ones are Bootstrap 3.4.1 and SheetJS 0.18.5. ZAP also found a Bootstrap 3.3.4 copy (through `bootstrap-less`) that npm audit misses.
 * Defects found: DEF-R1 (due date silently set to "now", S2), DEF-R2 (raw validation key), U-03 (lost input on a check-in rejection), A11Y-01 (login label), SEC-01…07.
 

@@ -75,7 +75,36 @@ Remaining findings, explained:
 * **Login** keeps A11Y-09: the login page uses `layouts/basic.blade.php`, where the button colour does not follow the branding setting. The label mismatch A11Y-01 is also still open there.
 * **SEO** stays at 50–54 by design. The tool is internal and sign-in only, and blocking indexing is correct.
 
-## 5. How to reproduce
+## 5. Rerun on the Docker build (PR #5 review)
+
+The first before/after was measured on the native stack (`php -S` serving this checkout). The Docker image contains the stock upstream templates, so `tests/team/compose.app-changes.yml` now bind-mounts the four changed files into the container, and `start-local.ps1` loads it.
+Both tools were rerun against the Docker build (`snipe/snipe-it:v8.8.4`, MariaDB 13.0.2, the team's migration mounted) on 2026-11-27, with the same viewport, seeded laptops and tool versions.
+The image IDs and the sha256 of each mounted file inside the container (identical to the checkout) are in `evidence/a11y/docker-build.txt`.
+
+| Screen | Docker before: stock templates, header colour unset | Docker after: `compose.app-changes.yml` + header colour #296282 |
+| --- | --- | --- |
+| **Checkout (fixed screen)** | Lighthouse 87; axe 4 rules (23 nodes) | **Lighthouse 100; axe 0** |
+| Checkin | 87; 4 rules (21 nodes) | 93; 2 rules (6 nodes) |
+| Login | 96; 1 rule (1 node) | 96; 1 rule (1 node) |
+
+The Docker results are identical to the native ones in §2 and §4, and the remaining findings are the same ones explained in §4.
+Raw reports: `evidence/a11y/docker-before/` and `evidence/a11y/docker-after/`. The full combined suite also passed on this build (29/29; 3 repeated runs 83/83).
+
+## 6. How to reproduce
+
+On the Docker build (what CI runs). From the repository root:
+
+```bash
+docker compose -p sqe-campus-laptops -f docker-compose.yml -f tests/team/compose.migrations.yml up -d --wait   # "before": stock templates
+cd tests/team/playwright
+SQE_A11Y_LABEL=docker-before npx playwright test --project=a11y && SQE_A11Y_LABEL=docker-before node rafay/a11y/lighthouse.mjs
+cd ../../..
+pwsh -NoProfile -File tests/team/start-local.ps1   # "after": adds compose.app-changes.yml; then set Header Color #296282
+cd tests/team/playwright
+SQE_A11Y_LABEL=docker-after npx playwright test --project=a11y && SQE_A11Y_LABEL=docker-after node rafay/a11y/lighthouse.mjs
+```
+
+On the native stack:
 
 ```bash
 cd tests/team/playwright

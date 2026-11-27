@@ -1,0 +1,36 @@
+[
+  {
+    "screen": "login",
+    "rule": "color-contrast",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      "#submit"
+    ],
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+  },
+  {
+    "screen": "checkin",
+    "rule": "aria-input-field-name",
+    "impact": "serious",
+    "nodes": 4,
+    "targets": [
+      "#select2-modal-statuslabel_types-container",
+      "#select2-location_id_location_select-container",
+      "#select2-rtd_location_id_location_select-container",
+      "#select2-redirect_option-p2-container"
+    ],
+    "help": "ARIA input fields must have an accessible name"
+  },
+  {
+    "screen": "checkin",
+    "rule": "color-contrast",
+    "impact": "serious",
+    "nodes": 2,
+    "targets": [
+      "#select2-location_id_location_select-container > .select2-selection__placeholder.needsclick",
+      "#select2-rtd_location_id_location_select-container > .select2-selection__placeholder.needsclick"
+    ],
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+  }
+]
