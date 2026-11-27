@@ -1,0 +1,20 @@
+{
+  "source": {
+    "directories": ["/var/www/html/app/Models"]
+  },
+  "phpUnit": {
+    "configDir": "/var/www/html/tests/team",
+    "customPath": "/var/www/html/vendor/bin/phpunit"
+  },
+  "bootstrap": "/var/www/html/tests/team/mutation/bootstrap.php",
+  "mutators": {
+    "@default": true,
+    "Sqe\\Mutation\\AvailabilityUsesPendingFlag": true,
+    "Sqe\\Mutation\\ReintroduceAssetNameTruncation": true
+  },
+  "timeout": 60,
+  "logs": {
+    "json": "/evidence/infection.json",
+    "text": "/evidence/infection.txt"
+  }
+}

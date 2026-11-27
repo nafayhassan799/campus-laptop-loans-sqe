@@ -1,0 +1,110 @@
+name: Campus Laptop Loans quality
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sqe-quality-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php:
+    name: PHP tests, mutation, and SonarQube
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Build isolated PHP test image
+        run: docker build -t sqe-php-quality -f tests/team/Dockerfile.quality .
+      - name: Run PHPUnit and verify coverage
+        run: |
+          mkdir -p output/nafay-quality
+          docker run --rm -e XDEBUG_MODE=coverage \
+            -v "${{ github.workspace }}/output/nafay-quality:/evidence" sqe-php-quality \
+            vendor/bin/phpunit -c tests/team/phpunit.xml --path-coverage \
+              --coverage-clover /evidence/clover.xml --coverage-php /evidence/coverage.cov \
+              --log-junit /evidence/phpunit-junit.xml
+          docker run --rm -v "${{ github.workspace }}/output/nafay-quality:/evidence" sqe-php-quality \
+            php tests/team/check_coverage.php
+      - name: Run Infection and enforce the mutation threshold
+        run: |
+          docker run --rm -e XDEBUG_MODE=coverage \
+            -v "${{ github.workspace }}/output/nafay-quality:/evidence" sqe-php-quality \
+            /opt/sqe-infection/vendor/bin/infection --configuration=tests/team/infection.json5 \
+              --threads=4 --only-covering-test-cases --no-progress --show-mutations=0 \
+              --min-msi=49 --logger-summary-json=/evidence/infection-final-summary.json Asset.php
+          python -B tests/team/check_mutation.py
+      - name: Scan PHP source and enforce the SonarQube gate
+        run: python -B tests/team/run_sonar.py --require-gate
+      - name: Upload PHP quality evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sqe-php-quality
+          path: |
+            output/nafay-quality/clover.xml
+            output/nafay-quality/phpunit-junit.xml
+            output/nafay-quality/scoped-coverage.json
+            output/nafay-quality/infection.json
+            output/nafay-quality/infection.txt
+            output/nafay-quality/infection-final-summary.json
+            output/nafay-quality/sonar-metrics.json
+
+  workflow-tests:
+    name: Local API and Chromium use cases
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Start the disposable laptop-loan environment
+        run: |
+          pwsh -NoProfile -File tests/team/start-local.ps1
+          python -B tests/team/initialize_local.py
+      - name: Run the API smoke and boundary tests
+        run: python -B tests/team/smoke_checkout.py --admin-id 1
+      - name: Install pinned Playwright and Chromium
+        run: |
+          npm ci --prefix tests/team/browser
+          node tests/team/browser/node_modules/@playwright/test/cli.js install --with-deps chromium
+      - name: Run the browser use cases
+        run: python -B tests/team/run_browser.py --admin-id 1
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sqe-browser
+          path: |
+            output/nafay-quality/browser/junit.xml
+            output/nafay-quality/browser/html
+
+  gate:
+    name: SQE quality gate
+    if: always()
+    needs: [php, workflow-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require every quality job to pass
+        env:
+          PHP_RESULT: ${{ needs.php.result }}
+          WORKFLOW_RESULT: ${{ needs.workflow-tests.result }}
+        run: |
+          test "$PHP_RESULT" = success
+          test "$WORKFLOW_RESULT" = success
