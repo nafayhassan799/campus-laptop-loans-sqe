@@ -130,13 +130,13 @@ jobs:
           node-version: '24'
       - name: Install the contract validator and pinned Chromium
         run: |
-          python -m pip install openapi-spec-validator==0.7.2
-          npm ci --no-audit --no-fund --prefix tests/team/usman/browser
+          python -m pip install --only-binary=:all: openapi-spec-validator==0.7.2
+          npm ci --ignore-scripts --no-audit --no-fund --prefix tests/team/usman/browser
           node tests/team/usman/browser/node_modules/@playwright/test/cli.js install --with-deps chromium
       - name: Install k6 v0.55.0
         run: |
           archive=k6-v0.55.0-linux-amd64.tar.gz
-          curl --fail --silent --show-error --location \
+          curl --fail --silent --show-error --location --proto '=https' --proto-redir '=https' \
             "https://github.com/grafana/k6/releases/download/v0.55.0/$archive" \
             --output "$RUNNER_TEMP/$archive"
           cd "$RUNNER_TEMP"

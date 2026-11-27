@@ -69,7 +69,8 @@ def main():
             cli = browser / "node_modules" / "@playwright" / "test" / "cli.js"
             done = None
             if not cli.is_file():
-                done = run(["npm.cmd" if sys.platform == "win32" else "npm", "ci", "--no-audit", "--no-fund"], cwd=browser)
+                done = run(["npm.cmd" if sys.platform == "win32" else "npm", "ci",
+                            "--ignore-scripts", "--no-audit", "--no-fund"], cwd=browser)
             if done is None or done.returncode == 0:
                 done = run(["node", str(cli), "test"], cwd=browser)
             code, output = done.returncode, done.stdout
