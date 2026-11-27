@@ -1,0 +1,15 @@
+Composer plugins have been disabled for safety in this non-interactive session.
+Set COMPOSER_ALLOW_SUPERUSER=1 if you want to allow plugins to run as root/super user.
+Do not run Composer as root/super user! See https://getcomposer.org/root for details
+Found 1 security vulnerability advisory affecting 1 package:
++-------------------+----------------------------------------------------------------------------------+
+| Package           | league/csv                                                                       |
+| Severity          |                                                                                  |
+| CVE               | NO CVE                                                                           |
+| Title             | CharsetConverter - Denial of Service through unbounded buffering of invalid      |
+|                   | multibyte sequences                                                              |
+| URL               | https://github.com/thephpleague/csv/security/advisories/GHSA-m9j4-54gj-jvf8      |
+| Affected versions | >=9.22,<9.28|>=9.28.0,<9.28.1|>=9.29.0,<9.29.1                                   |
+| Reported at       | 2026-11-22T00:00:00+00:00                                                        |
+| Advisory ID       | PKSA-kwst-yd6p-pksp                                                              |
++-------------------+----------------------------------------------------------------------------------+

@@ -1,0 +1,23 @@
+{
+    "advisories": {
+        "league/csv": [
+            {
+                "advisoryId": "PKSA-kwst-yd6p-pksp",
+                "packageName": "league/csv",
+                "affectedVersions": ">=9.22,<9.28|>=9.28.0,<9.28.1|>=9.29.0,<9.29.1",
+                "title": "CharsetConverter - Denial of Service through unbounded buffering of invalid multibyte sequences",
+                "cve": null,
+                "link": "https://github.com/thephpleague/csv/security/advisories/GHSA-m9j4-54gj-jvf8",
+                "reportedAt": "2026-11-22T00:00:00+00:00",
+                "sources": [
+                    {
+                        "name": "FriendsOfPHP/security-advisories",
+                        "remoteId": "league/csv/2026-11-22.yaml"
+                    }
+                ],
+                "severity": null
+            }
+        ]
+    },
+    "abandoned": []
+}

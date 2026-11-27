@@ -1,0 +1,18 @@
+{
+  "name": "campus-laptop-loans-playwright",
+  "private": true,
+  "description": "Shared team Playwright suite for the Snipe-IT laptop loan workflows",
+  "scripts": {
+    "seed": "python3 -B seed.py --admin-id 1",
+    "test": "playwright test",
+    "test:rafay": "playwright test --project=rafay",
+    "a11y": "playwright test --project=a11y",
+    "lighthouse": "node rafay/a11y/lighthouse.mjs",
+    "report": "playwright show-report ../../../output/playwright/html"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.1",
+    "@playwright/test": "1.61.1",
+    "lighthouse": "13.6.0"
+  }
+}

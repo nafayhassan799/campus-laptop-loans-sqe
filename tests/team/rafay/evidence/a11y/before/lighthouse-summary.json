@@ -1,0 +1,123 @@
+[
+  {
+    "screen": "login",
+    "url": "http://localhost:8000/login",
+    "lighthouseVersion": "13.6.0",
+    "scores": {
+      "accessibility": 96,
+      "best-practices": 100,
+      "seo": 54
+    },
+    "failed": [
+      {
+        "id": "color-contrast",
+        "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+        "items": 1
+      },
+      {
+        "id": "meta-description",
+        "title": "Document does not have a meta description",
+        "items": 0
+      },
+      {
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "items": 1
+      }
+    ]
+  },
+  {
+    "screen": "checkout",
+    "url": "http://localhost:8000/hardware/17/checkout",
+    "lighthouseVersion": "13.6.0",
+    "scores": {
+      "accessibility": 87,
+      "best-practices": 100,
+      "seo": 50
+    },
+    "failed": [
+      {
+        "id": "aria-input-field-name",
+        "title": "ARIA input fields do not have accessible names",
+        "items": 5
+      },
+      {
+        "id": "color-contrast",
+        "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+        "items": 7
+      },
+      {
+        "id": "link-name",
+        "title": "Links do not have a discernible name",
+        "items": 10
+      },
+      {
+        "id": "link-in-text-block",
+        "title": "Links rely on color to be distinguishable.",
+        "items": 1
+      },
+      {
+        "id": "meta-description",
+        "title": "Document does not have a meta description",
+        "items": 0
+      },
+      {
+        "id": "crawlable-anchors",
+        "title": "Links are not crawlable",
+        "items": 1
+      },
+      {
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "items": 1
+      }
+    ]
+  },
+  {
+    "screen": "checkin",
+    "url": "http://localhost:8000/hardware/18/checkin",
+    "lighthouseVersion": "13.6.0",
+    "scores": {
+      "accessibility": 87,
+      "best-practices": 100,
+      "seo": 50
+    },
+    "failed": [
+      {
+        "id": "aria-input-field-name",
+        "title": "ARIA input fields do not have accessible names",
+        "items": 4
+      },
+      {
+        "id": "color-contrast",
+        "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+        "items": 6
+      },
+      {
+        "id": "link-name",
+        "title": "Links do not have a discernible name",
+        "items": 10
+      },
+      {
+        "id": "link-in-text-block",
+        "title": "Links rely on color to be distinguishable.",
+        "items": 1
+      },
+      {
+        "id": "meta-description",
+        "title": "Document does not have a meta description",
+        "items": 0
+      },
+      {
+        "id": "crawlable-anchors",
+        "title": "Links are not crawlable",
+        "items": 1
+      },
+      {
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "items": 1
+      }
+    ]
+  }
+]

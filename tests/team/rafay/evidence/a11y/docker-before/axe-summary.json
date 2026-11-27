@@ -1,0 +1,128 @@
+[
+  {
+    "screen": "login",
+    "rule": "color-contrast",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      "#submit"
+    ],
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+  },
+  {
+    "screen": "checkout",
+    "rule": "aria-input-field-name",
+    "impact": "serious",
+    "nodes": 5,
+    "targets": [
+      "#select2-status_id-12-container",
+      "#select2-assigned_user_select-container",
+      "#select2-location_id_location_select-container",
+      "#select2-rtd_location_id_location_select-container",
+      "#select2-redirect_option-ia-container"
+    ],
+    "help": "ARIA input fields must have an accessible name"
+  },
+  {
+    "screen": "checkout",
+    "rule": "color-contrast",
+    "impact": "serious",
+    "nodes": 7,
+    "targets": [
+      ".logo",
+      ".dropdown-toggle > .hidden-xs",
+      "#select2-assigned_user_select-container > .select2-selection__placeholder.needsclick",
+      "#select2-location_id_location_select-container > .select2-selection__placeholder.needsclick",
+      "#select2-rtd_location_id_location_select-container > .select2-selection__placeholder.needsclick",
+      ".label.label-default[target=\"_blank\"]:nth-child(1)",
+      ".label.label-default[target=\"_blank\"]:nth-child(2)"
+    ],
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+  },
+  {
+    "screen": "checkout",
+    "rule": "link-in-text-block",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      "a[href$=\"snipeitapp.com\"]:nth-child(1)"
+    ],
+    "help": "Links must be distinguishable without relying on color"
+  },
+  {
+    "screen": "checkout",
+    "rule": "link-name",
+    "impact": "serious",
+    "nodes": 10,
+    "targets": [
+      ".menu-open > a[href=\"#\"]",
+      ".treeview:nth-child(2) > a[href=\"#\"]",
+      "a[href$=\"calendar\"]",
+      "a[href$=\"requests\"]",
+      ".sidebar-menu > li:nth-child(5) > a",
+      ".breadcrumb-item:nth-child(1) > a[href$=\"localhost:8000\"]",
+      "a[data-title=\"Join us on Bluesky\"]",
+      "a[data-title=\"Join us on Github\"]",
+      "a[data-title=\"Join us on Mastodon\"]",
+      "a[href$=\"yZFtShAcKk\"]"
+    ],
+    "help": "Links must have discernible text"
+  },
+  {
+    "screen": "checkin",
+    "rule": "aria-input-field-name",
+    "impact": "serious",
+    "nodes": 4,
+    "targets": [
+      "#select2-modal-statuslabel_types-container",
+      "#select2-location_id_location_select-container",
+      "#select2-rtd_location_id_location_select-container",
+      "#select2-redirect_option-ko-container"
+    ],
+    "help": "ARIA input fields must have an accessible name"
+  },
+  {
+    "screen": "checkin",
+    "rule": "color-contrast",
+    "impact": "serious",
+    "nodes": 6,
+    "targets": [
+      ".logo",
+      ".dropdown-toggle > .hidden-xs",
+      "#select2-location_id_location_select-container > .select2-selection__placeholder.needsclick",
+      "#select2-rtd_location_id_location_select-container > .select2-selection__placeholder.needsclick",
+      ".label.label-default[target=\"_blank\"]:nth-child(1)",
+      ".label.label-default[target=\"_blank\"]:nth-child(2)"
+    ],
+    "help": "Elements must meet minimum color contrast ratio thresholds"
+  },
+  {
+    "screen": "checkin",
+    "rule": "link-in-text-block",
+    "impact": "serious",
+    "nodes": 1,
+    "targets": [
+      "a[href$=\"snipeitapp.com\"]:nth-child(1)"
+    ],
+    "help": "Links must be distinguishable without relying on color"
+  },
+  {
+    "screen": "checkin",
+    "rule": "link-name",
+    "impact": "serious",
+    "nodes": 10,
+    "targets": [
+      ".menu-open > a[href=\"#\"]",
+      ".treeview:nth-child(2) > a[href=\"#\"]",
+      "a[href$=\"calendar\"]",
+      "a[href$=\"requests\"]",
+      ".sidebar-menu > li:nth-child(5) > a",
+      ".breadcrumb-item:nth-child(1) > a[href$=\"localhost:8000\"]",
+      "a[data-title=\"Join us on Bluesky\"]",
+      "a[data-title=\"Join us on Github\"]",
+      "a[data-title=\"Join us on Mastodon\"]",
+      "a[href$=\"yZFtShAcKk\"]"
+    ],
+    "help": "Links must have discernible text"
+  }
+]

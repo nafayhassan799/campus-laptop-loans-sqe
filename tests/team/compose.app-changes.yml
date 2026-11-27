@@ -1,0 +1,31 @@
+# Serves the team's application changes from this checkout inside the pinned Snipe-IT image.
+# The image (snipe/snipe-it:v8.8.4) contains the stock upstream files; without these read-only
+# bind mounts the Docker stack would not show the checkout-screen accessibility fix (A11Y-02..08).
+# Keep this list equal to: git diff --name-only <upstream base> -- resources
+services:
+  app:
+    volumes:
+      - type: bind
+        source: ./resources/views/hardware/checkout.blade.php
+        target: /var/www/html/resources/views/hardware/checkout.blade.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./resources/views/blade/redirect_submit_options.blade.php
+        target: /var/www/html/resources/views/blade/redirect_submit_options.blade.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./resources/views/layouts/default.blade.php
+        target: /var/www/html/resources/views/layouts/default.blade.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./resources/lang/en-US/general.php
+        target: /var/www/html/resources/lang/en-US/general.php
+        read_only: true
+        bind:
+          create_host_path: false
