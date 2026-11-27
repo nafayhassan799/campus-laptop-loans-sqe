@@ -1,0 +1,235 @@
+<testsuites id="" name="" tests="29" failures="0" skipped="0" errors="0" time="45.973214">
+<testsuite name="auth.setup.cjs" timestamp="2026-11-27T09:49:09.851Z" hostname="setup" tests="2" failures="0" skipped="0" time="3.245" errors="0">
+<testcase name="sign in as technician" classname="auth.setup.cjs" time="1.715">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/auth.setup.cjs-sign-in-as-technician-setup/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="sign in as reviewer" classname="auth.setup.cjs" time="1.53">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/auth.setup.cjs-sign-in-as-reviewer-setup/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="rafay/access-matrix.spec.cjs" timestamp="2026-11-27T09:49:09.851Z" hostname="rafay" tests="11" failures="0" skipped="0" time="8.497" errors="0">
+<testcase name="Access matrix: lab technician (assets.view, assets.checkout, assets.checkin) › AC-01 technician opens the checkout form: allowed" classname="rafay/access-matrix.spec.cjs" time="0.64">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Access-matri-3035a-s-the-checkout-form-allowed-rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Access matrix: lab technician (assets.view, assets.checkout, assets.checkin) › AC-02 technician submits a checkout: allowed and saved" classname="rafay/access-matrix.spec.cjs" time="0.74">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Access-matri-81526--checkout-allowed-and-saved-rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Access matrix: lab technician (assets.view, assets.checkout, assets.checkin) › AC-03 technician submits a check-in: allowed and saved" classname="rafay/access-matrix.spec.cjs" time="0.776">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Access-matri-fe579--check-in-allowed-and-saved-rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Access matrix: lab technician (assets.view, assets.checkout, assets.checkin) › AC-04 technician opens the asset edit form: denied (no assets.edit)" classname="rafay/access-matrix.spec.cjs" time="0.298">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Access-matri-e4d6c-form-denied-no-assets-edit--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Access matrix: read-only reviewer (assets.view) › AC-05 reviewer views the laptop record: allowed, with no checkout or check-in action" classname="rafay/access-matrix.spec.cjs" time="1.036">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Access-matri-fc9db-checkout-or-check-in-action-rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Access matrix: read-only reviewer (assets.view) › AC-06 reviewer opens the checkout form: denied" classname="rafay/access-matrix.spec.cjs" time="0.466">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Access-matri-17d19-ns-the-checkout-form-denied-rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Access matrix: read-only reviewer (assets.view) › AC-07 reviewer submits a checkout: denied and nothing saved" classname="rafay/access-matrix.spec.cjs" time="0.951">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Access-matri-c3767-ut-denied-and-nothing-saved-rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Access matrix: read-only reviewer (assets.view) › AC-08 reviewer opens the check-in form: denied" classname="rafay/access-matrix.spec.cjs" time="0.565">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Access-matri-d619b-ns-the-check-in-form-denied-rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Access matrix: read-only reviewer (assets.view) › AC-09 reviewer submits a check-in: denied and the loan is kept" classname="rafay/access-matrix.spec.cjs" time="1.167">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Access-matri-6db61-denied-and-the-loan-is-kept-rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Control: CSRF protection on the checkout form › AC-11 a technician checkout POST without the form token is refused and nothing is saved" classname="rafay/access-matrix.spec.cjs" time="1.421">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Control-CSRF-5c73e-efused-and-nothing-is-saved-rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="Access matrix: no session › AC-10 a visitor with no session is sent to sign in" classname="rafay/access-matrix.spec.cjs" time="0.437">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/access-matrix-Access-matri-d26c5--session-is-sent-to-sign-in-rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="rafay/uc-r1-keyboard-checkout.spec.cjs" timestamp="2026-11-27T09:49:09.851Z" hostname="rafay" tests="7" failures="0" skipped="0" time="14.522" errors="0">
+<testcase name="UC-R1 keyboard checkout › UC-R1-MAIN keyboard reaches the borrower and submit in order, checks out, and the loan is saved [CO-01 CO-02 USAB-KBD USAB-TASK]" classname="rafay/uc-r1-keyboard-checkout.spec.cjs" time="2.042">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r1-keyboard-checkout-UC-8a5b0-1-CO-02-USAB-KBD-USAB-TASK--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R1 keyboard checkout › UC-R1-ALT1 a note typed with the keyboard is saved with the checkout [CO-01]" classname="rafay/uc-r1-keyboard-checkout.spec.cjs" time="2.028">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r1-keyboard-checkout-UC-47290-ed-with-the-checkout-CO-01--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R1 keyboard checkout › UC-R1-ALT2 keyboard search narrows the results and arrow keys pick another eligible borrower [CO-01]" classname="rafay/uc-r1-keyboard-checkout.spec.cjs" time="1.901">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r1-keyboard-checkout-UC-92320-er-eligible-borrower-CO-01--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R1 keyboard checkout › UC-R1-EXC1 submitting without a borrower is rejected with a message saying what to fix, then the corrected form succeeds [CO-01 CO-03 USAB-ERR]" classname="rafay/uc-r1-keyboard-checkout.spec.cjs" time="2.292">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r1-keyboard-checkout-UC-2da40-ceeds-CO-01-CO-03-USAB-ERR--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R1 keyboard checkout › UC-R1-EXC2 a read-only reviewer cannot make the same checkout and nothing is saved [ROLE CO-03]" classname="rafay/uc-r1-keyboard-checkout.spec.cjs" time="1.721">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r1-keyboard-checkout-UC-1adaa-othing-is-saved-ROLE-CO-03--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R1 open defects (pass while the documented defect is present) › DEF-R1 tabbing past the empty optional due date saves the moment of focus as the due date [CO-02]" classname="rafay/uc-r1-keyboard-checkout.spec.cjs" time="2.195">
+<properties>
+<property name="open defect" value="DEF-R1: eonasdan useCurrent fills the due date on focus">
+</property>
+</properties>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r1-keyboard-checkout-UC-07ef5-ocus-as-the-due-date-CO-02--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R1 open defects (pass while the documented defect is present) › DEF-R2 a borrower removed before submit is rejected, but the message is the raw key validation.exists_undeleted [CO-01 USAB-ERR]" classname="rafay/uc-r1-keyboard-checkout.spec.cjs" time="2.343">
+<properties>
+<property name="open defect" value="DEF-R2: missing en-US message for exists_undeleted">
+</property>
+</properties>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r1-keyboard-checkout-UC-90477-s-undeleted-CO-01-USAB-ERR--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="rafay/uc-r2-repair-return.spec.cjs" timestamp="2026-11-27T09:49:09.851Z" hostname="rafay" tests="6" failures="0" skipped="0" time="13.258" errors="0">
+<testcase name="UC-R2 repair return › UC-R2-MAIN returning with the repair status clears borrower and due date and the laptop stays unavailable [CI-01 CI-03 USAB-TASK]" classname="rafay/uc-r2-repair-return.spec.cjs" time="2.5">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r2-repair-return-UC-R2--91502-able-CI-01-CI-03-USAB-TASK--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R2 repair return › UC-R2-ALT1 a separate pending-assessment status is kept and the laptop stays unavailable [CI-01 CI-03]" classname="rafay/uc-r2-repair-return.spec.cjs" time="1.687">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r2-repair-return-UC-R2--a37a6-ys-unavailable-CI-01-CI-03--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R2 repair return › UC-R2-ALT2 a damage note is saved with the return and shown in the record history [CI-01]" classname="rafay/uc-r2-repair-return.spec.cjs" time="3.179">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r2-repair-return-UC-R2--098a2-n-the-record-history-CI-01--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R2 repair return › UC-R2-EXC1 an over-limit asset name on the return form is capped at 255 characters by the form [CO-04]" classname="rafay/uc-r2-repair-return.spec.cjs" time="2.409">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r2-repair-return-UC-R2--fc5de-aracters-by-the-form-CO-04--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R2 repair return › UC-R2-EXC1b a 256-character name that reaches the server is rejected and the loan is left intact [CO-04 CI-01]" classname="rafay/uc-r2-repair-return.spec.cjs" time="1.76">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r2-repair-return-UC-R2--eb67d-is-left-intact-CO-04-CI-01--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UC-R2 repair return › UC-R2-EXC2 lending the laptop after a repair return is refused and the unassigned repair state is kept [CI-03 CO-03]" classname="rafay/uc-r2-repair-return.spec.cjs" time="1.723">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/uc-r2-repair-return-UC-R2--1fb4a--state-is-kept-CI-03-CO-03--rafay/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="rafay/a11y/axe-scan.spec.cjs" timestamp="2026-11-27T09:49:09.851Z" hostname="a11y" tests="3" failures="0" skipped="0" time="4.645" errors="0">
+<testcase name="axe-core full-page scans › login screen" classname="rafay/a11y/axe-scan.spec.cjs" time="0.771">
+<properties>
+<property name="axe" value="login: color-contrast(1)">
+</property>
+</properties>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/axe-scan-axe-core-full-page-scans-login-screen-a11y/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="axe-core full-page scans › checkout screen (UC-R1 key screen)" classname="rafay/a11y/axe-scan.spec.cjs" time="2.007">
+<properties>
+<property name="axe" value="checkout: no violations">
+</property>
+</properties>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/axe-scan-axe-core-full-pag-4d256-ut-screen-UC-R1-key-screen--a11y/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+<testcase name="axe-core full-page scans › checkin screen (UC-R2 key screen)" classname="rafay/a11y/axe-scan.spec.cjs" time="1.867">
+<properties>
+<property name="axe" value="checkin: aria-input-field-name(4), color-contrast(2)">
+</property>
+</properties>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|runs/axe-scan-axe-core-full-pag-1e59b-in-screen-UC-R2-key-screen--a11y/test-finished-1.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+</testsuites>

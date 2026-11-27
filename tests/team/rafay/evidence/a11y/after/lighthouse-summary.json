@@ -1,0 +1,93 @@
+[
+  {
+    "screen": "login",
+    "url": "http://localhost:8000/login",
+    "lighthouseVersion": "13.6.0",
+    "scores": {
+      "accessibility": 96,
+      "best-practices": 100,
+      "seo": 54
+    },
+    "failed": [
+      {
+        "id": "color-contrast",
+        "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+        "items": 1
+      },
+      {
+        "id": "meta-description",
+        "title": "Document does not have a meta description",
+        "items": 0
+      },
+      {
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "items": 1
+      }
+    ]
+  },
+  {
+    "screen": "checkout",
+    "url": "http://localhost:8000/hardware/17/checkout",
+    "lighthouseVersion": "13.6.0",
+    "scores": {
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 50
+    },
+    "failed": [
+      {
+        "id": "meta-description",
+        "title": "Document does not have a meta description",
+        "items": 0
+      },
+      {
+        "id": "crawlable-anchors",
+        "title": "Links are not crawlable",
+        "items": 1
+      },
+      {
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "items": 1
+      }
+    ]
+  },
+  {
+    "screen": "checkin",
+    "url": "http://localhost:8000/hardware/18/checkin",
+    "lighthouseVersion": "13.6.0",
+    "scores": {
+      "accessibility": 93,
+      "best-practices": 100,
+      "seo": 50
+    },
+    "failed": [
+      {
+        "id": "aria-input-field-name",
+        "title": "ARIA input fields do not have accessible names",
+        "items": 4
+      },
+      {
+        "id": "color-contrast",
+        "title": "Background and foreground colors do not have a sufficient contrast ratio.",
+        "items": 2
+      },
+      {
+        "id": "meta-description",
+        "title": "Document does not have a meta description",
+        "items": 0
+      },
+      {
+        "id": "crawlable-anchors",
+        "title": "Links are not crawlable",
+        "items": 1
+      },
+      {
+        "id": "is-crawlable",
+        "title": "Page is blocked from indexing",
+        "items": 1
+      }
+    ]
+  }
+]

@@ -902,6 +902,27 @@
                                 display: inline;
                                 list-style: none;
                             }
+
+                            /* SQE A11Y-05: the collapsed sidebar hid each link's text with display:none, which
+                               also removed the link's accessible name (WCAG 2.4.4 / 4.1.2). Keep the text
+                               visually hidden but readable by assistive technology; hover still shows the flyout. */
+                            .sidebar-mini.sidebar-collapse .sidebar-menu > li:not(:hover) > a > span:not(.pull-right-container):not(.pull-right) {
+                                display: block !important;
+                                position: absolute !important;
+                                width: 1px;
+                                height: 1px;
+                                padding: 0;
+                                margin: -1px;
+                                overflow: hidden;
+                                clip: rect(0, 0, 0, 0);
+                                white-space: nowrap;
+                                border: 0;
+                            }
+
+                            /* SQE A11Y-07: the inline footer credit link was distinguishable by colour only (WCAG 1.4.1). */
+                            .footer-links a:not([data-tooltip]) {
+                                text-decoration: underline;
+                            }
                         </style>
 
                             <h1 class="pull-left pagetitle" style="font-size: 22px; margin-top: 5px;">
@@ -915,6 +936,7 @@
                                                 <a href="{{ $crumbs->url() }}">
                                                     @if ($loop->first)
                                                         <x-icon type="home" />
+                                                        <span class="sr-only">{{ $crumbs->title() }}</span>
                                                     @else
                                                         {{ $crumbs->title() }}
                                                     @endif
@@ -986,16 +1008,16 @@
                     <div class="pull-left footer-links">
                          {!! trans('general.footer_credit') !!}
 
-                        <a target="_blank" href="https://bsky.app/profile/snipeitapp.com" rel="noopener" data-tooltip="true" data-title="Join us on Bluesky">
+                        <a target="_blank" href="https://bsky.app/profile/snipeitapp.com" rel="noopener" data-tooltip="true" data-title="Join us on Bluesky" aria-label="Join us on Bluesky">
                             <i class="fa-brands fa-square-bluesky fa-fw"></i>
                         </a>
-                        <a target="_blank" href="https://github.com/grokability/snipe-it/" rel="noopener" data-tooltip="true" data-title="Join us on Github">
+                        <a target="_blank" href="https://github.com/grokability/snipe-it/" rel="noopener" data-tooltip="true" data-title="Join us on Github" aria-label="Join us on Github">
                             <i class="fa-brands fa-square-github fa-fw"></i>
                         </a>
-                        <a target="_blank" href="https://hachyderm.io/@grokability" rel="noopener" data-tooltip="true" data-title="Join us on Mastodon">
+                        <a target="_blank" href="https://hachyderm.io/@grokability" rel="noopener" data-tooltip="true" data-title="Join us on Mastodon" aria-label="Join us on Mastodon">
                             <i class="fa-brands fa-mastodon fa-fw"></i>
                         </a>
-                        <a target="_blank" href="https://discord.gg/yZFtShAcKk" rel="noopener" data-tooltip="true" data-title="Join us on Discord">
+                        <a target="_blank" href="https://discord.gg/yZFtShAcKk" rel="noopener" data-tooltip="true" data-title="Join us on Discord" aria-label="Join us on Discord">
                             <i class="fa-brands fa-discord fa-fw"></i>
                         </a>
 
