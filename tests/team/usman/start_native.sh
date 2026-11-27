@@ -8,8 +8,8 @@ set -euo pipefail
 cd "$(dirname "$0")/../../.."
 # Database password for the disposable local database: from SQE_DB_PASSWORD, else the existing .env, else random.
 DB_PASS="${SQE_DB_PASSWORD:-}"
-[ -z "$DB_PASS" ] && [ -f .env ] && DB_PASS="$(grep '^DB_PASSWORD=' .env | cut -d= -f2-)"
-[ -z "$DB_PASS" ] && DB_PASS="$(head -c 12 /dev/urandom | od -An -tx1 | tr -d ' \n')"
+[[ -z "$DB_PASS" && -f .env ]] && DB_PASS="$(grep '^DB_PASSWORD=' .env | cut -d= -f2-)"
+[[ -z "$DB_PASS" ]] && DB_PASS="$(head -c 12 /dev/urandom | od -An -tx1 | tr -d ' \n')"
 
 if ! mariadb -uroot -e 'SELECT 1' >/dev/null 2>&1; then
   mkdir -p /run/mysqld && chown mysql:mysql /run/mysqld
@@ -21,7 +21,7 @@ mariadb -uroot -e "CREATE DATABASE IF NOT EXISTS snipeit CHARACTER SET utf8mb4 C
   CREATE USER IF NOT EXISTS 'snipe'@'localhost' IDENTIFIED BY '${DB_PASS}';
   GRANT ALL ON snipeit.* TO 'snipe'@'127.0.0.1','snipe'@'localhost';"
 
-if [ ! -f .env ]; then
+if [[ ! -f .env ]]; then
   sed -e 's|^APP_URL=.*|APP_URL=http://localhost:8000|' \
       -e 's|^DB_DATABASE=.*|DB_DATABASE=snipeit|' -e 's|^DB_USERNAME=.*|DB_USERNAME=snipe|' \
       -e "s|^DB_PASSWORD=.*|DB_PASSWORD=${DB_PASS}|" -e 's|^MAIL_MAILER=.*|MAIL_MAILER=log|' -e 's|^API_THROTTLE_PER_MINUTE=.*|API_THROTTLE_PER_MINUTE=100000|' \

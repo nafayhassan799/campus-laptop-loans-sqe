@@ -23,6 +23,7 @@ def main():
     args = parser.parse_args()
     with common.local_api(args.admin_id, "SQE usman fixtures") as admin:
         fx = common.Fixtures(admin)
+        fx.boundary_assets()
         passwords = {}
         for key, user_id in (("technician", fx.technician), ("reviewer", fx.reviewer)):
             password = secrets.token_urlsafe(18) + "Aa1!"

@@ -12,7 +12,6 @@ Each stage's console output is saved to output/usman/logs/<stage>.log.
 """
 import argparse
 import json
-import os
 from pathlib import Path
 import subprocess
 import sys
@@ -46,7 +45,11 @@ def main():
     parser.add_argument("--admin-id", type=int, required=True)
     parser.add_argument("--stages", default=",".join(DEFAULT))
     args = parser.parse_args()
-    stages = [s for s in ALL if s in args.stages.split(",")]
+    requested = [stage.strip() for stage in args.stages.split(",")]
+    invalid = [stage or "(empty)" for stage in requested if stage not in ALL]
+    if invalid:
+        parser.error(f"Unknown stage(s): {', '.join(invalid)}. Choose from: {', '.join(ALL)}")
+    stages = [stage for stage in ALL if stage in requested]
     LOGS.mkdir(parents=True, exist_ok=True)
     admin = str(args.admin_id)
     commands = {
@@ -63,9 +66,12 @@ def main():
             code, output = contract(), ""
         elif stage == "browser":
             browser = HERE / "browser"
-            if not (browser / "node_modules").exists():
-                subprocess.run(["npm", "install", "--no-audit", "--no-fund"], cwd=browser, capture_output=True)
-            done = run(["npx", "playwright", "test"], cwd=browser)
+            cli = browser / "node_modules" / "@playwright" / "test" / "cli.js"
+            done = None
+            if not cli.is_file():
+                done = run(["npm.cmd" if sys.platform == "win32" else "npm", "ci", "--no-audit", "--no-fund"], cwd=browser)
+            if done is None or done.returncode == 0:
+                done = run(["node", str(cli), "test"], cwd=browser)
             code, output = done.returncode, done.stdout
         else:
             done = run(commands[stage])

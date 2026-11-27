@@ -11,6 +11,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import shlex
 import shutil
 import subprocess
 import sys
@@ -29,8 +30,8 @@ def environment(k6):
     return {
         "k6": run([k6, "version"]), "python": platform.python_version(), "os": platform.platform(),
         "cpuCount": os.cpu_count(), "php": run(["php", "-r", "echo PHP_VERSION;"]) if shutil.which("php") else None,
-        "phpWorkers": os.environ.get("PHP_CLI_SERVER_WORKERS", "set by start_native.sh (4)"),
-        "database": run(os.environ.get("SQE_DB_CMD", "").split() + ["-N", "-e", "select version()"]) if os.environ.get("SQE_DB_CMD") else None,
+        "phpWorkers": os.environ.get("PHP_CLI_SERVER_WORKERS"),
+        "database": run(shlex.split(os.environ["SQE_DB_CMD"]) + ["-N", "-e", "select version()"]) if os.environ.get("SQE_DB_CMD") else None,
         "gitCommit": run(["git", "rev-parse", "HEAD"]), "snipeItPinned": "60fe07468534a283a473dbfe88244896b44c81bc",
         "limits": "tests/team/usman/perf/limits.json",
     }
@@ -51,6 +52,8 @@ def main():
             name = f"{setup['users']}user-run{number}"
             summary = OUT / f"{name}.summary.json"
             raw = OUT / f"{name}.raw.json"
+            summary.unlink(missing_ok=True)
+            raw.unlink(missing_ok=True)
             command = [k6, "run", "-q", "--out", f"json={raw}",
                        "-e", f"BASE_URL={data['baseUrl']}", "-e", f"USERNAME={data['technician']['username']}",
                        "-e", f"PASSWORD={data['technician']['password']}", "-e", f"ASSET_ID={data['assets']['perf']}",
@@ -60,14 +63,19 @@ def main():
             print(f"Running {name}: {setup['users']} user(s) for {LIMITS['holdSeconds']} s at target load ...", flush=True)
             result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
             (OUT / f"{name}.stderr.txt").write_text(result.stderr, encoding="utf-8")
+            if not raw.is_file() or not summary.is_file():
+                print(f"{name}: k6 exited {result.returncode} without a complete report", file=sys.stderr)
+                return 2
             with open(raw, "rb") as src, gzip.open(f"{raw}.gz", "wb") as dst:
                 shutil.copyfileobj(src, dst)
             raw.unlink()
             result_data = json.loads(summary.read_text(encoding="utf-8"))
-            ok = (result_data["p95_ms"] is not None and result_data["p95_ms"] < setup["p95_ms"]
+            latency = result_data["p95_ms"]
+            ok = (result.returncode == 0 and result_data["thresholdsPassed"] and result_data["requests"] > 0
+                  and latency is not None and latency < setup["p95_ms"]
                   and result_data["unexpectedFailureRate"] <= setup["unexpected_failure_rate"])
             failed |= not ok
-            rows.append({"run": name, "users": setup["users"], "p95_ms": round(result_data["p95_ms"], 1),
+            rows.append({"run": name, "users": setup["users"], "p95_ms": round(latency, 1) if latency is not None else None,
                          "p95_limit": setup["p95_ms"], "rps": round(result_data["requestsPerSecond"], 2),
                          "requests": result_data["requests"], "unexpected": result_data["unexpectedFailures"],
                          "result": "PASS" if ok else "FAIL"})

@@ -37,6 +37,13 @@ class Failure(AssertionError):
     pass
 
 
+class ReproducedDefect(Failure):
+    def __init__(self, issue, observed):
+        super().__init__(f"{issue}: confirmed the documented response and saved state")
+        self.issue = issue
+        self.observed = observed
+
+
 def expect(condition, message):
     if not condition:
         raise Failure(message)
@@ -44,7 +51,10 @@ def expect(condition, message):
 
 def classify(status, body):
     if status == 200 and isinstance(body, dict):
-        return "accepted" if body.get("status") == "success" else "rejected"
+        if body.get("status") == "success":
+            return "accepted"
+        if body.get("status") == "error":
+            return "rejected"
     if status in (400, 404, 422):
         return "rejected"
     if status in (401, 403):
@@ -58,6 +68,7 @@ class Context:
         self.archived = admin.fixture("statuslabels", "name", "SQE Archived", type="archived")
         self.today = date.today().isoformat()
         self.due = common.due_date(7)
+        self.boundary_assets = fx.boundary_assets()
         self.gen_asset = fx.asset(GEN_TAG)
         self.flow_asset = fx.asset(FLOW_TAG)
 
@@ -109,36 +120,47 @@ class Context:
     def reference_exists(self, reference, ident):
         table = reference.split(":")[0]
         status, body = common.raw(self.admin, "GET", f"{table}/{ident}")
-        if status != 200 or not isinstance(body, dict) or body.get("status") == "error" or not body.get("id"):
+        if status == 404 or (status == 200 and isinstance(body, dict) and body.get("status") == "error"):
             return False
+        expect(status == 200 and isinstance(body, dict) and body.get("id") == ident,
+               f"Could not read {table}/{ident}: HTTP {status}")
         if reference == "statuslabels:deployable":
             return body.get("type") == "deployable"
         return True
 
 
 # =================================================================== generated cases
-def run_generated(ctx, case):
-    asset_id = case["asset_id"]
-    asset_id = ctx.gen_asset if asset_id == "@asset" else asset_id
-    body = ctx.resolve(case["body"], ctx.gen_asset)
+def run_generated(ctx, case, defect=None):
+    asset_id = ctx.gen_asset if case["asset_id"] == "@asset" else case["asset_id"]
+    fixture_id = ctx.gen_asset
+    body = ctx.resolve(case["body"], asset_id)
     expected = case["expect"]["outcome"]
     if expected == "depends":
-        value = body[case["field"]]
+        path_boundary = case["field"] == "asset_id"
+        value = asset_id if path_boundary else body[case["field"]]
         reference = case["expect"]["oracle"].split("reference:", 1)[1]
         expected = "accept" if ctx.reference_exists(reference, value) else "reject"
+        if path_boundary and expected == "accept":
+            expect(asset_id in ctx.boundary_assets, f"Asset {asset_id} is not a disposable boundary fixture")
+            fixture_id = asset_id
 
-    ctx.reset(ctx.gen_asset)
+    ctx.reset(fixture_id)
     if case["precondition"] == "loaned":
-        ctx.loan(ctx.gen_asset, due=ctx.due)
-    before = ctx.snap(ctx.gen_asset)
+        ctx.loan(fixture_id, due=ctx.due)
+    if defect and defect["issue"] == "D-API-03":
+        ctx.admin.request("PATCH", f"hardware/{fixture_id}", {"name": "SQE retained name"})
+    before = ctx.snap(fixture_id)
     path = f"hardware/{asset_id}/{case['path'].rsplit('/', 1)[1]}"
     status, response = common.raw(ctx.tech, "POST", path, body)
     outcome = classify(status, response)
-    observed = {"http": status, "bodyStatus": (response or {}).get("status"),
-                "message": json.dumps((response or {}).get("messages"))[:160], "outcome": outcome}
-    after = ctx.snap(ctx.gen_asset)
+    envelope = response if isinstance(response, dict) else {}
+    observed = {"http": status, "bodyStatus": envelope.get("status"),
+                "message": json.dumps(envelope.get("messages"))[:160], "outcome": outcome}
+    after = ctx.snap(fixture_id)
 
     if expected == "reject":
+        if defect and outcome == "accepted":
+            verify_known_defect(ctx, defect, case, body, before, after, observed)
         expect(outcome == "rejected", f"expected a rejection, got {outcome} (HTTP {status}, {observed['message']})")
         ctx.unchanged(before, after)
     else:
@@ -149,6 +171,32 @@ def run_generated(ctx, case):
 
 def date_part(value):
     return None if value in (None, "") else str(value)[:10]
+
+
+def verify_known_defect(ctx, defect, case, body, before, after, observed):
+    issue = defect["issue"]
+    expected_body = dict(body)
+    if issue == "D-API-01":
+        latest = next(event for event in reversed(after["raw_events"]) if event["action"] == common.CHECKIN)
+        expect(str(latest["date"]).split(" ", 1)[0] == "-0001-11-30",
+               f"Unexpected invalid-date signature: {latest['date']!r}")
+        del expected_body["checkin_at"]
+    elif issue == "D-API-02":
+        field = case["field"]
+        stored_field = {"status_id": "status", "location_id": "location"}[field]
+        value = body[field]
+        coerced = None if value in (0, "abc") else 1 if value is True else 2
+        expect(after[stored_field] == coerced, f"Unexpected {field} coercion: {after[stored_field]!r}")
+        expected_body[field] = coerced
+    elif issue == "D-API-03":
+        expect(before["name"] == "SQE retained name" and after["name"] == before["name"],
+               "Invalid clear_name did not preserve the seeded name")
+    elif issue == "D-API-04":
+        expected_body["name"] = str(body["name"])
+    else:
+        raise Failure(f"No saved-state check for {issue}")
+    assert_effects(ctx, case, expected_body, before, after)
+    raise ReproducedDefect(issue, observed)
 
 
 def assert_effects(ctx, case, body, before, after):
@@ -387,24 +435,29 @@ def load_known():
 def execute(label, kind, meta, fn, known, results):
     started = time.time()
     entry = {"id": label, "kind": kind, **meta}
+    defect = known.get(label)
+    reproduced = False
     try:
         observed = fn()
         failure = None
         entry["observed"] = observed
+    except ReproducedDefect as error:
+        reproduced = bool(defect and error.issue == defect["issue"])
+        failure = str(error)
+        entry["observed"] = error.observed
     except Failure as error:
         failure = str(error)
     except Exception as error:  # an unexpected crash is a failure too, never silently skipped
         failure = f"{type(error).__name__}: {error}\n{traceback.format_exc(limit=3)}"
     entry["seconds"] = round(time.time() - started, 3)
-    defect = known.get(label)
     if failure is None:
         entry["status"] = "XPASS" if defect else "PASS"
         if defect:
             entry["message"] = f"Known defect {defect['issue']} no longer reproduces; remove it from known-defects.json"
     else:
-        entry["status"] = "XFAIL" if defect else "FAIL"
+        entry["status"] = "XFAIL" if reproduced else "FAIL"
         entry["message"] = failure
-        if defect:
+        if reproduced:
             entry["defect"] = defect
     results.append(entry)
     print(f"{entry['status']:5} {label}" + (f"  -- {failure.splitlines()[0][:150]}" if failure else ""))
@@ -464,8 +517,9 @@ def main():
                     continue
                 meta = {"requirements": case["requirements"], "risks": case["risks"], "title": case["partition"],
                         "technique": case["technique"], "field": case["field"]}
-                execute(case["id"], "generated", meta, lambda c=case: run_generated(ctx, c), known, results)
-            for asset_id in (ctx.gen_asset, ctx.flow_asset):
+                execute(case["id"], "generated", meta,
+                        lambda c=case: run_generated(ctx, c, known.get(c["id"])), known, results)
+            for asset_id in (ctx.gen_asset, ctx.flow_asset, *sorted(ctx.boundary_assets)):
                 ctx.reset(asset_id)
     except Exception as error:
         print(f"SETUP ERROR: {error}", file=sys.stderr)

@@ -112,16 +112,83 @@ jobs:
           name: sqe-rafay-playwright
           path: output/playwright/junit.xml
 
+  usman-tests:
+    name: API contract, recovery, Usman browser tests, and k6
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SQE_ARTISAN: docker compose -p sqe-campus-laptops exec -T -u docker app php artisan
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Install the contract validator and pinned Chromium
+        run: |
+          python -m pip install openapi-spec-validator==0.7.2
+          npm ci --no-audit --no-fund --prefix tests/team/usman/browser
+          node tests/team/usman/browser/node_modules/@playwright/test/cli.js install --with-deps chromium
+      - name: Install k6 v0.55.0
+        run: |
+          archive=k6-v0.55.0-linux-amd64.tar.gz
+          curl --fail --silent --show-error --location \
+            "https://github.com/grafana/k6/releases/download/v0.55.0/$archive" \
+            --output "$RUNNER_TEMP/$archive"
+          cd "$RUNNER_TEMP"
+          printf '%s  %s\n' '47a43a8dbb4c1f5d5bd7b8ed6a1b8c83b35546acf989b78400b4e6ce3adaf628' "$archive" | sha256sum --check -
+          tar -xzf "$archive"
+          echo "$RUNNER_TEMP/k6-v0.55.0-linux-amd64" >> "$GITHUB_PATH"
+      - name: Start an isolated laptop-loan stack
+        run: |
+          printf '\nAPI_THROTTLE_PER_MINUTE=100000\n' >> .env.docker
+          pwsh -NoProfile -File tests/team/start-local.ps1
+          python -B tests/team/initialize_local.py
+          password=$(sed -n 's/^MYSQL_ROOT_PASSWORD=//p' .env)
+          test -n "$password"
+          echo "::add-mask::$password"
+          echo "SQE_DB_CMD=docker compose -p sqe-campus-laptops exec -T db mariadb -uroot -p$password snipeit" >> "$GITHUB_ENV"
+      - name: Run Usman's contract, API, recovery, and browser checks
+        run: |
+          if ! python -B tests/team/usman/run_all.py --admin-id 1; then
+            for log in output/usman/logs/*.log; do
+              printf '\n%s\n' "$log"
+              tail -n 30 "$log"
+            done
+            exit 1
+          fi
+      - name: Run four k6 measurements at target load
+        run: python -B tests/team/usman/perf/run_perf.py
+      - name: Upload Usman's test and performance evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: sqe-usman-evidence
+          path: |
+            output/usman/api/junit.xml
+            output/usman/api/results.json
+            output/usman/browser/junit.xml
+            output/usman/recovery-results.json
+            output/usman/perf/*.json
+            output/usman/perf/*.json.gz
+            output/usman/perf/comparison.md
+
   gate:
     name: SQE quality gate
     if: always()
-    needs: [php, workflow-tests]
+    needs: [php, workflow-tests, usman-tests]
     runs-on: ubuntu-latest
     steps:
       - name: Require every quality job to pass
         env:
           PHP_RESULT: ${{ needs.php.result }}
           WORKFLOW_RESULT: ${{ needs.workflow-tests.result }}
+          USMAN_RESULT: ${{ needs.usman-tests.result }}
         run: |
           test "$PHP_RESULT" = success
           test "$WORKFLOW_RESULT" = success
+          test "$USMAN_RESULT" = success

@@ -91,6 +91,8 @@ class Builder:
         out = []
         for label, value, outcome in (
             (f"below-minimum ({minimum - 1})", minimum - 1, "reject"),
+            (f"at-minimum ({minimum})", minimum, "depends"),
+            (f"above-minimum ({minimum + 1})", minimum + 1, "depends"),
             (f"negative ({-minimum})", -minimum, "reject"),
             ("non-numeric text", "abc", "reject"),
             ("decimal number", "1.5", "reject"),
@@ -98,6 +100,7 @@ class Builder:
         ):
             out.append(self.case(ctx, "asset_id", "BVA" if "minimum" in label else "EP", "asset_id", label, dict(ctx["base_body"]),
                                  outcome, asset_id=value, props_note=note,
+                                 oracle="reference:hardware" if outcome == "depends" else None,
                                  requirements=self.reqs(ctx, "asset_id"), risks=["R-A3"]))
         return out
 

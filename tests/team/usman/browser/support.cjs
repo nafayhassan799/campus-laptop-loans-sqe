@@ -26,7 +26,7 @@ async function call(request, who, method, url, body) {
 /** Create (once) or fetch a dedicated laptop so each browser case owns its own record. */
 async function ensureAsset(request, tag) {
   const found = await call(request, 'admin', 'GET', `hardware/bytag/${encodeURIComponent(tag)}`);
-  if (found && found.id) { return found.id; }
+  if (found?.id) { return found.id; }
   const created = await call(request, 'admin', 'POST', 'hardware',
     { asset_tag: tag, model_id: data.model.id, status_id: data.ready.id });
   expect(created.status, JSON.stringify(created)).toBe('success');
@@ -57,8 +57,8 @@ async function history(request, id) {
     const report = await call(request, 'admin', 'GET',
       `reports/activity?item_type=asset&item_id=${id}&limit=200&offset=${offset}&sort=id&order=asc`);
     events.push(...report.rows.map((row) => ({
-      id: row.id, action: row.action_type, target: row.target && row.target.id,
-      date: row.action_date && row.action_date.datetime,
+      id: row.id, action: row.action_type, target: row.target?.id ?? null,
+      date: row.action_date?.datetime ?? null,
     })));
     if (!report.rows.length || events.length >= report.total) { return events; }
   }

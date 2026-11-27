@@ -11,7 +11,7 @@ tests/team/smoke_checkout.py. Adds three things the smoke test does not have:
 Environment
   SQE_ARTISAN  command that runs artisan. Default: docker compose ... exec app php artisan
   SQE_DB_CMD   command that opens a SQL shell on the Snipe-IT database. Default for
-               Docker: docker compose ... exec -T db mysql -uroot -p<MYSQL_ROOT_PASSWORD> snipeit
+               Docker: docker compose ... exec -T db mariadb -uroot -p<MYSQL_ROOT_PASSWORD> snipeit
                Native example: "mariadb -uroot snipeit"
 """
 
@@ -52,7 +52,7 @@ def db_command():
         for line in env_file.read_text(encoding="utf-8").splitlines():
             if line.startswith("MYSQL_ROOT_PASSWORD="):
                 password = line.split("=", 1)[1].strip()
-    return DOCKER_PROJECT + ["exec", "-T", "db", "mysql", "-uroot", f"-p{password}", "snipeit"]
+    return DOCKER_PROJECT + ["exec", "-T", "db", "mariadb", "-uroot", f"-p{password}", "snipeit"]
 
 
 def sql(statement, fetch=False):
@@ -150,6 +150,9 @@ class Fixtures:
     def asset(self, tag):
         found = self.admin.fixture("hardware", "asset_tag", tag, model_id=self.model["id"], status_id=self.ready["id"])
         return found["id"]
+
+    def boundary_assets(self):
+        return {self.asset(f"API-ID-BOUNDARY-{number}") for number in (1, 2)}
 
 
 def reset_asset(tech, asset_id, ready_status_id):
