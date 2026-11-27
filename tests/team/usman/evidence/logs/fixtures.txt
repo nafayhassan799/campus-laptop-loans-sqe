@@ -1,0 +1,1 @@
+Wrote /home/claude/repo/output/usman/fixtures.json - perf asset 5 recovery asset 6

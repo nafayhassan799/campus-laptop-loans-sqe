@@ -1,0 +1,2572 @@
+{
+  "specVersion": "8.8.4",
+  "generatedCases": 104,
+  "totals": {
+    "PASS": 105,
+    "XFAIL": 15,
+    "FAIL": 0,
+    "XPASS": 0
+  },
+  "results": [
+    {
+      "id": "S-CO-01",
+      "kind": "scenario",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A2"
+      ],
+      "title": "Checkout assigns the student and marks the laptop deployed, with one history entry",
+      "observed": null,
+      "seconds": 0.311,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CO-02a",
+      "kind": "scenario",
+      "requirements": [
+        "CO-02"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "Expected return date is persisted exactly",
+      "observed": null,
+      "seconds": 0.239,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CO-02b",
+      "kind": "scenario",
+      "requirements": [
+        "CO-02"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "A checkout without a return date stores none",
+      "observed": null,
+      "seconds": 0.245,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CO-03a",
+      "kind": "scenario",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A2",
+        "R-A3"
+      ],
+      "title": "A laptop that needs repair cannot be checked out",
+      "observed": null,
+      "seconds": 0.354,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CO-03b",
+      "kind": "scenario",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A2"
+      ],
+      "title": "An archived laptop cannot be checked out",
+      "observed": null,
+      "seconds": 0.347,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CO-03c",
+      "kind": "scenario",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A2",
+        "R-A3"
+      ],
+      "title": "A second checkout is rejected and the first loan stays intact",
+      "observed": null,
+      "seconds": 0.434,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CO-03d",
+      "kind": "scenario",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A2"
+      ],
+      "title": "A deleted laptop cannot be checked out",
+      "observed": null,
+      "seconds": 0.224,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CO-03e",
+      "kind": "scenario",
+      "requirements": [
+        "CO-01",
+        "CO-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "A checkout to a user id that does not exist is rejected",
+      "observed": null,
+      "seconds": 0.314,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CI-01",
+      "kind": "scenario",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A5"
+      ],
+      "title": "Check-in clears the assignee and due date and records one return",
+      "observed": null,
+      "seconds": 0.373,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CI-02",
+      "kind": "scenario",
+      "requirements": [
+        "CI-02"
+      ],
+      "risks": [
+        "R-A2"
+      ],
+      "title": "A deployable return can be lent again",
+      "observed": null,
+      "seconds": 0.325,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CI-03",
+      "kind": "scenario",
+      "requirements": [
+        "CI-03"
+      ],
+      "risks": [
+        "R-A2",
+        "R-A3"
+      ],
+      "title": "A return marked for repair stays unavailable and cannot be lent",
+      "observed": null,
+      "seconds": 0.504,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CI-04a",
+      "kind": "scenario",
+      "requirements": [
+        "CI-04"
+      ],
+      "risks": [
+        "R-A5",
+        "R-A3"
+      ],
+      "title": "A repeated empty check-in is rejected without a second return",
+      "observed": null,
+      "seconds": 0.408,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CI-04b",
+      "kind": "scenario",
+      "requirements": [
+        "CI-04"
+      ],
+      "risks": [
+        "R-A5"
+      ],
+      "title": "A repeated check-in with metadata updates the record but records no second return",
+      "observed": null,
+      "seconds": 0.423,
+      "status": "PASS"
+    },
+    {
+      "id": "S-AUTH-01",
+      "kind": "scenario",
+      "requirements": [
+        "CO-03",
+        "CI-03"
+      ],
+      "risks": [
+        "R-A4"
+      ],
+      "title": "A read-only reviewer cannot check out or check in, and nothing changes",
+      "observed": null,
+      "seconds": 0.583,
+      "status": "PASS"
+    },
+    {
+      "id": "S-AUTH-02",
+      "kind": "scenario",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A4"
+      ],
+      "title": "Requests without a token are refused",
+      "observed": null,
+      "seconds": 0.339,
+      "status": "PASS"
+    },
+    {
+      "id": "S-CONC-01",
+      "kind": "scenario",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A2"
+      ],
+      "title": "Two simultaneous checkouts leave exactly one loan and one history entry",
+      "observed": null,
+      "seconds": 0.346,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.asset-id.above-minimum-2",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "above-minimum (2)",
+      "technique": "BVA",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.384,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.asset-id.at-minimum-1",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "at-minimum (1)",
+      "technique": "BVA",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.393,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.asset-id.below-minimum-0",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "below-minimum (0)",
+      "technique": "BVA",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset not found\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.343,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.asset-id.decimal-number",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "decimal number",
+      "technique": "EP",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset not found\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.361,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.asset-id.id-that-matches-no-asset",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "id that matches no asset",
+      "technique": "EP",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset not found\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.352,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.asset-id.negative-1",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "negative (-1)",
+      "technique": "EP",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset not found\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.354,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.asset-id.non-numeric-text",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "non-numeric text",
+      "technique": "EP",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset not found\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.36,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.baseline.valid-baseline-request",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A3",
+        "R-A4",
+        "R-A5",
+        "R-A8"
+      ],
+      "title": "valid baseline request",
+      "technique": "EP",
+      "field": null,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.374,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.checkin-at.explicit-null",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "explicit null",
+      "technique": "EP",
+      "field": "checkin_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.362,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.checkin-at.impossible-calendar-date-2027-02-29",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "impossible calendar date (2027-02-29)",
+      "technique": "EP",
+      "field": "checkin_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.36,
+      "status": "XFAIL",
+      "message": "D-API-01: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-01",
+        "severity": "Major",
+        "priority": "P2",
+        "title": "API check-in accepts an invalid checkin_at and writes a corrupt history date",
+        "triage": "Confirmed on the pinned build: the return succeeds and the history entry is dated -0001-11-30. The audit trail of a return is wrong and the request is not rejected."
+      }
+    },
+    {
+      "id": "CI.checkin-at.month-out-of-range-2027-13-01",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "month out of range (2027-13-01)",
+      "technique": "EP",
+      "field": "checkin_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.366,
+      "status": "XFAIL",
+      "message": "D-API-01: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-01",
+        "severity": "Major",
+        "priority": "P2",
+        "title": "API check-in accepts an invalid checkin_at and writes a corrupt history date",
+        "triage": "Confirmed on the pinned build: the return succeeds and the history entry is dated -0001-11-30. The audit trail of a return is wrong and the request is not rejected."
+      }
+    },
+    {
+      "id": "CI.checkin-at.text-that-is-not-a-date",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "text that is not a date",
+      "technique": "EP",
+      "field": "checkin_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.362,
+      "status": "XFAIL",
+      "message": "D-API-01: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-01",
+        "severity": "Major",
+        "priority": "P2",
+        "title": "API check-in accepts an invalid checkin_at and writes a corrupt history date",
+        "triage": "Confirmed on the pinned build: the return succeeds and the history entry is dated -0001-11-30. The audit trail of a return is wrong and the request is not rejected."
+      }
+    },
+    {
+      "id": "CI.checkin-at.valid-leap-day-2028-02-29",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid leap day (2028-02-29)",
+      "technique": "EP",
+      "field": "checkin_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.367,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.checkin-at.valid-value-today",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid value (@today)",
+      "technique": "EP",
+      "field": "checkin_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.367,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.checkin-at.wrong-type-boolean",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (boolean)",
+      "technique": "EP",
+      "field": "checkin_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.361,
+      "status": "XFAIL",
+      "message": "D-API-01: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-01",
+        "severity": "Major",
+        "priority": "P2",
+        "title": "API check-in accepts an invalid checkin_at and writes a corrupt history date",
+        "triage": "Confirmed on the pinned build: the return succeeds and the history entry is dated -0001-11-30. The audit trail of a return is wrong and the request is not rejected."
+      }
+    },
+    {
+      "id": "CI.clear-name.enumeration-value-with-changed-case",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "enumeration value with changed case",
+      "technique": "EP",
+      "field": "clear_name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.407,
+      "status": "XFAIL",
+      "message": "D-API-03: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-03",
+        "severity": "Minor",
+        "priority": "P4",
+        "title": "API check-in silently ignores unrecognised clear_name values",
+        "triage": "The flag only acts when it equals '1'; any other value is ignored and the return still succeeds. No data is damaged."
+      }
+    },
+    {
+      "id": "CI.clear-name.valid-value-1",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid value (1)",
+      "technique": "EP",
+      "field": "clear_name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.369,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.clear-name.value-outside-the-enumeration",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "value outside the enumeration",
+      "technique": "EP",
+      "field": "clear_name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.41,
+      "status": "XFAIL",
+      "message": "D-API-03: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-03",
+        "severity": "Minor",
+        "priority": "P4",
+        "title": "API check-in silently ignores unrecognised clear_name values",
+        "triage": "The flag only acts when it equals '1'; any other value is ignored and the return still succeeds. No data is damaged."
+      }
+    },
+    {
+      "id": "CI.clear-name.wrong-type-number",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (number)",
+      "technique": "EP",
+      "field": "clear_name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.414,
+      "status": "XFAIL",
+      "message": "D-API-03: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-03",
+        "severity": "Minor",
+        "priority": "P4",
+        "title": "API check-in silently ignores unrecognised clear_name values",
+        "triage": "The flag only acts when it equals '1'; any other value is ignored and the return still succeeds. No data is damaged."
+      }
+    },
+    {
+      "id": "CI.location-id.above-minimum-2",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "above minimum (2)",
+      "technique": "BVA",
+      "field": "location_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.408,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.location-id.at-minimum-1",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "at minimum (1)",
+      "technique": "BVA",
+      "field": "location_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.418,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.location-id.below-minimum-0",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "below minimum (0)",
+      "technique": "BVA",
+      "field": "location_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.387,
+      "status": "XFAIL",
+      "message": "D-API-02: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-02",
+        "severity": "Major",
+        "priority": "P2",
+        "title": "API check-in applies unvalidated status_id and location_id with silent type coercion",
+        "triage": "AssetsController::checkin has no FormRequest. status_id 1.5 stores status 2, true stores status 1, location_id 1.5 stores location 2, and location_id 0 or text clears the location, all with a success response."
+      }
+    },
+    {
+      "id": "CI.location-id.explicit-null",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "explicit null",
+      "technique": "EP",
+      "field": "location_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.385,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.location-id.valid-value-location",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid value (@location)",
+      "technique": "EP",
+      "field": "location_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.397,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.location-id.well-formed-id-that-matches-no-row-2147483647",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "well-formed id that matches no row (2147483647)",
+      "technique": "EP",
+      "field": "location_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset was not checked in, please try again\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.389,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.location-id.wrong-type-boolean",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (boolean)",
+      "technique": "EP",
+      "field": "location_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.41,
+      "status": "XFAIL",
+      "message": "D-API-02: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-02",
+        "severity": "Major",
+        "priority": "P2",
+        "title": "API check-in applies unvalidated status_id and location_id with silent type coercion",
+        "triage": "AssetsController::checkin has no FormRequest. status_id 1.5 stores status 2, true stores status 1, location_id 1.5 stores location 2, and location_id 0 or text clears the location, all with a success response."
+      }
+    },
+    {
+      "id": "CI.location-id.wrong-type-decimal",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (decimal)",
+      "technique": "EP",
+      "field": "location_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.388,
+      "status": "XFAIL",
+      "message": "D-API-02: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-02",
+        "severity": "Major",
+        "priority": "P2",
+        "title": "API check-in applies unvalidated status_id and location_id with silent type coercion",
+        "triage": "AssetsController::checkin has no FormRequest. status_id 1.5 stores status 2, true stores status 1, location_id 1.5 stores location 2, and location_id 0 or text clears the location, all with a success response."
+      }
+    },
+    {
+      "id": "CI.location-id.wrong-type-text",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (text)",
+      "technique": "EP",
+      "field": "location_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.38,
+      "status": "XFAIL",
+      "message": "D-API-02: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-02",
+        "severity": "Major",
+        "priority": "P2",
+        "title": "API check-in applies unvalidated status_id and location_id with silent type coercion",
+        "triage": "AssetsController::checkin has no FormRequest. status_id 1.5 stores status 2, true stores status 1, location_id 1.5 stores location 2, and location_id 0 or text clears the location, all with a success response."
+      }
+    },
+    {
+      "id": "CI.name.explicit-null",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "explicit null",
+      "technique": "EP",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.382,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.name.length-254-below-maximum",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "length 254 (below maximum)",
+      "technique": "BVA",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.391,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.name.length-255-at-maximum",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "length 255 (at maximum)",
+      "technique": "BVA",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.399,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.name.length-256-above-maximum",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "length 256 (above maximum)",
+      "technique": "BVA",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset was not checked in, please try again\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.391,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.name.valid-value-sqe-returned-laptop",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "valid value (SQE returned laptop)",
+      "technique": "EP",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.405,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.name.wrong-type-number",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "wrong type (number)",
+      "technique": "EP",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.406,
+      "status": "XFAIL",
+      "message": "D-API-04: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-04",
+        "severity": "Trivial",
+        "priority": "P5",
+        "title": "A JSON number sent as an asset name is coerced to text instead of rejected",
+        "triage": "The value is stored as the digits of the number. Low impact; recorded as an observation about leniency."
+      }
+    },
+    {
+      "id": "CI.note.explicit-null",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "explicit null",
+      "technique": "EP",
+      "field": "note",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.398,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.note.valid-value-returned-in-good-condition",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid value (Returned in good condition)",
+      "technique": "EP",
+      "field": "note",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.393,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.note.wrong-type-number",
+      "kind": "generated",
+      "requirements": [
+        "CI-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (number)",
+      "technique": "EP",
+      "field": "note",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.399,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.status-id.above-minimum-2",
+      "kind": "generated",
+      "requirements": [
+        "CI-02",
+        "CI-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "above minimum (2)",
+      "technique": "BVA",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.438,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.status-id.at-minimum-1",
+      "kind": "generated",
+      "requirements": [
+        "CI-02",
+        "CI-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "at minimum (1)",
+      "technique": "BVA",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.464,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.status-id.below-minimum-0",
+      "kind": "generated",
+      "requirements": [
+        "CI-02",
+        "CI-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "below minimum (0)",
+      "technique": "BVA",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset was not checked in, please try again\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.416,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.status-id.valid-value-deployable-status",
+      "kind": "generated",
+      "requirements": [
+        "CI-02",
+        "CI-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid value (@deployable_status)",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.421,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.status-id.well-formed-id-that-matches-no-row-2147483647",
+      "kind": "generated",
+      "requirements": [
+        "CI-02",
+        "CI-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "well-formed id that matches no row (2147483647)",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset was not checked in, please try again\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.416,
+      "status": "PASS"
+    },
+    {
+      "id": "CI.status-id.wrong-type-boolean",
+      "kind": "generated",
+      "requirements": [
+        "CI-02",
+        "CI-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (boolean)",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.425,
+      "status": "XFAIL",
+      "message": "D-API-02: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-02",
+        "severity": "Major",
+        "priority": "P2",
+        "title": "API check-in applies unvalidated status_id and location_id with silent type coercion",
+        "triage": "AssetsController::checkin has no FormRequest. status_id 1.5 stores status 2, true stores status 1, location_id 1.5 stores location 2, and location_id 0 or text clears the location, all with a success response."
+      }
+    },
+    {
+      "id": "CI.status-id.wrong-type-decimal",
+      "kind": "generated",
+      "requirements": [
+        "CI-02",
+        "CI-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (decimal)",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked in successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.425,
+      "status": "XFAIL",
+      "message": "D-API-02: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-02",
+        "severity": "Major",
+        "priority": "P2",
+        "title": "API check-in applies unvalidated status_id and location_id with silent type coercion",
+        "triage": "AssetsController::checkin has no FormRequest. status_id 1.5 stores status 2, true stores status 1, location_id 1.5 stores location 2, and location_id 0 or text clears the location, all with a success response."
+      }
+    },
+    {
+      "id": "CI.status-id.wrong-type-text",
+      "kind": "generated",
+      "requirements": [
+        "CI-02",
+        "CI-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (text)",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset was not checked in, please try again\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.419,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.asset-id.above-minimum-2",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "above-minimum (2)",
+      "technique": "BVA",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.348,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.asset-id.at-minimum-1",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "at-minimum (1)",
+      "technique": "BVA",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.338,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.asset-id.below-minimum-0",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "below-minimum (0)",
+      "technique": "BVA",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset not found\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.363,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.asset-id.decimal-number",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "decimal number",
+      "technique": "EP",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset not found\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.362,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.asset-id.id-that-matches-no-asset",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "id that matches no asset",
+      "technique": "EP",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset not found\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.371,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.asset-id.negative-1",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "negative (-1)",
+      "technique": "EP",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset not found\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.364,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.asset-id.non-numeric-text",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A3"
+      ],
+      "title": "non-numeric text",
+      "technique": "EP",
+      "field": "asset_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset not found\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.362,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.assigned-user.above-minimum-2",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "above minimum (2)",
+      "technique": "BVA",
+      "field": "assigned_user",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.411,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.assigned-user.at-minimum-1",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "at minimum (1)",
+      "technique": "BVA",
+      "field": "assigned_user",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.422,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.assigned-user.below-minimum-0",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "below minimum (0)",
+      "technique": "BVA",
+      "field": "assigned_user",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"assigned_user\": [\"validation.exists_undeleted\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.383,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.assigned-user.required-field-is-null",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "required field is null",
+      "technique": "EP",
+      "field": "assigned_user",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"assigned_user\": [\"The assigned user field is required when none of assigned asset / assigned location are present.\"], \"assigned_asset\": [\"The assigned asset f",
+        "outcome": "rejected"
+      },
+      "seconds": 0.371,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.assigned-user.required-field-omitted",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "required field omitted",
+      "technique": "EP",
+      "field": "assigned_user",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"assigned_user\": [\"The assigned user field is required when none of assigned asset / assigned location are present.\"], \"assigned_asset\": [\"The assigned asset f",
+        "outcome": "rejected"
+      },
+      "seconds": 0.364,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.assigned-user.well-formed-id-that-matches-no-row-2147483647",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "well-formed id that matches no row (2147483647)",
+      "technique": "EP",
+      "field": "assigned_user",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"assigned_user\": [\"validation.exists_undeleted\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.365,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.assigned-user.wrong-type-boolean",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (boolean)",
+      "technique": "EP",
+      "field": "assigned_user",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"assigned_user\": [\"The assigned user field must be a number.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.372,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.assigned-user.wrong-type-decimal",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (decimal)",
+      "technique": "EP",
+      "field": "assigned_user",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"assigned_user\": [\"validation.exists_undeleted\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.372,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.assigned-user.wrong-type-text",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (text)",
+      "technique": "EP",
+      "field": "assigned_user",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"assigned_user\": [\"The assigned user field must be a number.\", \"validation.exists_undeleted\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.378,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.baseline.valid-baseline-request",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A2",
+        "R-A3",
+        "R-A4",
+        "R-A8"
+      ],
+      "title": "valid baseline request",
+      "technique": "EP",
+      "field": null,
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.385,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-at.explicit-null",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "explicit null",
+      "technique": "EP",
+      "field": "checkout_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.396,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-at.impossible-calendar-date-2027-02-29",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "impossible calendar date (2027-02-29)",
+      "technique": "EP",
+      "field": "checkout_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"checkout_at\": [\"The checkout at field must be a valid date.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.375,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-at.month-out-of-range-2027-13-01",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "month out of range (2027-13-01)",
+      "technique": "EP",
+      "field": "checkout_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"checkout_at\": [\"The checkout at field must be a valid date.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.378,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-at.text-that-is-not-a-date",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "text that is not a date",
+      "technique": "EP",
+      "field": "checkout_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"checkout_at\": [\"The checkout at field must be a valid date.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.379,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-at.valid-leap-day-2028-02-29",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid leap day (2028-02-29)",
+      "technique": "EP",
+      "field": "checkout_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.383,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-at.valid-value-today",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid value (@today)",
+      "technique": "EP",
+      "field": "checkout_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.391,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-at.wrong-type-boolean",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (boolean)",
+      "technique": "EP",
+      "field": "checkout_at",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"checkout_at\": [\"The checkout at field must be a valid date.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.388,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-to-type.enumeration-value-with-changed-case",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "enumeration value with changed case",
+      "technique": "EP",
+      "field": "checkout_to_type",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"checkout_to_type\": [\"The selected checkout to type is invalid.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.387,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-to-type.required-field-is-null",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "required field is null",
+      "technique": "EP",
+      "field": "checkout_to_type",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.394,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-to-type.required-field-omitted-server-infers-it",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "required field omitted (server infers it)",
+      "technique": "EP",
+      "field": "checkout_to_type",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.404,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-to-type.value-outside-the-enumeration",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "value outside the enumeration",
+      "technique": "EP",
+      "field": "checkout_to_type",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"checkout_to_type\": [\"The selected checkout to type is invalid.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.397,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.checkout-to-type.wrong-type-number",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (number)",
+      "technique": "EP",
+      "field": "checkout_to_type",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"checkout_to_type\": [\"The selected checkout to type is invalid.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.382,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.expected-checkin.explicit-null",
+      "kind": "generated",
+      "requirements": [
+        "CO-02"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "explicit null",
+      "technique": "EP",
+      "field": "expected_checkin",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.383,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.expected-checkin.impossible-calendar-date-2027-02-29",
+      "kind": "generated",
+      "requirements": [
+        "CO-02"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "impossible calendar date (2027-02-29)",
+      "technique": "EP",
+      "field": "expected_checkin",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"expected_checkin\": [\"The expected checkin field must be a valid date.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.379,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.expected-checkin.month-out-of-range-2027-13-01",
+      "kind": "generated",
+      "requirements": [
+        "CO-02"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "month out of range (2027-13-01)",
+      "technique": "EP",
+      "field": "expected_checkin",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"expected_checkin\": [\"The expected checkin field must be a valid date.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.391,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.expected-checkin.text-that-is-not-a-date",
+      "kind": "generated",
+      "requirements": [
+        "CO-02"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "text that is not a date",
+      "technique": "EP",
+      "field": "expected_checkin",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"expected_checkin\": [\"The expected checkin field must be a valid date.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.394,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.expected-checkin.valid-leap-day-2028-02-29",
+      "kind": "generated",
+      "requirements": [
+        "CO-02"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid leap day (2028-02-29)",
+      "technique": "EP",
+      "field": "expected_checkin",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.398,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.expected-checkin.valid-value-due-date",
+      "kind": "generated",
+      "requirements": [
+        "CO-02"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid value (@due_date)",
+      "technique": "EP",
+      "field": "expected_checkin",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.416,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.expected-checkin.wrong-type-boolean",
+      "kind": "generated",
+      "requirements": [
+        "CO-02"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (boolean)",
+      "technique": "EP",
+      "field": "expected_checkin",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"expected_checkin\": [\"The expected checkin field must be a valid date.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.393,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.name.explicit-null",
+      "kind": "generated",
+      "requirements": [
+        "CO-04"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "explicit null",
+      "technique": "EP",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.397,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.name.length-254-below-maximum",
+      "kind": "generated",
+      "requirements": [
+        "CO-04"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "length 254 (below maximum)",
+      "technique": "BVA",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.408,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.name.length-255-at-maximum",
+      "kind": "generated",
+      "requirements": [
+        "CO-04"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "length 255 (at maximum)",
+      "technique": "BVA",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.407,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.name.length-256-above-maximum",
+      "kind": "generated",
+      "requirements": [
+        "CO-04"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "length 256 (above maximum)",
+      "technique": "BVA",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "\"Asset was not checked out, please try again\"",
+        "outcome": "rejected"
+      },
+      "seconds": 0.418,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.name.valid-value-sqe-laptop",
+      "kind": "generated",
+      "requirements": [
+        "CO-04"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "valid value (SQE laptop)",
+      "technique": "EP",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.404,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.name.wrong-type-number",
+      "kind": "generated",
+      "requirements": [
+        "CO-04"
+      ],
+      "risks": [
+        "R-A1",
+        "R-A8"
+      ],
+      "title": "wrong type (number)",
+      "technique": "EP",
+      "field": "name",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.417,
+      "status": "XFAIL",
+      "message": "D-API-04: confirmed the documented response and saved state",
+      "defect": {
+        "issue": "D-API-04",
+        "severity": "Trivial",
+        "priority": "P5",
+        "title": "A JSON number sent as an asset name is coerced to text instead of rejected",
+        "triage": "The value is stored as the digits of the number. Low impact; recorded as an observation about leniency."
+      }
+    },
+    {
+      "id": "CO.note.explicit-null",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "explicit null",
+      "technique": "EP",
+      "field": "note",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.414,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.note.valid-value-issued-at-the-lab-desk",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid value (Issued at the lab desk)",
+      "technique": "EP",
+      "field": "note",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.418,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.note.wrong-type-number",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (number)",
+      "technique": "EP",
+      "field": "note",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.418,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.requestable.explicit-null",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "explicit null",
+      "technique": "EP",
+      "field": "requestable",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.418,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.requestable.number-outside-0-1",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "number outside 0/1",
+      "technique": "EP",
+      "field": "requestable",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"requestable\": [\"The requestable field must be true or false.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.402,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.requestable.text-that-is-not-a-boolean",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "text that is not a boolean",
+      "technique": "EP",
+      "field": "requestable",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"requestable\": [\"The requestable field must be true or false.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.404,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.requestable.valid-boolean-true",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid boolean (true)",
+      "technique": "EP",
+      "field": "requestable",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.423,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.requestable.valid-value-false",
+      "kind": "generated",
+      "requirements": [
+        "CO-01"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid value (False)",
+      "technique": "EP",
+      "field": "requestable",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.417,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.status-id.above-minimum-2",
+      "kind": "generated",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "above minimum (2)",
+      "technique": "BVA",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.447,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.status-id.at-minimum-1",
+      "kind": "generated",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "at minimum (1)",
+      "technique": "BVA",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.45,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.status-id.below-minimum-0",
+      "kind": "generated",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "below minimum (0)",
+      "technique": "BVA",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.401,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.status-id.explicit-null",
+      "kind": "generated",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "explicit null",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.411,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.status-id.valid-value-deployable-status",
+      "kind": "generated",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "valid value (@deployable_status)",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "success",
+        "message": "\"Asset checked out successfully.\"",
+        "outcome": "accepted"
+      },
+      "seconds": 0.435,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.status-id.well-formed-id-that-matches-no-row-2147483647",
+      "kind": "generated",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "well-formed id that matches no row (2147483647)",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.423,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.status-id.wrong-type-boolean",
+      "kind": "generated",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (boolean)",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.413,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.status-id.wrong-type-decimal",
+      "kind": "generated",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (decimal)",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.412,
+      "status": "PASS"
+    },
+    {
+      "id": "CO.status-id.wrong-type-text",
+      "kind": "generated",
+      "requirements": [
+        "CO-03"
+      ],
+      "risks": [
+        "R-A8"
+      ],
+      "title": "wrong type (text)",
+      "technique": "EP",
+      "field": "status_id",
+      "observed": {
+        "http": 200,
+        "bodyStatus": "error",
+        "message": "{\"status_id\": [\"The selected status id is invalid.\"]}",
+        "outcome": "rejected"
+      },
+      "seconds": 0.407,
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+PASS checkout asset name length 254
+PASS checkout asset name length 255
+PASS checkout asset name length 256
+PASS LAB-001: checkout, denied actions, repeated check-in, repair status, and re-loan

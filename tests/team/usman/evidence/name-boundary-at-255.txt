@@ -1,0 +1,8 @@
+PASS  CO.name.explicit-null
+PASS  CO.name.length-254-below-maximum
+PASS  CO.name.length-255-at-maximum
+PASS  CO.name.length-256-above-maximum
+PASS  CO.name.valid-value-sqe-laptop
+XFAIL CO.name.wrong-type-number  -- expected a rejection, got accepted (HTTP 200, "Asset checked out successfully.")
+
+5 PASS, 1 XFAIL, 0 FAIL, 0 XPASS  (reports in /home/claude/repo/output/usman/api)

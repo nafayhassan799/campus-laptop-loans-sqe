@@ -1,0 +1,118 @@
+PASS  S-CO-01
+PASS  S-CO-02a
+PASS  S-CO-02b
+PASS  S-CO-03a
+PASS  S-CO-03b
+PASS  S-CO-03c
+PASS  S-CO-03d
+PASS  S-CO-03e
+PASS  S-CI-01
+PASS  S-CI-02
+PASS  S-CI-03
+PASS  S-CI-04a
+PASS  S-CI-04b
+PASS  S-AUTH-01
+PASS  S-AUTH-02
+PASS  S-CONC-01
+PASS  CI.asset-id.below-minimum-0
+PASS  CI.asset-id.decimal-number
+PASS  CI.asset-id.id-that-matches-no-asset
+PASS  CI.asset-id.negative-1
+PASS  CI.asset-id.non-numeric-text
+PASS  CI.baseline.valid-baseline-request
+PASS  CI.checkin-at.explicit-null
+XFAIL CI.checkin-at.impossible-calendar-date-2027-02-29  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+XFAIL CI.checkin-at.month-out-of-range-2027-13-01  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+XFAIL CI.checkin-at.text-that-is-not-a-date  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+PASS  CI.checkin-at.valid-leap-day-2028-02-29
+PASS  CI.checkin-at.valid-value-today
+XFAIL CI.checkin-at.wrong-type-boolean  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+XFAIL CI.clear-name.enumeration-value-with-changed-case  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+PASS  CI.clear-name.valid-value-1
+XFAIL CI.clear-name.value-outside-the-enumeration  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+XFAIL CI.clear-name.wrong-type-number  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+PASS  CI.location-id.above-minimum-2
+PASS  CI.location-id.at-minimum-1
+XFAIL CI.location-id.below-minimum-0  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+PASS  CI.location-id.explicit-null
+PASS  CI.location-id.valid-value-location
+PASS  CI.location-id.well-formed-id-that-matches-no-row-2147483647
+XFAIL CI.location-id.wrong-type-boolean  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+XFAIL CI.location-id.wrong-type-decimal  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+XFAIL CI.location-id.wrong-type-text  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+PASS  CI.name.explicit-null
+PASS  CI.name.length-254-below-maximum
+PASS  CI.name.length-255-at-maximum
+PASS  CI.name.length-256-above-maximum
+PASS  CI.name.valid-value-sqe-returned-laptop
+XFAIL CI.name.wrong-type-number  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+PASS  CI.note.explicit-null
+PASS  CI.note.valid-value-returned-in-good-condition
+PASS  CI.note.wrong-type-number
+PASS  CI.status-id.above-minimum-2
+PASS  CI.status-id.at-minimum-1
+PASS  CI.status-id.below-minimum-0
+PASS  CI.status-id.valid-value-deployable-status
+PASS  CI.status-id.well-formed-id-that-matches-no-row-2147483647
+XFAIL CI.status-id.wrong-type-boolean  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+XFAIL CI.status-id.wrong-type-decimal  -- expected a rejection, got accepted (HTTP 200, "Asset checked in successfully.")
+PASS  CI.status-id.wrong-type-text
+PASS  CO.asset-id.below-minimum-0
+PASS  CO.asset-id.decimal-number
+PASS  CO.asset-id.id-that-matches-no-asset
+PASS  CO.asset-id.negative-1
+PASS  CO.asset-id.non-numeric-text
+PASS  CO.assigned-user.above-minimum-2
+PASS  CO.assigned-user.at-minimum-1
+PASS  CO.assigned-user.below-minimum-0
+PASS  CO.assigned-user.required-field-is-null
+PASS  CO.assigned-user.required-field-omitted
+PASS  CO.assigned-user.well-formed-id-that-matches-no-row-2147483647
+PASS  CO.assigned-user.wrong-type-boolean
+PASS  CO.assigned-user.wrong-type-decimal
+PASS  CO.assigned-user.wrong-type-text
+PASS  CO.baseline.valid-baseline-request
+PASS  CO.checkout-at.explicit-null
+PASS  CO.checkout-at.impossible-calendar-date-2027-02-29
+PASS  CO.checkout-at.month-out-of-range-2027-13-01
+PASS  CO.checkout-at.text-that-is-not-a-date
+PASS  CO.checkout-at.valid-leap-day-2028-02-29
+PASS  CO.checkout-at.valid-value-today
+PASS  CO.checkout-at.wrong-type-boolean
+PASS  CO.checkout-to-type.enumeration-value-with-changed-case
+PASS  CO.checkout-to-type.required-field-is-null
+PASS  CO.checkout-to-type.required-field-omitted-server-infers-it
+PASS  CO.checkout-to-type.value-outside-the-enumeration
+PASS  CO.checkout-to-type.wrong-type-number
+PASS  CO.expected-checkin.explicit-null
+PASS  CO.expected-checkin.impossible-calendar-date-2027-02-29
+PASS  CO.expected-checkin.month-out-of-range-2027-13-01
+PASS  CO.expected-checkin.text-that-is-not-a-date
+PASS  CO.expected-checkin.valid-leap-day-2028-02-29
+PASS  CO.expected-checkin.valid-value-due-date
+PASS  CO.expected-checkin.wrong-type-boolean
+PASS  CO.name.explicit-null
+PASS  CO.name.length-254-below-maximum
+PASS  CO.name.length-255-at-maximum
+PASS  CO.name.length-256-above-maximum
+PASS  CO.name.valid-value-sqe-laptop
+XFAIL CO.name.wrong-type-number  -- expected a rejection, got accepted (HTTP 200, "Asset checked out successfully.")
+PASS  CO.note.explicit-null
+PASS  CO.note.valid-value-issued-at-the-lab-desk
+PASS  CO.note.wrong-type-number
+PASS  CO.requestable.explicit-null
+PASS  CO.requestable.number-outside-0-1
+PASS  CO.requestable.text-that-is-not-a-boolean
+PASS  CO.requestable.valid-boolean-true
+PASS  CO.requestable.valid-value-false
+PASS  CO.status-id.above-minimum-2
+PASS  CO.status-id.at-minimum-1
+PASS  CO.status-id.below-minimum-0
+PASS  CO.status-id.explicit-null
+PASS  CO.status-id.valid-value-deployable-status
+PASS  CO.status-id.well-formed-id-that-matches-no-row-2147483647
+PASS  CO.status-id.wrong-type-boolean
+PASS  CO.status-id.wrong-type-decimal
+PASS  CO.status-id.wrong-type-text
+
+101 PASS, 15 XFAIL, 0 FAIL, 0 XPASS  (reports in /home/claude/repo/output/usman/api)

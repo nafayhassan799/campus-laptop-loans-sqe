@@ -22,15 +22,16 @@ def check(condition, message):
 
 
 class SnipeApi:
-    def __init__(self, token):
+    def __init__(self, token, port=8000):
         self.token = token
+        self.port = port
 
     def request(self, method, path, body=None, expected=200):
         data = None if body is None else json.dumps(body).encode()
-        connection = HTTPConnection("127.0.0.1", 8000, timeout=15)
+        connection = HTTPConnection("127.0.0.1", self.port, timeout=15)
         try:
             connection.request(method, f"/api/v1/{path}", body=data, headers={
-                "Host": "localhost:8000",
+                "Host": f"localhost:{self.port}",
                 "Authorization": f"Bearer {self.token}",
                 "Accept": "application/json",
                 "Content-Type": "application/json",

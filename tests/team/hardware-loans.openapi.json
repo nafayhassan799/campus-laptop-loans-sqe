@@ -3,20 +3,36 @@
   "info": {
     "title": "Snipe-IT laptop loans",
     "version": "8.8.4",
-    "description": "Request contract for the fields used by the campus laptop loan tests. Snipe-IT can return a business-rule rejection in a successful HTTP response."
+    "description": "Request contract for the fields used by the campus laptop loan tests (checkout of one laptop to one student user, and check-in of that same asset). Pinned to Snipe-IT v8.8.4, upstream commit 60fe07468534a283a473dbfe88244896b44c81bc. Observed on the running pinned build: every rejection that reaches the controller or the validator (field validation, unavailable asset, nonexistent asset, repeated check-in) is HTTP 200 with JSON status 'error'; only a missing permission is HTTP 403 and a missing or invalid token is HTTP 401. Clients must therefore assert the body status as well as the HTTP code. Vendor extensions: x-requirement and x-risk link a field to the team traceability IDs, x-valid-example names a runtime fixture (@student, @deployable_status, @location, @due_date, @today, @asset) or a literal, x-reference marks an integer that is a key into another table (boundary neighbours are checked against whether the row exists), x-boundary-note records why a field has no ordered boundary, x-server-note records what the pinned source actually enforces."
   },
-  "servers": [{"url": "http://localhost:8000/api/v1"}],
-  "security": [{"bearerAuth": []}],
+  "servers": [
+    {
+      "url": "http://localhost:8000/api/v1"
+    }
+  ],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "components": {
     "securitySchemes": {
-      "bearerAuth": {"type": "http", "scheme": "bearer"}
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
     },
     "parameters": {
       "assetId": {
         "name": "asset_id",
         "in": "path",
         "required": true,
-        "schema": {"type": "integer", "minimum": 1}
+        "schema": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "x-valid-example": "@asset",
+        "x-boundary-note": "The id is a database key with no maximum. Only the lower bound (0 and below is never a valid key) is a meaningful boundary; ids 1 and 2 depend on which rows exist, so the valid case uses the dedicated fixture asset instead."
       }
     },
     "responses": {
@@ -26,8 +42,25 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status"],
-              "properties": {"status": {"type": "string", "enum": ["success", "error"]}}
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "success",
+                    "error"
+                  ]
+                },
+                "messages": {
+                  "description": "Human-readable message (string) or a map of field names to message lists on validation errors."
+                },
+                "payload": {
+                  "type": "object",
+                  "nullable": true
+                }
+              }
             }
           }
         }
@@ -36,56 +69,314 @@
   },
   "paths": {
     "/hardware/{asset_id}/checkout": {
-      "parameters": [{"$ref": "#/components/parameters/assetId"}],
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/assetId"
+        }
+      ],
       "post": {
         "operationId": "checkoutLaptopToStudent",
+        "x-requirement": [
+          "CO-01",
+          "CO-02",
+          "CO-03",
+          "CO-04"
+        ],
+        "x-risk": [
+          "R-A2",
+          "R-A3",
+          "R-A4",
+          "R-A8"
+        ],
+        "x-precondition": "deployable-unassigned",
+        "x-server-note": "Source: app/Http/Controllers/Api/AssetsController.php::checkout, app/Http/Requests/AssetCheckoutRequest.php, app/Models/Asset.php::availableForCheckout. checkout_to_type is inferred from the single filled assigned_* field when omitted, but the team contract always sends it. Observed: validation failures, unavailable assets, a nonexistent asset or target and a lost lock race all return HTTP 200 with status 'error'. An unknown user id yields the untranslated message key 'validation.exists_undeleted'.",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["checkout_to_type", "assigned_user"],
+                "required": [
+                  "checkout_to_type",
+                  "assigned_user"
+                ],
                 "properties": {
-                  "checkout_to_type": {"type": "string", "enum": ["user"]},
-                  "assigned_user": {"type": "integer", "minimum": 1},
-                  "expected_checkin": {"type": "string", "format": "date", "nullable": true},
-                  "name": {"type": "string", "maxLength": 255, "nullable": true}
+                  "checkout_to_type": {
+                    "type": "string",
+                    "enum": [
+                      "user"
+                    ],
+                    "x-requirement": [
+                      "CO-01"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-server-note": "The server also accepts 'asset' and 'location'; those targets are outside the project scope and are not generated.",
+                    "x-server-infers": true
+                  },
+                  "assigned_user": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "x-valid-example": "@student",
+                    "x-requirement": [
+                      "CO-01"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-server-note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422.",
+                    "x-reference": "users"
+                  },
+                  "expected_checkin": {
+                    "type": "string",
+                    "format": "date",
+                    "nullable": true,
+                    "x-valid-example": "@due_date",
+                    "x-requirement": [
+                      "CO-02"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-boundary-note": "A calendar date has no ordered numeric bound the server enforces (no minimum or maximum date rule). Equivalence partitions are used instead: valid date, impossible calendar date, wrong format, wrong type.",
+                    "x-server-note": "Rule is 'nullable|date' (any string PHP can parse), so the server accepts more than the strict YYYY-MM-DD form used by the team."
+                  },
+                  "checkout_at": {
+                    "type": "string",
+                    "format": "date",
+                    "nullable": true,
+                    "x-valid-example": "@today",
+                    "x-requirement": [
+                      "CO-01"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-boundary-note": "Same as expected_checkin: no enforced ordered date bound."
+                  },
+                  "name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "nullable": true,
+                    "x-valid-example": "SQE laptop",
+                    "x-requirement": [
+                      "CO-04"
+                    ],
+                    "x-risk": [
+                      "R-A1",
+                      "R-A8"
+                    ],
+                    "x-server-note": "Asset::rules name => nullable|max:255. A rejected name must leave the asset untouched. The database column was 191 characters at the pinned commit; branch sqe/asset-name-boundary widens it."
+                  },
+                  "note": {
+                    "type": "string",
+                    "nullable": true,
+                    "x-valid-example": "Issued at the lab desk",
+                    "x-requirement": [
+                      "CO-01"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-boundary-note": "Free text with no length limit in the request rules, so no boundary. When the require_checkinout_notes setting is on, the field becomes required; that setting is exercised only in the isolated browser fixture."
+                  },
+                  "status_id": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "nullable": true,
+                    "x-valid-example": "@deployable_status",
+                    "x-requirement": [
+                      "CO-03"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-server-note": "nullable|exists:status_labels,id,deployable,1: only a deployable status label may be set during checkout.",
+                    "x-reference": "statuslabels:deployable"
+                  },
+                  "requestable": {
+                    "type": "boolean",
+                    "nullable": true,
+                    "x-valid-example": false,
+                    "x-requirement": [
+                      "CO-01"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-boundary-note": "Boolean has no ordered range; both values are one partition each."
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": {"$ref": "#/components/responses/workflowResult"},
-          "403": {"description": "Account lacks checkout permission."},
-          "404": {"description": "Asset does not exist."},
-          "422": {"description": "Request fields failed validation."}
+          "200": {
+            "$ref": "#/components/responses/workflowResult",
+            "description": "Success or rejection; read the body status. Includes validation failures (messages is a map of field to messages), a nonexistent asset ('Asset not found') and an unavailable or already-returned asset."
+          },
+          "401": {
+            "description": "Missing or invalid token."
+          },
+          "403": {
+            "description": "Account lacks checkout/check-in permission (verified for the read-only reviewer)."
+          }
         }
       }
     },
     "/hardware/{asset_id}/checkin": {
-      "parameters": [{"$ref": "#/components/parameters/assetId"}],
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/assetId"
+        }
+      ],
       "post": {
         "operationId": "checkinLaptopFromStudent",
+        "x-requirement": [
+          "CI-01",
+          "CI-02",
+          "CI-03",
+          "CI-04"
+        ],
+        "x-risk": [
+          "R-A3",
+          "R-A4",
+          "R-A5",
+          "R-A8"
+        ],
+        "x-precondition": "loaned",
+        "x-server-note": "Source: AssetsController::checkin. Unlike checkout this action has no FormRequest, so it performs no field validation of its own beyond what Asset::save() enforces. An empty body on an unassigned asset is rejected as already checked in (HTTP 200, status 'error'); a body that carries name, status_id, location_id or clear_name is applied as a metadata update without a second return.",
         "requestBody": {
+          "required": false,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "status_id": {"type": "integer", "minimum": 1},
-                  "name": {"type": "string", "maxLength": 255, "nullable": true},
-                  "clear_name": {"type": "string", "enum": ["1"]}
+                  "status_id": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "x-valid-example": "@deployable_status",
+                    "x-requirement": [
+                      "CI-02",
+                      "CI-03"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-server-note": "No validation rule exists for status_id on this endpoint; the value is copied to the asset when filled.",
+                    "x-reference": "statuslabels"
+                  },
+                  "name": {
+                    "type": "string",
+                    "maxLength": 255,
+                    "nullable": true,
+                    "x-valid-example": "SQE returned laptop",
+                    "x-requirement": [
+                      "CI-01"
+                    ],
+                    "x-risk": [
+                      "R-A1",
+                      "R-A8"
+                    ]
+                  },
+                  "clear_name": {
+                    "type": "string",
+                    "enum": [
+                      "1"
+                    ],
+                    "x-valid-example": "1",
+                    "x-requirement": [
+                      "CI-01"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-boundary-note": "Single-value enumeration: only '1' triggers the clear; there is no ordered boundary."
+                  },
+                  "note": {
+                    "type": "string",
+                    "nullable": true,
+                    "x-valid-example": "Returned in good condition",
+                    "x-requirement": [
+                      "CI-01"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-boundary-note": "Free text with no length limit in the request."
+                  },
+                  "location_id": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "nullable": true,
+                    "x-valid-example": "@location",
+                    "x-requirement": [
+                      "CI-01"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-reference": "locations"
+                  },
+                  "checkin_at": {
+                    "type": "string",
+                    "format": "date",
+                    "nullable": true,
+                    "x-valid-example": "@today",
+                    "x-requirement": [
+                      "CI-01"
+                    ],
+                    "x-risk": [
+                      "R-A8"
+                    ],
+                    "x-boundary-note": "No enforced ordered date bound; the controller concatenates the value with the current time of day."
+                  }
                 }
               }
             }
           }
         },
         "responses": {
-          "200": {"$ref": "#/components/responses/workflowResult"},
-          "403": {"description": "Account lacks check-in permission."},
-          "404": {"description": "Asset does not exist."}
+          "200": {
+            "$ref": "#/components/responses/workflowResult",
+            "description": "Success or rejection; read the body status. Includes validation failures (messages is a map of field to messages), a nonexistent asset ('Asset not found') and an unavailable or already-returned asset."
+          },
+          "401": {
+            "description": "Missing or invalid token."
+          },
+          "403": {
+            "description": "Account lacks checkout/check-in permission (verified for the read-only reviewer)."
+          }
+        }
+      }
+    },
+    "/hardware/{asset_id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/assetId"
+        }
+      ],
+      "get": {
+        "operationId": "readLaptop",
+        "x-requirement": [
+          "CO-01",
+          "CO-02",
+          "CI-01"
+        ],
+        "x-server-note": "Read-back used after every operation. Fields asserted: assigned_to.id, expected_checkin.date, status.id, status.status_meta, name, checkout_counter, checkin_counter, last_checkout, last_checkin. Loan history is read from GET /reports/activity with item_type=asset.",
+        "responses": {
+          "200": {
+            "description": "Asset record."
+          },
+          "401": {
+            "description": "Missing or invalid token."
+          },
+          "404": {
+            "description": "Asset does not exist (read endpoint)."
+          }
         }
       }
     }

@@ -1,0 +1,15 @@
+
+Running 10 tests using 1 worker
+
+  ✓   1 usman-checkout-due-date.spec.cjs:40:3 › UC1 record the expected return date during checkout › UC1-MAIN technician assigns a laptop with a valid due date and the stored date matches (8.0s)
+  ✓   2 usman-checkout-due-date.spec.cjs:62:3 › UC1 record the expected return date during checkout › UC1-ALT1 leaving the optional due date blank stores no due date (7.0s)
+  ✓   3 usman-checkout-due-date.spec.cjs:77:3 › UC1 record the expected return date during checkout › UC1-ALT2 a different valid due date chosen with the date picker is the date that is saved (5.9s)
+  ✓   4 usman-checkout-due-date.spec.cjs:98:3 › UC1 record the expected return date during checkout › UC1-EXC1 submitting without a borrower is blocked and nothing is saved (4.4s)
+  ✓   5 usman-checkout-due-date.spec.cjs:116:3 › UC1 record the expected return date during checkout › UC1-EXC2 an entry the picker cannot accept is replaced with the current date and time, and that is what is saved (6.8s)
+  ✓   6 usman-return-location-date.spec.cjs:26:3 › UC2 record the return location and date › UC2-MAIN technician returns a laptop to a chosen location and the return record shows it (6.9s)
+  ✓   7 usman-return-location-date.spec.cjs:47:3 › UC2 record the return location and date › UC2-ALT1 keeping the default return location sends the laptop to its default location (5.1s)
+  ✓   8 usman-return-location-date.spec.cjs:62:3 › UC2 record the return location and date › UC2-ALT2 a supported earlier return date is recorded in the history (5.8s)
+  ✓   9 usman-return-location-date.spec.cjs:81:3 › UC2 record the return location and date › UC2-EXC1 with check-in notes required, omitting the note blocks the return and nothing is recorded (5.7s)
+  ✓  10 usman-return-location-date.spec.cjs:111:3 › UC2 record the return location and date › UC2-EXC2 opening a return link for a missing asset shows an error and records no return (4.9s)
+
+  10 passed (1.0m)

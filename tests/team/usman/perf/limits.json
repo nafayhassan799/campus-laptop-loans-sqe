@@ -1,0 +1,13 @@
+{
+  "operation": "GET /hardware/{id}/checkout as the lab technician (opens the checkout form)",
+  "agreedOn": "2026-11-22, before any measured run",
+  "rationale": "The form is read-mostly and is the first screen of every loan. A technician at a desk should see it within about one second. Limits are set for the one-machine, four-PHP-worker local setup used in the lab; they are not production targets.",
+  "holdSeconds": 60,
+  "thinkTimeSeconds": 1,
+  "setups": {
+    "1": {"users": 1, "p95_ms": 1000, "unexpected_failure_rate": 0.0},
+    "5": {"users": 5, "p95_ms": 1500, "unexpected_failure_rate": 0.0}
+  },
+  "unexpectedFailure": "Any response that is not HTTP 200, that lands on the login page, or that lacks the checkout form for the fixture laptop.",
+  "runsPerSetup": 2
+}

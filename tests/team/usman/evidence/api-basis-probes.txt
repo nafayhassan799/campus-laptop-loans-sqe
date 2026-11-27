@@ -1,0 +1,25 @@
+checkout, unknown user id
+   HTTP 200  {"status": "error", "messages": {"assigned_user": ["validation.exists_undeleted"]}, "payload": null}
+checkout, bad due date text
+   HTTP 200  {"status": "error", "messages": {"expected_checkin": ["The expected checkin field must be a valid date."]}, "payload": null}
+checkout, name of 256 characters
+   HTTP 200  {"status": "error", "messages": "Asset was not checked out, please try again", "payload": {"asset": "API-GEN-001"}}
+checkout, nonexistent asset
+   HTTP 200  {"status": "error", "messages": "Asset not found", "payload": null}
+checkout, read-only reviewer
+   HTTP 403  {"message": "This action is unauthorized."}
+checkout, bad token
+   HTTP 401  {"error": "Unauthorized or unauthenticated."}
+checkout, already loaned
+   HTTP 200  {"status": "error", "messages": "That asset is not available for checkout!", "payload": {"asset": "API-GEN-001"}}
+checkin, repeated with empty body
+   HTTP 200  {"status": "error", "messages": "That asset is already checked in.", "payload": {"asset_tag": "API-GEN-001", "model": "SQE Campus Laptop", "model_number": ""}}
+checkin, repeated with name only
+   HTTP 200  {"status": "success", "messages": "Asset was already checked in, but the form fields you set (status, location, name, notes) were applied anyway.", "payload": {"asset_tag": "API-GEN-001", "model": "SQE Campus Laptop", "model_numbe
+
+Stored history date for each checkin_at value (technician checkin of a loaned laptop):
+   checkin_at='2028-02-29'   -> HTTP 200 success history action='checkin from' date=2028-02-29 12:14:50
+   checkin_at='not-a-date'   -> HTTP 200 success history action='checkin from' date=-0001-11-30 00:00:00
+   checkin_at='2027-02-29'   -> HTTP 200 success history action='checkin from' date=-0001-11-30 00:00:00
+   checkin_at='2027-13-01'   -> HTTP 200 success history action='checkin from' date=-0001-11-30 00:00:00
+   checkin_at=True           -> HTTP 200 success history action='checkin from' date=-0001-11-30 00:00:00

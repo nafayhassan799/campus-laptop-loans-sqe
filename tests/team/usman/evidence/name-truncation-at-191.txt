@@ -1,0 +1,8 @@
+PASS  CO.name.explicit-null
+FAIL  CO.name.length-254-below-maximum  -- name was not persisted in full (191 of 254 chars)
+FAIL  CO.name.length-255-at-maximum  -- name was not persisted in full (191 of 255 chars)
+PASS  CO.name.length-256-above-maximum
+PASS  CO.name.valid-value-sqe-laptop
+XFAIL CO.name.wrong-type-number  -- expected a rejection, got accepted (HTTP 200, "Asset checked out successfully.")
+
+3 PASS, 1 XFAIL, 2 FAIL, 0 XPASS  (reports in /home/claude/repo/output/usman/api)

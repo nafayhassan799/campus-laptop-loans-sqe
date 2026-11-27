@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="usman-api" tests="120" failures="0" skipped="15">
+  <testcase classname="scenario" name="S-CO-01" time="0.311">
+  </testcase>
+  <testcase classname="scenario" name="S-CO-02a" time="0.239">
+  </testcase>
+  <testcase classname="scenario" name="S-CO-02b" time="0.245">
+  </testcase>
+  <testcase classname="scenario" name="S-CO-03a" time="0.354">
+  </testcase>
+  <testcase classname="scenario" name="S-CO-03b" time="0.347">
+  </testcase>
+  <testcase classname="scenario" name="S-CO-03c" time="0.434">
+  </testcase>
+  <testcase classname="scenario" name="S-CO-03d" time="0.224">
+  </testcase>
+  <testcase classname="scenario" name="S-CO-03e" time="0.314">
+  </testcase>
+  <testcase classname="scenario" name="S-CI-01" time="0.373">
+  </testcase>
+  <testcase classname="scenario" name="S-CI-02" time="0.325">
+  </testcase>
+  <testcase classname="scenario" name="S-CI-03" time="0.504">
+  </testcase>
+  <testcase classname="scenario" name="S-CI-04a" time="0.408">
+  </testcase>
+  <testcase classname="scenario" name="S-CI-04b" time="0.423">
+  </testcase>
+  <testcase classname="scenario" name="S-AUTH-01" time="0.583">
+  </testcase>
+  <testcase classname="scenario" name="S-AUTH-02" time="0.339">
+  </testcase>
+  <testcase classname="scenario" name="S-CONC-01" time="0.346">
+  </testcase>
+  <testcase classname="generated" name="CI.asset-id.above-minimum-2" time="0.384">
+  </testcase>
+  <testcase classname="generated" name="CI.asset-id.at-minimum-1" time="0.393">
+  </testcase>
+  <testcase classname="generated" name="CI.asset-id.below-minimum-0" time="0.343">
+  </testcase>
+  <testcase classname="generated" name="CI.asset-id.decimal-number" time="0.361">
+  </testcase>
+  <testcase classname="generated" name="CI.asset-id.id-that-matches-no-asset" time="0.352">
+  </testcase>
+  <testcase classname="generated" name="CI.asset-id.negative-1" time="0.354">
+  </testcase>
+  <testcase classname="generated" name="CI.asset-id.non-numeric-text" time="0.36">
+  </testcase>
+  <testcase classname="generated" name="CI.baseline.valid-baseline-request" time="0.374">
+  </testcase>
+  <testcase classname="generated" name="CI.checkin-at.explicit-null" time="0.362">
+  </testcase>
+  <testcase classname="generated" name="CI.checkin-at.impossible-calendar-date-2027-02-29" time="0.36">
+    <skipped message="known defect D-API-01: D-API-01: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.checkin-at.month-out-of-range-2027-13-01" time="0.366">
+    <skipped message="known defect D-API-01: D-API-01: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.checkin-at.text-that-is-not-a-date" time="0.362">
+    <skipped message="known defect D-API-01: D-API-01: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.checkin-at.valid-leap-day-2028-02-29" time="0.367">
+  </testcase>
+  <testcase classname="generated" name="CI.checkin-at.valid-value-today" time="0.367">
+  </testcase>
+  <testcase classname="generated" name="CI.checkin-at.wrong-type-boolean" time="0.361">
+    <skipped message="known defect D-API-01: D-API-01: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.clear-name.enumeration-value-with-changed-case" time="0.407">
+    <skipped message="known defect D-API-03: D-API-03: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.clear-name.valid-value-1" time="0.369">
+  </testcase>
+  <testcase classname="generated" name="CI.clear-name.value-outside-the-enumeration" time="0.41">
+    <skipped message="known defect D-API-03: D-API-03: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.clear-name.wrong-type-number" time="0.414">
+    <skipped message="known defect D-API-03: D-API-03: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.location-id.above-minimum-2" time="0.408">
+  </testcase>
+  <testcase classname="generated" name="CI.location-id.at-minimum-1" time="0.418">
+  </testcase>
+  <testcase classname="generated" name="CI.location-id.below-minimum-0" time="0.387">
+    <skipped message="known defect D-API-02: D-API-02: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.location-id.explicit-null" time="0.385">
+  </testcase>
+  <testcase classname="generated" name="CI.location-id.valid-value-location" time="0.397">
+  </testcase>
+  <testcase classname="generated" name="CI.location-id.well-formed-id-that-matches-no-row-2147483647" time="0.389">
+  </testcase>
+  <testcase classname="generated" name="CI.location-id.wrong-type-boolean" time="0.41">
+    <skipped message="known defect D-API-02: D-API-02: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.location-id.wrong-type-decimal" time="0.388">
+    <skipped message="known defect D-API-02: D-API-02: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.location-id.wrong-type-text" time="0.38">
+    <skipped message="known defect D-API-02: D-API-02: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.name.explicit-null" time="0.382">
+  </testcase>
+  <testcase classname="generated" name="CI.name.length-254-below-maximum" time="0.391">
+  </testcase>
+  <testcase classname="generated" name="CI.name.length-255-at-maximum" time="0.399">
+  </testcase>
+  <testcase classname="generated" name="CI.name.length-256-above-maximum" time="0.391">
+  </testcase>
+  <testcase classname="generated" name="CI.name.valid-value-sqe-returned-laptop" time="0.405">
+  </testcase>
+  <testcase classname="generated" name="CI.name.wrong-type-number" time="0.406">
+    <skipped message="known defect D-API-04: D-API-04: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.note.explicit-null" time="0.398">
+  </testcase>
+  <testcase classname="generated" name="CI.note.valid-value-returned-in-good-condition" time="0.393">
+  </testcase>
+  <testcase classname="generated" name="CI.note.wrong-type-number" time="0.399">
+  </testcase>
+  <testcase classname="generated" name="CI.status-id.above-minimum-2" time="0.438">
+  </testcase>
+  <testcase classname="generated" name="CI.status-id.at-minimum-1" time="0.464">
+  </testcase>
+  <testcase classname="generated" name="CI.status-id.below-minimum-0" time="0.416">
+  </testcase>
+  <testcase classname="generated" name="CI.status-id.valid-value-deployable-status" time="0.421">
+  </testcase>
+  <testcase classname="generated" name="CI.status-id.well-formed-id-that-matches-no-row-2147483647" time="0.416">
+  </testcase>
+  <testcase classname="generated" name="CI.status-id.wrong-type-boolean" time="0.425">
+    <skipped message="known defect D-API-02: D-API-02: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.status-id.wrong-type-decimal" time="0.425">
+    <skipped message="known defect D-API-02: D-API-02: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CI.status-id.wrong-type-text" time="0.419">
+  </testcase>
+  <testcase classname="generated" name="CO.asset-id.above-minimum-2" time="0.348">
+  </testcase>
+  <testcase classname="generated" name="CO.asset-id.at-minimum-1" time="0.338">
+  </testcase>
+  <testcase classname="generated" name="CO.asset-id.below-minimum-0" time="0.363">
+  </testcase>
+  <testcase classname="generated" name="CO.asset-id.decimal-number" time="0.362">
+  </testcase>
+  <testcase classname="generated" name="CO.asset-id.id-that-matches-no-asset" time="0.371">
+  </testcase>
+  <testcase classname="generated" name="CO.asset-id.negative-1" time="0.364">
+  </testcase>
+  <testcase classname="generated" name="CO.asset-id.non-numeric-text" time="0.362">
+  </testcase>
+  <testcase classname="generated" name="CO.assigned-user.above-minimum-2" time="0.411">
+  </testcase>
+  <testcase classname="generated" name="CO.assigned-user.at-minimum-1" time="0.422">
+  </testcase>
+  <testcase classname="generated" name="CO.assigned-user.below-minimum-0" time="0.383">
+  </testcase>
+  <testcase classname="generated" name="CO.assigned-user.required-field-is-null" time="0.371">
+  </testcase>
+  <testcase classname="generated" name="CO.assigned-user.required-field-omitted" time="0.364">
+  </testcase>
+  <testcase classname="generated" name="CO.assigned-user.well-formed-id-that-matches-no-row-2147483647" time="0.365">
+  </testcase>
+  <testcase classname="generated" name="CO.assigned-user.wrong-type-boolean" time="0.372">
+  </testcase>
+  <testcase classname="generated" name="CO.assigned-user.wrong-type-decimal" time="0.372">
+  </testcase>
+  <testcase classname="generated" name="CO.assigned-user.wrong-type-text" time="0.378">
+  </testcase>
+  <testcase classname="generated" name="CO.baseline.valid-baseline-request" time="0.385">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-at.explicit-null" time="0.396">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-at.impossible-calendar-date-2027-02-29" time="0.375">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-at.month-out-of-range-2027-13-01" time="0.378">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-at.text-that-is-not-a-date" time="0.379">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-at.valid-leap-day-2028-02-29" time="0.383">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-at.valid-value-today" time="0.391">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-at.wrong-type-boolean" time="0.388">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-to-type.enumeration-value-with-changed-case" time="0.387">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-to-type.required-field-is-null" time="0.394">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-to-type.required-field-omitted-server-infers-it" time="0.404">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-to-type.value-outside-the-enumeration" time="0.397">
+  </testcase>
+  <testcase classname="generated" name="CO.checkout-to-type.wrong-type-number" time="0.382">
+  </testcase>
+  <testcase classname="generated" name="CO.expected-checkin.explicit-null" time="0.383">
+  </testcase>
+  <testcase classname="generated" name="CO.expected-checkin.impossible-calendar-date-2027-02-29" time="0.379">
+  </testcase>
+  <testcase classname="generated" name="CO.expected-checkin.month-out-of-range-2027-13-01" time="0.391">
+  </testcase>
+  <testcase classname="generated" name="CO.expected-checkin.text-that-is-not-a-date" time="0.394">
+  </testcase>
+  <testcase classname="generated" name="CO.expected-checkin.valid-leap-day-2028-02-29" time="0.398">
+  </testcase>
+  <testcase classname="generated" name="CO.expected-checkin.valid-value-due-date" time="0.416">
+  </testcase>
+  <testcase classname="generated" name="CO.expected-checkin.wrong-type-boolean" time="0.393">
+  </testcase>
+  <testcase classname="generated" name="CO.name.explicit-null" time="0.397">
+  </testcase>
+  <testcase classname="generated" name="CO.name.length-254-below-maximum" time="0.408">
+  </testcase>
+  <testcase classname="generated" name="CO.name.length-255-at-maximum" time="0.407">
+  </testcase>
+  <testcase classname="generated" name="CO.name.length-256-above-maximum" time="0.418">
+  </testcase>
+  <testcase classname="generated" name="CO.name.valid-value-sqe-laptop" time="0.404">
+  </testcase>
+  <testcase classname="generated" name="CO.name.wrong-type-number" time="0.417">
+    <skipped message="known defect D-API-04: D-API-04: confirmed the documented response and saved state"/>
+  </testcase>
+  <testcase classname="generated" name="CO.note.explicit-null" time="0.414">
+  </testcase>
+  <testcase classname="generated" name="CO.note.valid-value-issued-at-the-lab-desk" time="0.418">
+  </testcase>
+  <testcase classname="generated" name="CO.note.wrong-type-number" time="0.418">
+  </testcase>
+  <testcase classname="generated" name="CO.requestable.explicit-null" time="0.418">
+  </testcase>
+  <testcase classname="generated" name="CO.requestable.number-outside-0-1" time="0.402">
+  </testcase>
+  <testcase classname="generated" name="CO.requestable.text-that-is-not-a-boolean" time="0.404">
+  </testcase>
+  <testcase classname="generated" name="CO.requestable.valid-boolean-true" time="0.423">
+  </testcase>
+  <testcase classname="generated" name="CO.requestable.valid-value-false" time="0.417">
+  </testcase>
+  <testcase classname="generated" name="CO.status-id.above-minimum-2" time="0.447">
+  </testcase>
+  <testcase classname="generated" name="CO.status-id.at-minimum-1" time="0.45">
+  </testcase>
+  <testcase classname="generated" name="CO.status-id.below-minimum-0" time="0.401">
+  </testcase>
+  <testcase classname="generated" name="CO.status-id.explicit-null" time="0.411">
+  </testcase>
+  <testcase classname="generated" name="CO.status-id.valid-value-deployable-status" time="0.435">
+  </testcase>
+  <testcase classname="generated" name="CO.status-id.well-formed-id-that-matches-no-row-2147483647" time="0.423">
+  </testcase>
+  <testcase classname="generated" name="CO.status-id.wrong-type-boolean" time="0.413">
+  </testcase>
+  <testcase classname="generated" name="CO.status-id.wrong-type-decimal" time="0.412">
+  </testcase>
+  <testcase classname="generated" name="CO.status-id.wrong-type-text" time="0.407">
+  </testcase>
+</testsuite>

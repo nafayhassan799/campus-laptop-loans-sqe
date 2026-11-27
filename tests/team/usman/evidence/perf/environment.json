@@ -1,0 +1,12 @@
+{
+  "k6": "k6 v0.55.0 (commit/90bb9415d0, go1.23.3, linux/amd64)",
+  "python": "3.12.16",
+  "os": "Linux-7.0.0-1018-aws-x86_64-with-glibc2.43",
+  "cpuCount": 4,
+  "php": "8.5.4",
+  "phpWorkers": null,
+  "database": "13.0.2-MariaDB-ubu2604",
+  "gitCommit": "2b3d5a7596c67928604c74dee714eb4cdd8abc92",
+  "snipeItPinned": "60fe07468534a283a473dbfe88244896b44c81bc",
+  "limits": "tests/team/usman/perf/limits.json"
+}
