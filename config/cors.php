@@ -10,13 +10,10 @@
  * overwritten later), this enables the person managing the Snipe-IT
  * installation to modify these values without modifying the code.
  *
- * If APP_CORS_ALLOWED_ORIGINS is not set in the .env (for example if no one added it
- * after an upgrade from a previous version that didn't include it in the .env.example) or is null,
- * set it to * to allow all. If there is a value, either a single url or a comma-delimited
- * list of urls, explode that out into an array to whitelist just those urls.
+ * Set CORS_ALLOWED_ORIGINS to the comma-delimited list of browser origins
+ * that may call the API. Without a list, cross-origin access is disabled.
  */
-$allowed_origins = env('CORS_ALLOWED_ORIGINS') !== null ?
-    explode(',', env('CORS_ALLOWED_ORIGINS')) : ['*'];
+$allowed_origins = array_values(array_filter(array_map('trim', explode(',', (string) env('CORS_ALLOWED_ORIGINS')))));
 
 /**
  * Original Laravel CORS package config file modifications end here

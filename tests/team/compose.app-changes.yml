@@ -1,7 +1,6 @@
 # Serves the team's application changes from this checkout inside the pinned Snipe-IT image.
-# The image (snipe/snipe-it:v8.8.4) contains the stock upstream files; without these read-only
-# bind mounts the Docker stack would not show the checkout-screen accessibility fix (A11Y-02..08).
-# Keep this list equal to: git diff --name-only <upstream base> -- resources
+# The pinned image contains stock upstream files. Read-only bind mounts also
+# supply new files used by the team's workflow, accessibility and API fixes.
 services:
   app:
     volumes:
@@ -26,6 +25,78 @@ services:
       - type: bind
         source: ./resources/lang/en-US/general.php
         target: /var/www/html/resources/lang/en-US/general.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./app/Http/Controllers/Api/AssetsController.php
+        target: /var/www/html/app/Http/Controllers/Api/AssetsController.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./app/Http/Controllers/Assets/AssetCheckinController.php
+        target: /var/www/html/app/Http/Controllers/Assets/AssetCheckinController.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./app/Http/Middleware/CheckForSetup.php
+        target: /var/www/html/app/Http/Middleware/CheckForSetup.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./app/Http/Requests/AssetCheckinRequest.php
+        target: /var/www/html/app/Http/Requests/AssetCheckinRequest.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./app/Http/Requests/AssetCheckoutRequest.php
+        target: /var/www/html/app/Http/Requests/AssetCheckoutRequest.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./config/cors.php
+        target: /var/www/html/config/cors.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./config/session.php
+        target: /var/www/html/config/session.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./resources/lang/en-US/validation.php
+        target: /var/www/html/resources/lang/en-US/validation.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./resources/views/auth/login.blade.php
+        target: /var/www/html/resources/views/auth/login.blade.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./resources/views/blade/input/datetimepicker.blade.php
+        target: /var/www/html/resources/views/blade/input/datetimepicker.blade.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./resources/views/hardware/checkin.blade.php
+        target: /var/www/html/resources/views/hardware/checkin.blade.php
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./resources/views/hardware/loan-form-accessibility.blade.php
+        target: /var/www/html/resources/views/hardware/loan-form-accessibility.blade.php
         read_only: true
         bind:
           create_host_path: false

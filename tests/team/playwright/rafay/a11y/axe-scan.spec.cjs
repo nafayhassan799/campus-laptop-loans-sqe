@@ -36,6 +36,7 @@ test.describe('axe-core full-page scans', () => {
   test('login screen', async ({ page }) => {
     await page.goto('/login');
     await expect(page.getByRole('button', { name: /^login$/i })).toBeVisible();
+    await expect(page.getByLabel('Password', { exact: true })).toHaveAttribute('id', 'password-field');
     const results = await scan(page, 'login');
     expect(results.passes.length).toBeGreaterThan(0);
   });
@@ -58,5 +59,8 @@ test.describe('axe-core full-page scans', () => {
     await page.waitForLoadState('networkidle');
     const results = await scan(page, 'checkin');
     expect(results.passes.length).toBeGreaterThan(0);
+    const form = await new AxeBuilder({ page }).include('#checkin_form')
+      .withRules(['aria-input-field-name', 'color-contrast']).analyze();
+    expect(form.violations).toEqual([]);
   });
 });

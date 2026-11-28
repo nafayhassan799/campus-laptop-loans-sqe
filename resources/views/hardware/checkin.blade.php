@@ -15,8 +15,10 @@
         }
     </style>
 
+    @include('hardware.loan-form-accessibility', ['formId' => 'checkin_form'])
+
     <x-container class="col-md-7 col-sm-11 col-xs-12 col-md-offset-2">
-        <x-form :route="$backto == 'user'
+        <x-form id="checkin_form" :route="$backto == 'user'
             ? route('hardware.checkin.store', ['assetId' => $asset->id, 'backto' => 'user'])
             : route('hardware.checkin.store', ['assetId' => $asset->id])">
 

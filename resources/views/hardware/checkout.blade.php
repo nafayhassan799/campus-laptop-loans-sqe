@@ -14,43 +14,9 @@
             padding-left: 0px !important;
         }
 
-        {{-- SQE A11Y-03: select2 placeholder text (#999 on white, 2.84:1) failed WCAG 1.4.3.
-             #6b6b6b on white is 5.33:1. --}}
-        #checkout_form .select2-selection__placeholder {
-            color: #6b6b6b;
-        }
     </style>
 
-    @push('js')
-        <script nonce="{{ csrf_token() }}">
-            {{-- SQE A11Y-02 and A11Y-04: give every select2 picker on this form the name of its visible
-                 <label> (WCAG 4.1.2), and let the "Asset Name" input take its visible label instead of
-                 the aria-label="name" the shared field component adds (WCAG 2.5.3 label in name). --}}
-            $(function () {
-                var $form = $('#checkout_form');
-                $form.find('#name').removeAttr('aria-label');
-                $form.find('select').each(function (index, select) {
-                    var $group = $(select).closest('.form-group');
-                    var $label = $group.find('label.control-label, label[for]').first();
-                    var $selection = $(select).next('.select2').find('.select2-selection');
-                    if (! $selection.length) {
-                        return;
-                    }
-                    if (! $label.length) {
-                        // No visible label (e.g. the "after saving" redirect picker): reuse the select's aria-label.
-                        $selection.find('.select2-selection__rendered').attr('aria-label', $(select).attr('aria-label'));
-                        $selection.attr('aria-label', $(select).attr('aria-label'));
-                        return;
-                    }
-                    var labelId = $label.attr('id') || ('checkout-label-' + (select.id || select.name || index));
-                    $label.attr('id', labelId);
-                    var $rendered = $selection.find('.select2-selection__rendered');
-                    $rendered.attr('aria-labelledby', labelId);
-                    $selection.attr('aria-labelledby', labelId + ' ' + $rendered.attr('id'));
-                });
-            });
-        </script>
-    @endpush
+    @include('hardware.loan-form-accessibility', ['formId' => 'checkout_form'])
 
     <x-container columns="2">
         <x-page-column class="col-md-7">

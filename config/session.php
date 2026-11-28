@@ -37,9 +37,9 @@ return [
     |
     */
 
-    'lifetime' => env('SESSION_LIFETIME', 12000),
+    'lifetime' => env('SESSION_LIFETIME', 30),
 
-    'expire_on_close' => env('EXPIRE_ON_CLOSE', false),
+    'expire_on_close' => env('EXPIRE_ON_CLOSE', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -156,7 +156,7 @@ return [
     |
     */
 
-    'secure' => env('SECURE_COOKIES', false),
+    'secure' => env('SECURE_COOKIES') ?? (parse_url((string) env('APP_URL'), PHP_URL_SCHEME) === 'https'),
 
     /*
     |--------------------------------------------------------------------------

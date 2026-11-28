@@ -113,26 +113,30 @@ test.describe('UC1 record the expected return date during checkout', () => {
     expect(await s.history(request, id)).toEqual(before.events);
   });
 
-  test('UC1-EXC2 an entry the picker cannot accept is replaced with the current date and time, and that is what is saved', async ({ page, request }) => {
-    test.info().annotations.push({ type: 'finding', description: 'D-UI-01: invalid due-date text is silently replaced by now() and saved' });
-    const { id } = await prepare(request, 'BR-CO-05');
+  test('UC1-EXC2 an invalid due date is rejected and can be corrected', async ({ page, request }) => {
+    const { id, before } = await prepare(request, 'BR-CO-05');
     await openCheckout(page, id);
     const field = page.locator('#expected_checkin');
     for (const bad of ['not a date', '2026-13-45', '2027-02-29']) {
       await enterDue(page, bad);
-      const value = await field.inputValue();
-      expect(value, `typed "${bad}"`).not.toBe(bad);
-      expect(value, `typed "${bad}" - the picker substitutes a complete date-time`).toMatch(SHAPE);
-      expect(value.slice(0, 10), `typed "${bad}" - the substitute is today's date on this machine`).toBe(
-        new Date().toLocaleDateString('sv-SE'));
+      await expect(field).toHaveValue(bad);
     }
     await enterDue(page, 'not a date');
-    const substituted = await field.inputValue();
     await submitCheckout(page);
+    await expect(page).toHaveURL(new RegExp(`/hardware/${id}/checkout$`));
+    await expect(page.locator('.form-group.has-error').filter({ has: field })).toContainText(/valid date/i);
+    const unchanged = await s.readAsset(request, id);
+    expect(unchanged.assigned_to).toBeNull();
+    expect(dueOf(unchanged)).toBeNull();
+    expect(unchanged.checkout_counter).toBe(before.asset.checkout_counter);
+    expect(await s.history(request, id)).toEqual(before.events);
 
-    await expect(page.getByText(/asset checked out successfully/i)).toBeVisible(); // no validation message was shown
+    const corrected = `${s.addDays(7)} 12:00:00`;
+    await enterDue(page, corrected);
+    await submitCheckout(page);
+    await expect(page.getByText(/asset checked out successfully/i)).toBeVisible();
     const saved = await s.readAsset(request, id);
     expect(saved.assigned_to.id).toBe(s.data.students[0].id);
-    expect(dueOf(saved)).toBe(substituted); // the loan is saved with a due date the technician never entered
+    expect(dueOf(saved)).toBe(corrected);
   });
 });

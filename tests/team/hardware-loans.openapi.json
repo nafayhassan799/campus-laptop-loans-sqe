@@ -89,7 +89,7 @@
           "R-A8"
         ],
         "x-precondition": "deployable-unassigned",
-        "x-server-note": "Source: app/Http/Controllers/Api/AssetsController.php::checkout, app/Http/Requests/AssetCheckoutRequest.php, app/Models/Asset.php::availableForCheckout. checkout_to_type is inferred from the single filled assigned_* field when omitted, but the team contract always sends it. Observed: validation failures, unavailable assets, a nonexistent asset or target and a lost lock race all return HTTP 200 with status 'error'. An unknown user id yields the untranslated message key 'validation.exists_undeleted'.",
+        "x-server-note": "checkout_to_type is inferred from the single filled assigned_* field when omitted. Validation failures, unavailable assets, nonexistent assets or targets and a lost lock race return HTTP 200 with status 'error'. A nonexistent borrower gets a field-specific validation message.",
         "requestBody": {
           "required": true,
           "content": {
@@ -125,7 +125,7 @@
                     "x-risk": [
                       "R-A8"
                     ],
-                    "x-server-note": "numeric|exists_undeleted:users,id. A well-formed id that matches no live user is rejected with 422.",
+                    "x-server-note": "A well-formed id that matches no live user returns a validation error in the response envelope.",
                     "x-reference": "users"
                   },
                   "expected_checkin": {
@@ -167,7 +167,7 @@
                       "R-A1",
                       "R-A8"
                     ],
-                    "x-server-note": "Asset::rules name => nullable|max:255. A rejected name must leave the asset untouched. The database column was 191 characters at the pinned commit; branch sqe/asset-name-boundary widens it."
+                    "x-server-note": "The request enforces a nullable string. The asset model enforces the 255-character limit before saving. The team migration widens the original 191-character column."
                   },
                   "note": {
                     "type": "string",
@@ -247,7 +247,7 @@
           "R-A8"
         ],
         "x-precondition": "loaned",
-        "x-server-note": "Source: AssetsController::checkin. Unlike checkout this action has no FormRequest, so it performs no field validation of its own beyond what Asset::save() enforces. An empty body on an unassigned asset is rejected as already checked in (HTTP 200, status 'error'); a body that carries name, status_id, location_id or clear_name is applied as a metadata update without a second return.",
+        "x-server-note": "AssetCheckinRequest validates the return before any write. On an unassigned asset, an empty request is rejected as already checked in. A valid name, status_id, location_id or clear_name update can still be applied without another return event.",
         "requestBody": {
           "required": false,
           "content": {
@@ -266,7 +266,7 @@
                     "x-risk": [
                       "R-A8"
                     ],
-                    "x-server-note": "No validation rule exists for status_id on this endpoint; the value is copied to the asset when filled.",
+                    "x-server-note": "A supplied status must identify an existing, non-deleted status label.",
                     "x-reference": "statuslabels"
                   },
                   "name": {
@@ -294,7 +294,7 @@
                     "x-risk": [
                       "R-A8"
                     ],
-                    "x-boundary-note": "Single-value enumeration: only '1' triggers the clear; there is no ordered boundary."
+                    "x-boundary-note": "Single-value enumeration. The server also accepts the legacy integer 1. There is no ordered boundary."
                   },
                   "note": {
                     "type": "string",

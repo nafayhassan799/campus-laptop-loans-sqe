@@ -67,7 +67,7 @@
 
 
                                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                            <label for="password" class="control-label">
+                                            <label for="password-field" class="control-label">
                                                 <x-icon type="password" />
                                                 {{ trans('admin/users/table.password')  }}
                                             </label>
