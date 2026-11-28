@@ -2,6 +2,9 @@ name: Campus Laptop Loans quality
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
