@@ -167,7 +167,7 @@
                       "R-A1",
                       "R-A8"
                     ],
-                    "x-server-note": "The request accepts a nullable string of at most 255 characters. Rejection leaves the asset untouched. The team migration widens the original 191-character column."
+                    "x-server-note": "The request enforces a nullable string. The asset model enforces the 255-character limit before saving. The team migration widens the original 191-character column."
                   },
                   "note": {
                     "type": "string",
