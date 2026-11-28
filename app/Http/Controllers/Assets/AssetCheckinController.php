@@ -223,13 +223,8 @@ class AssetCheckinController extends Controller
                 ->with('success', trans('admin/hardware/message.checkin.success'));
         }
 
-        // Redirect to the asset management page with error. Flash the
-        // specific validation messages via multi_error_messages so the
-        // user sees WHAT failed instead of the previous stringified
-        // MessageBag concatenation.
-        return redirect()->route('hardware.index')
-            ->with('error', trans('admin/hardware/message.checkin.error'))
-            ->with('multi_error_messages', $asset->getErrors()->all());
+        return redirect()->back()->withInput()->withErrors($asset->getErrors())
+            ->with('error', trans('admin/hardware/message.checkin.error'));
     }
 
     /**

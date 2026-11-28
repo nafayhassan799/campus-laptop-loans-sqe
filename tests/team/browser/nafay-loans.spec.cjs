@@ -86,7 +86,7 @@ for (const scenario of ['return-main', 'return-status', 'return-note']) {
     expect(saved.assigned_to).toBeNull();
     expect(saved.expected_checkin).toBeNull();
     expect(saved.status.id).toBe(status.id);
-    expect(saved.available_actions.checkout).toBe(true);
+    expect(saved.user_can_checkout).toBe(true);
     if (scenario === 'return-note') {
       const history = await api(request, 'get', `${id}/history`);
       expect(history.rows.some(row => row.note === note)).toBe(true);

@@ -11,7 +11,7 @@ history-write  A BEFORE INSERT trigger on action_logs rejects the 'checkout' his
                laptop. Snipe-IT writes the asset row first and the history row second, inside one transaction,
                so this fails the dependency AFTER the assignment was written. Expected: the transaction rolls
                back; no partial assignment, status change, counter increase or history row remains.
-db-outage      The database process is stopped before the request. Expected: the request fails and, after
+db-outage      The database process is stopped before the request. Expected: the API returns 503 and, after
                the database is back, the record is unchanged.
 
 For each fault the script then restores the dependency, retries the identical request and asserts one
@@ -111,16 +111,13 @@ def run_fault(mode, admin, tech, fx, asset_id):
             time.sleep(2)
             log("fault injected: database stopped")
 
-        try:
-            status, response = common.raw(tech, "POST", f"hardware/{asset_id}/checkout", body)
-        except TimeoutError:
-            if mode != "db-outage":
-                raise
-            evidence["failedAttempt"] = {"http": None, "transport": "timeout"}
-            log("attempt during confirmed database outage: HTTP connection timed out")
+        status, response = common.raw(tech, "POST", f"hardware/{asset_id}/checkout", body)
+        evidence["failedAttempt"] = {"http": status, "body": response}
+        log(f"attempt during fault: HTTP {status} {json.dumps(response)[:120]}")
+        if mode == "db-outage":
+            need(status == 503 and isinstance(response, dict) and response.get("status") == "error",
+                 "a database outage produces a JSON service-unavailable response")
         else:
-            evidence["failedAttempt"] = {"http": status, "body": response}
-            log(f"attempt during fault: HTTP {status} {json.dumps(response)[:120]}")
             failed = not (status == 200 and isinstance(response, dict) and response.get("status") == "success")
             need(failed, "the checkout request did not report success while the dependency was failing")
 

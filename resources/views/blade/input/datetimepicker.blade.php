@@ -22,6 +22,12 @@
      data-default-now="{{ $default_now ? 'true' : 'false' }}"
      data-side-by-side="{{ $side_by_side ? 'true' : 'false' }}">
     <input type="text"
+           @unless($default_now)
+               data-date-use-current="false"
+               data-date-keep-invalid="true"
+               data-date-use-strict="true"
+               data-date-options='{"keyBinds":{"t":null,"delete":null}}'
+           @endunless
            placeholder="{{ $placeholder }}"
            value="{{ $value }}"
            {{ $attributes->merge(['class' => 'form-control']) }}

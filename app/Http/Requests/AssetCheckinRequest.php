@@ -2,28 +2,50 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Asset;
+use App\Models\Location;
 use App\Models\Setting;
+use Closure;
 
 class AssetCheckinRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
-        return true;
+        return ! $this->is('api/*') || $this->user()?->can('checkin', Asset::class);
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
-        return static::rulesArray();
+        $rules = static::rulesArray();
+        if (! $this->is('api/*')) {
+            return $rules;
+        }
+
+        $integerInput = static function (string $attribute, mixed $value, Closure $fail): void {
+            if (! is_int($value) && ! is_string($value)) {
+                $fail(trans('validation.integer', ['attribute' => str_replace('_', ' ', $attribute)]));
+            }
+        };
+
+        return $rules + [
+            'checkin_at' => 'nullable|date_format:Y-m-d',
+            'clear_name' => ['bail', $integerInput, 'in:1'],
+            'status_id' => ['bail', 'nullable', $integerInput, 'integer', 'min:1', 'exists_undeleted:status_labels,id'],
+            'location_id' => [
+                'bail', 'nullable', $integerInput, 'integer', 'min:1',
+                static function (string $attribute, mixed $value, Closure $fail): void {
+                    if (! Location::whereKey($value)->exists()) {
+                        $fail(trans('validation.exists', ['attribute' => 'location']));
+                    }
+                },
+            ],
+        ];
     }
 
     /**
@@ -36,6 +58,7 @@ class AssetCheckinRequest extends Request
         $settings = Setting::getSettings();
 
         $rules = [
+            'name' => 'nullable|string|max:255',
             'requestable' => 'nullable|boolean',
         ];
 

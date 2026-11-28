@@ -6,6 +6,7 @@ use App\Enums\FileStorage;
 use App\Events\CheckoutableCheckedIn;
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AssetCheckinRequest;
 use App\Http\Requests\AssetCheckoutRequest;
 use App\Http\Requests\BulkUpdateAssetsRequest;
 use App\Http\Requests\FilterRequest;
@@ -1460,7 +1461,7 @@ class AssetsController extends Controller
      *
      * @since [v4.0]
      */
-    public function checkin(Request $request, $asset_id): JsonResponse
+    public function checkin(AssetCheckinRequest $request, $asset_id): JsonResponse
     {
         $asset = Asset::with('model')->findOrFail($asset_id);
         $this->authorize('checkin', $asset);
@@ -1621,7 +1622,7 @@ class AssetsController extends Controller
      *
      * @since [v6.0]
      */
-    public function checkinByTag(Request $request, $tag = null): JsonResponse
+    public function checkinByTag(AssetCheckinRequest $request, $tag = null): JsonResponse
     {
         $this->authorize('checkin', Asset::class);
 

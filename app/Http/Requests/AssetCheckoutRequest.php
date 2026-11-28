@@ -55,6 +55,7 @@ class AssetCheckoutRequest extends Request
             'assigned_location' => 'numeric|nullable|required_without_all:assigned_user,assigned_asset|prohibits:assigned_user,assigned_asset|exists_undeleted:locations,id',
             'status_id' => 'nullable|exists:status_labels,id,deployable,1',
             'checkout_to_type' => 'required|in:asset,location,user',
+            'name' => 'nullable|string|max:255',
             'checkout_at' => [
                 'nullable',
                 'date',

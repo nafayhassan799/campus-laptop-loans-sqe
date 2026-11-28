@@ -187,49 +187,27 @@ test.describe('UC-R1 keyboard checkout', () => {
     });
 });
 
-// Open defects. These tests do NOT use test.fail(): a broad expected-failure would also swallow a
-// setup error or an unrelated broken assertion. Each test instead runs the normal flow with strict
-// assertions and then asserts the exact signature of its defect. So:
-//   - defect still present and everything else works -> pass
-//   - setup or any other step breaks                  -> fail (real failure)
-//   - the defect is fixed                             -> fail with "looks fixed": replace the signature
-//                                                        check with the requirement's expectation.
-/** The browser's local clock as the date picker writes it ("YYYY-MM-DD HH:mm:ss"). */
-const browserNow = (page) => page.evaluate(() => {
-  const d = new Date();
-  const p = (n) => String(n).padStart(2, '0');
-  return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}:${p(d.getSeconds())}`;
-});
-
-test.describe('UC-R1 open defects (pass while the documented defect is present)', () => {
-  test('DEF-R1 tabbing past the empty optional due date saves the moment of focus as the due date [CO-02]',
+test.describe('UC-R1 checkout regressions', () => {
+  test('DEF-R1 tabbing past an optional due date leaves it empty [CO-02]',
     async ({ technician: page, request }) => {
-      test.info().annotations.push({ type: 'open defect', description: 'DEF-R1: eonasdan useCurrent fills the due date on focus' });
       const id = data.assets['RAF-CO-MAIN'];
       await s.resetAsset(request, id);
       await openCheckout(page, id);
       await expect(page.locator('#expected_checkin')).toHaveValue('');
       await keyboardToBorrower(page, 'Sara', `${data.students[0].name} (${data.students[0].username})`);
 
-      const focusedFrom = await browserNow(page);
       await s.tabTo(page, '#submit_button'); // passes through "Expected Checkin Date" without typing
-      const focusedTo = await browserNow(page);
-      const filledIn = await page.locator('#expected_checkin').inputValue();
+      await expect(page.locator('#expected_checkin')).toHaveValue('');
       await page.keyboard.press('Enter');
       await expect(s.flash(page).filter({ hasText: SUCCESS })).toBeVisible();
       const saved = await s.readAsset(request, id);
       expect(saved.assigned_to.id).toBe(data.students[0].id);
 
-      // Defect signature: the untouched field was filled with the time it received focus, and that is what was saved.
-      expect(filledIn, 'DEF-R1 looks fixed: the skipped due date stayed empty. Assert expected_checkin is null (CO-02) instead.').not.toBe('');
-      expect(filledIn >= focusedFrom && filledIn <= focusedTo,
-        `the filled-in value ${filledIn} should be the focus time (${focusedFrom}..${focusedTo})`).toBe(true);
-      expect(saved.expected_checkin?.datetime).toBe(filledIn);
+      expect(saved.expected_checkin).toBeNull();
     });
 
-  test('DEF-R2 a borrower removed before submit is rejected, but the message is the raw key validation.exists_undeleted [CO-01 USAB-ERR]',
+  test('DEF-R2 a borrower removed before submit gets a useful error [CO-01 USAB-ERR]',
     async ({ technician: page, request }) => {
-      test.info().annotations.push({ type: 'open defect', description: 'DEF-R2: missing en-US message for exists_undeleted' });
       const id = data.assets['RAF-CO-EXC1'];
       const before = await s.resetAsset(request, id);
       const username = `sqe_student_leaver_${Date.now()}`;
@@ -249,9 +227,7 @@ test.describe('UC-R1 open defects (pass while the documented defect is present)'
       await expect(userRow).toBeVisible();
       unchanged(before, await s.readAsset(request, id));
 
-      // Defect signature: the only explanation offered is the untranslated key.
       const message = (await userRow.locator('.alert-msg, .help-block, [role="alert"]').allInnerTexts()).join(' ').trim();
-      expect(message, 'DEF-R2 looks fixed: the message no longer shows the raw key. Assert the readable message instead.')
-        .toContain('validation.exists_undeleted');
+      expect(message).toMatch(/no longer exists\. Choose another\./);
     });
 });

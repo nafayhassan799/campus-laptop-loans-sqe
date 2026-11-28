@@ -127,18 +127,27 @@ test.describe('UC-R2 repair return', () => {
       await page.locator('#name').evaluate((input) => input.removeAttribute('maxlength'));
       await page.locator('#name').fill('R'.repeat(256));
       await s.choose(page, 'status_id', data.status.repair.name);
+      await page.locator('#note').fill('Retain this return note');
       await page.waitForLoadState('networkidle');
       await page.getByRole('button', { name: /checkin/i }).click();
 
-      await expect(s.flash(page).filter({ hasText: 'Asset was not checked in, please try again' })).toBeVisible();
-      await expect(s.flash(page).filter({ hasText: 'The name field must not be greater than 255 characters.' })).toBeVisible();
-      await expect(page).toHaveURL(/\/hardware$/); // finding U-03: back on the list, the form input is lost
+      await expect(page).toHaveURL(new RegExp(`/hardware/${id}/checkin$`));
+      await expect(page.getByText('The name field must not be greater than 255 characters.', { exact: true })).toBeVisible();
+      await expect(page.locator('#note')).toHaveValue('Retain this return note');
+      await expect(page.locator('select[name="status_id"]')).toHaveValue(String(data.status.repair.id));
       const after = await s.readAsset(request, id);
       expect(after.assigned_to.id).toBe(data.students[0].id);
       expect(after.expected_checkin).toEqual(before.expected_checkin);
       expect(after.status_label.id).toBe(before.status_label.id);
       expect(after.checkin_counter).toBe(before.checkin_counter);
       expect(returns(await s.history(request, id))).toBe(returns(events));
+
+      await page.locator('#name').fill('SQE repaired laptop');
+      await page.waitForLoadState('networkidle');
+      await page.getByRole('button', { name: /checkin/i }).click();
+      await expect(s.flash(page).filter({ hasText: RETURNED })).toBeVisible();
+      await expectUnavailableReturn(request, id, data.status.repair, before);
+      expect(returns(await s.history(request, id))).toBe(returns(events) + 1);
     });
 
   test('UC-R2-EXC2 lending the laptop after a repair return is refused and the unassigned repair state is kept [CI-03 CO-03]',
